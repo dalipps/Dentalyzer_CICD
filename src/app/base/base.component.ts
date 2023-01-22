@@ -1,9 +1,9 @@
 import { Component, Injector } from '@angular/core';
 import { MonoTypeOperatorFunction, Observable } from 'rxjs';
 import { distinctUntilChanged, finalize, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { LoadingService } from '@dentalyzer/shared';
 import { Destroy } from './destroy';
 import { TranslateService } from '@ngx-translate/core';
+import { LoadingService } from './services/loading.service';
 
 @Component({
   template: '',

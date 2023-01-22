@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, MonoTypeOperatorFunction, Observable, Subscription } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
-import { BaseService } from '../../base/base.service';
+import { BaseService } from '../base.service';
 
 @Injectable({
   providedIn: 'root',
