@@ -3,21 +3,23 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Dentalyzer.PWA": {
+    "Dentalyzer": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "scss",
+          "standalone": true,
+          "changeDetection": "OnPush"
         }
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "dent",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/dentalyzer.pwa",
+            "outputPath": "dist/dentalyzer",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -69,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Dentalyzer.PWA:build:production"
+              "browserTarget": "Dentalyzer:build:production"
             },
             "development": {
-              "browserTarget": "Dentalyzer.PWA:build:development"
+              "browserTarget": "Dentalyzer:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Dentalyzer.PWA:build"
+            "browserTarget": "Dentalyzer:build"
           }
         }
       }

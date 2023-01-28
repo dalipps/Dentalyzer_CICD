@@ -21,10 +21,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'Dentalyzer.PWA'`, () => {
+  it(`should have as title 'Dentalyzer'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('Dentalyzer.PWA');
+    expect(app.title).toEqual('Dentalyzer');
   });
 
   it('should render Welcome', async () => {
