@@ -1,23 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { render, screen } from '@testing-library/angular'
+import { PageComponent } from './page.component'
 
-import { PageComponent } from './page.component';
+describe('Page Component', () => {
+	beforeEach(async () => {
+		await render(PageComponent)
+	})
 
-describe('PageComponent', () => {
-  let component: PageComponent;
-  let fixture: ComponentFixture<PageComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ PageComponent ]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(PageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+	it('should display header', () => {
+		expect(screen.getByTestId('page-header')).toBeInTheDocument()
+	})
+})

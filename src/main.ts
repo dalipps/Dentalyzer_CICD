@@ -1,18 +1,14 @@
-import { enableProdMode } from '@angular/core';
-import { bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter } from '@angular/router';
-import { AppComponent } from './app/app.component';
-import { globalRoutes } from './app/app.routes';
-import { environment } from './environments/environment';
+import { enableProdMode } from '@angular/core'
+import { bootstrapApplication } from '@angular/platform-browser'
+import { provideRouter } from '@angular/router'
+import { AppComponent } from './app/app.component'
+import { globalRoutes } from './app/app.routes'
+import { environment } from './environments/environment'
 
 if (environment.production) {
-  enableProdMode();
+	enableProdMode()
 }
 
 bootstrapApplication(AppComponent, {
-  providers: [
-    provideRouter(globalRoutes)
-  ]
-})
-  .catch((err) => console.error(err))
-
+	providers: [provideRouter(globalRoutes)],
+}).catch((err) => console.error(err))

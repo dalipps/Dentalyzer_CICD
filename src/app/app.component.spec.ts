@@ -1,34 +1,12 @@
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
-import { render, screen } from '@testing-library/angular';
+import { render, screen } from '@testing-library/angular'
+import { AppComponent } from './app.component'
 
-describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  });
+describe('App Component', () => {
+	beforeEach(async () => {
+		await render(AppComponent)
+	})
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'Dentalyzer'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('Dentalyzer');
-  });
-
-  it('should render Welcome', async () => {
-    await render(AppComponent);
-    await screen.getByText('Initial');
-  });
-});
+	it('should render', () => {
+		expect(screen.getByTestId('app-router-outlet')).toBeInTheDocument()
+	})
+})

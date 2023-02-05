@@ -1,0 +1,9 @@
+{
+	"azdoPullRequests.orgUrl": "https://dev.azure.com/oris-technologies",
+	"azdoPullRequests.projectName": "Dentalyzer",
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	}
+}

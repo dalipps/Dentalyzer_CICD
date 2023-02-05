@@ -1,12 +1,12 @@
 {
-  "recommendations": [
-    "mikael.angular-beastcode",
-    "angular.ng-template",
-    "editorconfig.editorconfig",
-    "dbaeumer.vscode-eslint",
-    "christian-kohler.npm-intellisense",
-    "christian-kohler.path-intellisense",
-    "esbenp.prettier-vscode",
-    "rbbit.typescript-hero"
-  ]
+	"recommendations": [
+		"mikael.angular-beastcode",
+		"angular.ng-template",
+		"editorconfig.editorconfig",
+		"dbaeumer.vscode-eslint",
+		"christian-kohler.npm-intellisense",
+		"christian-kohler.path-intellisense",
+		"esbenp.prettier-vscode",
+		"ankitbko.vscode-pull-request-azdo"
+	]
 }
