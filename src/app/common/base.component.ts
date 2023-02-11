@@ -22,18 +22,23 @@ export abstract class BaseComponent extends Destroy {
 		this.isLoading$ = this.loadingService.isLoading$
 	}
 
-	startLoading(): MonoTypeOperatorFunction<any> {
+	startLoading(): MonoTypeOperatorFunction<unknown> {
 		return tap(() => this.loadingService.startLoading())
 	}
 
-	endLoading(): MonoTypeOperatorFunction<any> {
+	endLoading(): MonoTypeOperatorFunction<unknown> {
 		return finalize(() => this.loadingService.endLoading())
 	}
 
-	translateOnChange(key: string | string[], interpolationPrams?: any): Observable<any> {
+	translateOnChange(key: string | string[], interpolationPrams?: unknown): Observable<unknown> {
 		return this.translateService.onLangChange.pipe(
 			startWith({}),
-			switchMap(() => this.translateService.get(key, interpolationPrams)),
+			switchMap(() =>
+				this.translateService.get(
+					key,
+					interpolationPrams && typeof interpolationPrams === 'object' ? interpolationPrams : undefined
+				)
+			),
 			takeUntil(this.destroy$),
 			distinctUntilChanged()
 		)
