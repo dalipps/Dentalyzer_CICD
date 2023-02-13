@@ -30,6 +30,7 @@ export abstract class BaseComponent extends Destroy {
 		return finalize(() => this.loadingService.endLoading())
 	}
 
+	// TODO: Refactor unkown
 	translateOnChange(key: string | string[], interpolationPrams?: unknown): Observable<unknown> {
 		return this.translateService.onLangChange.pipe(
 			startWith({}),
