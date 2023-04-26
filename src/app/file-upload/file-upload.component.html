@@ -1,0 +1,21 @@
+<div class="dent-file-upload" dentDnd (filesDropped)="onFileDropped($event)">
+	<!-- TODO: loading spinner -->
+	<div class="dent-file-upload-content">
+		<mat-icon>publish</mat-icon>
+		<span>{{ 'FileUpload.DragAndDrop' | translate }}</span>
+		<span>{{ 'FileUpload.Or' | translate }}</span>
+
+		<button mat-raised-button color="accent" (click)="openFileExplorer()">
+			{{ 'FileUpload.SearchFiles' | translate }}
+		</button>
+
+		<input
+			type="file"
+			#fileDropRef
+			id="fileDropRef"
+			multiple
+			(change)="fileBrowseHandler($event)"
+			accept="{{ transformedFileTypes }}"
+		/>
+	</div>
+</div>

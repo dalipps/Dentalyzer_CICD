@@ -1,18 +1,20 @@
-import { Component, Injector } from '@angular/core'
-import { MonoTypeOperatorFunction, Observable } from 'rxjs'
-import { distinctUntilChanged, finalize, startWith, switchMap, takeUntil, tap } from 'rxjs/operators'
-import { Destroy } from './destroy'
+import { AfterViewInit, Component, Injector } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
-import { LoadingService } from './services/loading.service'
+import { BehaviorSubject, MonoTypeOperatorFunction, Observable } from 'rxjs'
+import { distinctUntilChanged, finalize, startWith, switchMap, takeUntil, tap } from 'rxjs/operators'
+import { LoadingService } from '../services/loading/loading.service'
+import { Destroy } from './destroy'
 
 @Component({
 	template: '',
 })
-export abstract class BaseComponent extends Destroy {
+export abstract class BaseComponent extends Destroy implements AfterViewInit {
 	private loadingService: LoadingService
-	private translateService: TranslateService
+	private afterViewInitSubject$ = new BehaviorSubject(false)
+	translateService: TranslateService
 
 	isLoading$: Observable<boolean>
+	afterViewInit$ = this.afterViewInitSubject$.asObservable()
 
 	constructor(injector: Injector) {
 		super()
@@ -20,6 +22,10 @@ export abstract class BaseComponent extends Destroy {
 		this.loadingService = injector.get(LoadingService)
 		this.translateService = injector.get(TranslateService)
 		this.isLoading$ = this.loadingService.isLoading$
+	}
+
+	ngAfterViewInit(): void {
+		this.afterViewInitSubject$.next(true)
 	}
 
 	startLoading(): MonoTypeOperatorFunction<unknown> {

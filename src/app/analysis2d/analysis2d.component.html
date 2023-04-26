@@ -1,0 +1,20 @@
+<div class="dent-page-content">
+	<div id="analysis2dContainer" #analysis2dContainer>
+		<canvas
+			*ngIf="imageSubject$ | async; else showFileUpload"
+			id="analysis2dCanvas"
+			#analysis2dCanvas
+			(pointerdown)="onPointerDown($event)"
+			(pointerup)="onPointerUp($event)"
+			(pointermove)="onPointerMove()"
+			(pointerout)="onPointerOut($event)"
+			(pointercancel)="onPointerCancel()"
+		></canvas>
+	</div>
+
+	<ng-template #showFileUpload>
+		<div class="dent-file-upload-container">
+			<dent-file-upload (uploadedFiles)="onUploadFiles($event)"></dent-file-upload>
+		</div>
+	</ng-template>
+</div>

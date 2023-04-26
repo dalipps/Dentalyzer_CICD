@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
+import { BaseService } from '@dentalyzer/base'
 import { BehaviorSubject, MonoTypeOperatorFunction, Observable } from 'rxjs'
 import { finalize, tap } from 'rxjs/operators'
-import { BaseService } from '../base.service'
 
 @Injectable({
 	providedIn: 'root',

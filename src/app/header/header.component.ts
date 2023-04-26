@@ -1,37 +1,35 @@
 import { ChangeDetectionStrategy, Component, Injector } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { SlideMenuModule } from 'primeng/slidemenu'
-import { ButtonModule } from 'primeng/button'
-import { MenuItem } from 'primeng/api'
-import { EMPTY, map, Observable } from 'rxjs'
-import { BaseComponent } from '@dentalyzer/common'
-import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
+import { MatButtonModule } from '@angular/material/button'
+import { MatIconModule } from '@angular/material/icon'
+import { MatMenuModule } from '@angular/material/menu'
+import { MatToolbarModule } from '@angular/material/toolbar'
+import { Router } from '@angular/router'
+import { Language } from '@dentalyzer/enums'
+import { LanguageService } from '@dentalyzer/services'
 import { TranslateModule } from '@ngx-translate/core'
+import { BaseComponent } from 'src/app/common/base'
 
 @Component({
 	selector: 'dent-header',
 	standalone: true,
-	imports: [CommonModule, SlideMenuModule, ButtonModule, TranslateModule],
+	imports: [TranslateModule, MatIconModule, MatMenuModule, MatButtonModule, MatToolbarModule],
 	templateUrl: './header.component.html',
 	styleUrls: ['./header.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent extends BaseComponent {
-	items$: Observable<MenuItem[]> = EMPTY
-	constructor(injector: Injector) {
+	language = Language
+
+	constructor(private router: Router, private languageService: LanguageService, injector: Injector) {
 		super(injector)
+	}
 
-		this.items$ = this.translateOnChange([_('Header.Menu.Language')]).pipe(
-			map((translations: any) => {
-				const items: MenuItem[] = [
-					{
-						id: '0',
-						label: translations['Header.Menu.Language'],
-					},
-				]
+	goToHome(): void {
+		this.router.navigateByUrl('/home')
+	}
 
-				return items
-			})
-		)
+	setLanguage(newLanguage: Language): void {
+		this.translateService.use(newLanguage)
+		this.languageService.saveLanguage(newLanguage)
 	}
 }

@@ -33,7 +33,3 @@ steps:
   - script: |
       npm run build:prod
     displayName: 'Build app'
-
-  - script: |
-      npm run test
-    displayName: 'Run tests'

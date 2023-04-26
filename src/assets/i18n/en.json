@@ -1,4 +1,11 @@
 {
-	"Header.Menu.Language": "English",
-	"Home.Test": "Test in english"
+	"FileUpload.DragAndDrop": "",
+	"FileUpload.Or": "",
+	"FileUpload.SearchFiles": "",
+	"Header.Menu.Language": "Language",
+	"Header.Menu.Language.English": "English",
+	"Header.Menu.Language.German": "German",
+	"Home.2d": "FRS Analysis",
+	"Home.3d": "3D Analysis",
+	"home.welcome": "Welcome to Dentalyzer"
 }

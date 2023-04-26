@@ -1,5 +1,13 @@
-<dent-page>
-	<ng-container pageContent>
-		<p>{{ 'Home.Test' | translate }}</p>
-	</ng-container>
-</dent-page>
+<div class="dent-page-content dent-home-content">
+	<div class="dent-home-title">
+		<h1>{{ 'home.welcome' | translate }}</h1>
+	</div>
+	<div class="dent-home-buttons">
+		<button mat-raised-button class="dent-home-button dent-2d-button" [routerLink]="['../analysis-2d']">
+			{{ 'Home.2d' | translate }}
+		</button>
+		<button mat-raised-button class="dent-home-button" [routerLink]="['../analysis-3d']">
+			{{ 'Home.3d' | translate }}
+		</button>
+	</div>
+</div>

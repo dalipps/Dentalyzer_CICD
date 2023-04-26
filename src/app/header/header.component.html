@@ -1,15 +1,24 @@
-<div class="flex w-full flex-row justify-content-between bg-primary p-1">
-	<div class="flex align-items-center p-1">
-		<img
-			class="dent-header-item dent-header-logo"
-			src="./assets/icons/Logo.svg"
-			height="30"
-			width="30"
-			alt="Dentalyzer Logo"
-		/>
-		<span class="text-lg font-semibold ml-3">Dentalyzer</span>
+<mat-toolbar class="dent-header" color="primary">
+	<div class="dent-logo" (click)="goToHome()">
+		<img src="./assets/icons/Logo.svg" height="30" width="30" alt="Dentalyzer Logo" />
+		<span class="dent-name">Dentalyzer</span>
 	</div>
 
-	<p-slideMenu #menu [model]="(items$ | async) ?? []" [popup]="true"></p-slideMenu>
-	<button type="button" pButton icon="pi pi-list" (click)="menu.toggle($event)"></button>
-</div>
+	<button mat-icon-button [matMenuTriggerFor]="menu" class="dent-header-button">
+		<mat-icon>more_vert</mat-icon>
+	</button>
+	<mat-menu #menu="matMenu" xPosition="before" direction="ltr">
+		<button mat-menu-item [matMenuTriggerFor]="languages">
+			<mat-icon>language</mat-icon>
+			<span>{{ 'Header.Menu.Language' | translate }}</span>
+		</button>
+	</mat-menu>
+	<mat-menu #languages="matMenu">
+		<button mat-menu-item (click)="setLanguage(language.German)">
+			{{ 'Header.Menu.Language.German' | translate }}
+		</button>
+		<button mat-menu-item (click)="setLanguage(language.English)">
+			{{ 'Header.Menu.Language.English' | translate }}
+		</button>
+	</mat-menu>
+</mat-toolbar>

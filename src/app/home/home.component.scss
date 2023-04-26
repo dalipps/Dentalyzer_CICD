@@ -1,0 +1,26 @@
+.dent-home-content {
+	display: flex;
+	flex-direction: column;
+}
+
+.dent-home-title {
+	display: flex;
+	height: 30%;
+	justify-content: center;
+	align-items: center;
+}
+
+.dent-home-buttons {
+	display: flex;
+	height: 70%;
+	justify-content: center;
+}
+
+.dent-home-button {
+	padding: 5rem;
+	font-size: 1.25rem;
+}
+
+.dent-2d-button {
+	margin-right: 1rem;
+}

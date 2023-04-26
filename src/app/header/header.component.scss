@@ -1,0 +1,27 @@
+@use 'src/assets/styles/variables' as variables;
+
+.dent-header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	height: variables.$header-height;
+}
+
+.dent-logo {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+
+.dent-name {
+	padding-left: 0.5rem;
+	font-size: 1.25rem;
+}
+
+.dent-header-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 4rem;
+	height: 4rem;
+}

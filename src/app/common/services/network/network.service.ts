@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
-import { BehaviorSubject, merge, fromEvent, map, takeUntil, tap } from 'rxjs'
-import { BaseService } from 'src/app/common/base.service'
+import { BaseService } from '@dentalyzer/base'
+import { BehaviorSubject, fromEvent, map, merge, takeUntil, tap } from 'rxjs'
 
 @Injectable({
 	providedIn: 'root',

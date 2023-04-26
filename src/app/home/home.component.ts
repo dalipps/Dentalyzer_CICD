@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { PageComponent } from '../page/page.component'
+import { MatButtonModule } from '@angular/material/button'
+import { RouterModule } from '@angular/router'
 import { TranslateModule } from '@ngx-translate/core'
 
 @Component({
 	selector: 'dent-home',
 	standalone: true,
-	imports: [CommonModule, PageComponent, TranslateModule],
+	imports: [TranslateModule, MatButtonModule, RouterModule],
 	templateUrl: './home.component.html',
 	styleUrls: ['./home.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
