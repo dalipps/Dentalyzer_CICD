@@ -7,8 +7,6 @@ import { Language } from '@dentalyzer/enums'
 export class LanguageService {
 	private readonly storageKey = 'DENT_LANGUAGE'
 
-	constructor() {}
-
 	saveLanguage(language: Language): void {
 		localStorage.setItem(this.storageKey, language)
 	}

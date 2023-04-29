@@ -28,7 +28,7 @@ export function getNormalizedMousePosition(canvas: HTMLCanvasElement, x: number,
 
 	return mouseVector
 }
-
+/* eslint-disable @typescript-eslint/no-unused-vars */
 export function getSelectedMark(
 	_mousePosition: THREE.Vector2,
 	_raycaster: THREE.Raycaster,

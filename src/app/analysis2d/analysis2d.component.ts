@@ -49,7 +49,7 @@ export class Analysis2dComponent extends BaseComponent {
 			.pipe(
 				takeUntil(this.destroy$),
 				debounceTime(500),
-				map(([image, _init]) => [image, this.canvas]),
+				map(([image]) => [image, this.canvas]),
 				filter((array): array is [File, ElementRef<HTMLCanvasElement>] => !!array[0] && !!array[1]),
 				switchMap(([file, canvas]) => this.renderingService.initImageRendering(canvas.nativeElement, file)),
 				tap((data) => (this.threeData = data))
@@ -102,7 +102,7 @@ export class Analysis2dComponent extends BaseComponent {
 		this.threeData.orbitControls.enabled = true
 	}
 
-	onPointerOut(event: PointerEvent): void {
+	onPointerOut(): void {
 		if (!this.threeData) return
 
 		// TODO: set marker on last position

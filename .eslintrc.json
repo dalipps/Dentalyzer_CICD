@@ -8,8 +8,8 @@
 	"plugins": ["@typescript-eslint"],
 	"ignorePatterns": ["jest.config.js"],
 	"rules": {
-		"indent": ["error", "tab"],
 		"quotes": ["error", "single"],
-		"semi": ["error", "never"]
+		"semi": ["error", "never"],
+		"@typescript-eslint/no-unused-vars": ["error"]
 	}
 }
