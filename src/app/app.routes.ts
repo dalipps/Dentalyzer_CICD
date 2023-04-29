@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router'
-import { HomeComponent } from './home/home.component'
-import { Analysis2dComponent } from './analysis2d/analysis2d.component'
+import { AnalysisFrsComponent } from '@dentalyzer/analysis/frs'
 import { Analysis3dComponent } from './analysis3d/analysis3d.component'
+import { HomeComponent } from './home/home.component'
 
 export const globalRoutes: Routes = [
 	{
@@ -14,8 +14,8 @@ export const globalRoutes: Routes = [
 		component: HomeComponent,
 	},
 	{
-		path: 'analysis-2d',
-		component: Analysis2dComponent,
+		path: 'analysis-frs',
+		component: AnalysisFrsComponent,
 	},
 	{
 		path: 'anaylsis-3d',

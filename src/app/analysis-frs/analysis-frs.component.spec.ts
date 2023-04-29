@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { Analysis2dComponent } from './analysis2d.component'
+import { AnalysisFrsComponent } from './analysis-frs.component'
 
-describe('Analysis2dComponent', () => {
-	let component: Analysis2dComponent
-	let fixture: ComponentFixture<Analysis2dComponent>
+describe('AnalysisFrsComponent', () => {
+	let component: AnalysisFrsComponent
+	let fixture: ComponentFixture<AnalysisFrsComponent>
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [Analysis2dComponent],
+			imports: [AnalysisFrsComponent],
 		}).compileComponents()
 
-		fixture = TestBed.createComponent(Analysis2dComponent)
+		fixture = TestBed.createComponent(AnalysisFrsComponent)
 		component = fixture.componentInstance
 		fixture.detectChanges()
 	})

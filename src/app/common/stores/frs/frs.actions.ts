@@ -1,5 +1,6 @@
-import { FrsAnalysis, StoreError } from '@dentalyzer/models'
+import { StoreError } from '@dentalyzer/models'
 import { createActionGroup, emptyProps, props } from '@ngrx/store'
+import { FrsAnalysis } from './frs.model'
 
 export const FrsPageActions = createActionGroup({
 	source: 'Frs Page',

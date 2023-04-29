@@ -1,9 +1,9 @@
 <div class="dent-page-content">
-	<div id="analysis2dContainer" #analysis2dContainer>
+	<div id="analysisFrsContainer" #analysisFrsContainer>
 		<canvas
 			*ngIf="imageSubject$ | async; else showFileUpload"
-			id="analysis2dCanvas"
-			#analysis2dCanvas
+			id="analysisFrsCanvas"
+			#analysisFrsCanvas
 			(pointerdown)="onPointerDown($event)"
 			(pointerup)="onPointerUp($event)"
 			(pointermove)="onPointerMove()"

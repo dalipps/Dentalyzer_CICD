@@ -1,7 +1,8 @@
-import { FrsAnalysis, StoreError } from '@dentalyzer/models'
+import { StoreError } from '@dentalyzer/models'
 import { EntityAdapter, EntityState, createEntityAdapter } from '@ngrx/entity'
 import { Action, createReducer, on } from '@ngrx/store'
 import { FrsApiActions, FrsPageActions } from './frs.actions'
+import { FrsAnalysis } from './frs.model'
 
 export const FRS_FEATURE_KEY = 'frs'
 

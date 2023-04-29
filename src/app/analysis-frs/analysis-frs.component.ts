@@ -9,17 +9,17 @@ import * as THREE from 'three'
 import { FileUploadComponent } from '../file-upload/file-upload.component'
 
 @Component({
-	selector: 'dent-analysis2d',
+	selector: 'dent-analysis-frs',
 	standalone: true,
 	imports: [NgIf, AsyncPipe, FileUploadComponent],
-	templateUrl: './analysis2d.component.html',
-	styleUrls: ['./analysis2d.component.scss'],
+	templateUrl: './analysis-frs.component.html',
+	styleUrls: ['./analysis-frs.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Analysis2dComponent extends BaseComponent {
-	@ViewChild('analysis2dContainer', { read: ElementRef<HTMLDivElement>, static: false })
+export class AnalysisFrsComponent extends BaseComponent {
+	@ViewChild('analysisFrsContainer', { read: ElementRef<HTMLDivElement>, static: false })
 	container: ElementRef<HTMLDivElement> | undefined
-	@ViewChild('analysis2dCanvas', { read: ElementRef<HTMLCanvasElement>, static: false })
+	@ViewChild('analysisFrsCanvas', { read: ElementRef<HTMLCanvasElement>, static: false })
 	canvas: ElementRef<HTMLCanvasElement> | undefined
 
 	imageSubject$ = new BehaviorSubject<File | undefined>(undefined)
