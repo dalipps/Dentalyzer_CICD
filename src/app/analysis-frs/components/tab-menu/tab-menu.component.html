@@ -1,0 +1,9 @@
+<mat-tab-group>
+	<mat-tab [label]="'TabMenu.Marker' | translate">
+		<dent-marker-list *ngIf="analysis" [marks]="analysis.marks"></dent-marker-list>
+	</mat-tab>
+	<mat-tab [label]="'TabMenu.Edges' | translate">
+		<dent-edges-list *ngIf="analysis"></dent-edges-list>
+	</mat-tab>
+	<mat-tab [label]="'TabMenu.Calculations' | translate"> Calculations goes here </mat-tab>
+</mat-tab-group>

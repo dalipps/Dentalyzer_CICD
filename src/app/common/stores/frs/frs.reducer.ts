@@ -8,7 +8,7 @@ export const FRS_FEATURE_KEY = 'frs'
 
 export interface FrsState extends EntityState<FrsAnalysis> {
 	initialized: boolean
-	loaded: boolean
+	activeId?: string
 	updatedAt?: string
 	error?: StoreError
 }
@@ -21,26 +21,16 @@ export const frsAdapter: EntityAdapter<FrsAnalysis> = createEntityAdapter<FrsAna
 
 export const initialFrsState: FrsState = frsAdapter.getInitialState({
 	initialized: false,
-	loaded: false,
 })
 
 const reducer = createReducer(
 	initialFrsState,
 	on(FrsPageActions.init, (state) => ({
 		...state,
-		loaded: false,
 		error: undefined,
 		updatedAt: undefined,
 		initialized: false,
 	})),
-	on(FrsApiActions.loadFrsSuccess, (state, { frsAnalyses }) =>
-		frsAdapter.setAll(frsAnalyses, {
-			...state,
-			loaded: true,
-			updatedAt: new Date().toJSON(),
-		})
-	),
-	on(FrsApiActions.loadFrsFailure, (state, { error }) => ({ ...state, error })),
 	on(FrsApiActions.initSuccess, (state, { frsAnalyses }) =>
 		frsAdapter.setAll(frsAnalyses, { ...state, initialized: true })
 	),

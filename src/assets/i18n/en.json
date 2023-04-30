@@ -7,5 +7,8 @@
 	"Header.Menu.Language.German": "German",
 	"Home.2d": "FRS Analysis",
 	"Home.3d": "3D Analysis",
+	"TabMenu.Calculations": "Calculations",
+	"TabMenu.Edges": "Levels",
+	"TabMenu.Marker": "Marks",
 	"home.welcome": "Welcome to Dentalyzer"
 }

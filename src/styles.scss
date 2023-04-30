@@ -37,3 +37,16 @@ body {
 	box-sizing: border-box;
 	height: calc(100% - variables.$header-height);
 }
+
+.dent-analysis-canvas {
+	height: 100%;
+	width: 70%;
+}
+
+.dent-analysis-menu {
+	height: 100%;
+	width: 30%;
+	min-width: 20rem;
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+}

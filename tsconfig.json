@@ -28,7 +28,8 @@
 			"@dentalyzer/utils": ["src/app/common/utils/index.ts"],
 			"@dentalyzer/base": ["src/app/common/base/index.ts"],
 			"@dentalyzer/stores": ["src/app/common/stores/index.ts"],
-			"@dentalyzer/analysis/frs": ["src/app/analysis-frs/index.ts"]
+			"@dentalyzer/analysis/frs": ["src/app/analysis-frs/index.ts"],
+			"@dentalyzer/config": ["src/app/config/index.ts"]
 		}
 	},
 	"angularCompilerOptions": {

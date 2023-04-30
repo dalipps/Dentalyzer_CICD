@@ -2,16 +2,30 @@ import { AsyncPipe, NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, ElementRef, Injector, ViewChild } from '@angular/core'
 import { ThreeData } from '@dentalyzer/models'
 import { RenderingService } from '@dentalyzer/services'
+import { FrsAnalysis, FrsFacade } from '@dentalyzer/stores'
 import { getFirstIntersection, getNormalizedMousePosition, getSelectedMark } from '@dentalyzer/utils'
-import { BehaviorSubject, combineLatest, debounceTime, filter, fromEvent, map, switchMap, takeUntil, tap } from 'rxjs'
+import {
+	BehaviorSubject,
+	EMPTY,
+	Observable,
+	combineLatest,
+	debounceTime,
+	filter,
+	fromEvent,
+	map,
+	switchMap,
+	takeUntil,
+	tap,
+} from 'rxjs'
 import { BaseComponent } from 'src/app/common/base'
 import * as THREE from 'three'
 import { FileUploadComponent } from '../file-upload/file-upload.component'
+import { TabMenuComponent } from './components/tab-menu/tab-menu.component'
 
 @Component({
 	selector: 'dent-analysis-frs',
 	standalone: true,
-	imports: [NgIf, AsyncPipe, FileUploadComponent],
+	imports: [NgIf, AsyncPipe, FileUploadComponent, TabMenuComponent],
 	templateUrl: './analysis-frs.component.html',
 	styleUrls: ['./analysis-frs.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,13 +37,16 @@ export class AnalysisFrsComponent extends BaseComponent {
 	canvas: ElementRef<HTMLCanvasElement> | undefined
 
 	imageSubject$ = new BehaviorSubject<File | undefined>(undefined)
+	analysis$: Observable<FrsAnalysis | undefined> = EMPTY
 
 	private threeData: ThreeData | undefined
 	private raycaster: THREE.Raycaster
 	private selectedMarkObject: THREE.Object3D | undefined
 
-	constructor(private readonly renderingService: RenderingService, injector: Injector) {
+	constructor(private readonly renderingService: RenderingService, frsFacade: FrsFacade, injector: Injector) {
 		super(injector)
+
+		this.analysis$ = frsFacade.active$
 
 		this.raycaster = new THREE.Raycaster()
 

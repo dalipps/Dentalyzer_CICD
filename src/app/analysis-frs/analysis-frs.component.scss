@@ -1,17 +1,15 @@
-#analysisFrsCanvas {
-	height: 100%;
-	width: 100%;
-}
-
-#analysisFrsContainer {
-	height: 100%;
-	width: 100%;
-}
-
 .dent-file-upload-container {
+	width: 100%;
+	height: 100%;
+}
+
+.dent-frs-content {
 	display: flex;
 	width: 100%;
 	height: 100%;
-	align-items: center;
-	justify-content: center;
+}
+
+.dent-analysis-frs-canvas {
+	height: 100%;
+	width: 100%;
 }

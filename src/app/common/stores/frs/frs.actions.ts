@@ -14,7 +14,5 @@ export const FrsApiActions = createActionGroup({
 	events: {
 		'Init Success': props<{ frsAnalyses: FrsAnalysis[] }>(),
 		'Init Failure': props<{ error: StoreError }>(),
-		'Load Frs Success': props<{ frsAnalyses: FrsAnalysis[] }>(),
-		'Load Frs Failure': props<{ error: StoreError }>(),
 	},
 })
