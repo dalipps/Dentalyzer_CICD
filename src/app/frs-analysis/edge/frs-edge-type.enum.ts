@@ -9,9 +9,9 @@ export enum FrsEdgeType {
 	NPog = 'N-Pog',
 	ArGo = 'Ar-Go',
 	MeGo = 'Me-Go',
-	GoaPog2 = 'Goa-Pog\'',
+	GoaPog2 = "Goa-Pog'",
 	InOK1ApOK1 = 'InOK1-ApOK1',
 	InUK1ApUK1 = 'InUK1-ApUK1',
 	VPOcPHPOcP = 'vPocP-hPOcP',
-	ProNPog2 = 'ProN-Pog\'',
+	ProNPog2 = "ProN-Pog'",
 }

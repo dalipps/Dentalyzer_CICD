@@ -22,7 +22,7 @@ export enum FrsMarkType {
 	Ls = 'Ls',
 	Li = 'Li',
 	ProN = 'ProN',
-	Pog2 = 'Pog\'',
+	Pog2 = "Pog'",
 	Calibration1 = 'Calibration1',
 	Calibration2 = 'Calibration2',
 }

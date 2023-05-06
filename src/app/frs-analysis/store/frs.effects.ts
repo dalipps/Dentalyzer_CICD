@@ -18,7 +18,7 @@ export class FrsEffects extends BaseEffects<FrsState> {
 						error: {
 							id: FrsStoreErrorType.Init,
 							title: 'Initialization error',
-							message: 'The store couldn\'t be initialized',
+							message: "The store couldn't be initialized",
 						},
 					})
 				)
