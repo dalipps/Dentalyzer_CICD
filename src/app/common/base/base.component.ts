@@ -2,7 +2,7 @@ import { AfterViewInit, Component, Injector } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { BehaviorSubject, MonoTypeOperatorFunction, Observable } from 'rxjs'
 import { distinctUntilChanged, finalize, startWith, switchMap, takeUntil, tap } from 'rxjs/operators'
-import { LoadingService } from '../services/loading/loading.service'
+import { LoadingService } from '../loading/loading.service'
 import { Destroy } from './destroy'
 
 @Component({

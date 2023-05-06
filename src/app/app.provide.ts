@@ -1,7 +1,7 @@
 import { APP_INITIALIZER, EnvironmentProviders, Provider, makeEnvironmentProviders } from '@angular/core'
-import { FrsEffects, FrsFacade, fromFrs } from '@dentalyzer/stores'
 import { provideEffects } from '@ngrx/effects'
 import { provideState } from '@ngrx/store'
+import { FrsEffects, FrsFacade, fromFrs } from './frs-analysis/store'
 
 export function provideApp(): (Provider | EnvironmentProviders)[] {
 	return [

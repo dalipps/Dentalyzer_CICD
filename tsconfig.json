@@ -21,15 +21,8 @@
 		"module": "es2020",
 		"lib": ["es2020", "dom"],
 		"paths": {
-			"@dentalyzer/directives": ["src/app/common/directives/index.ts"],
-			"@dentalyzer/enums": ["src/app/common/enums/index.ts"],
-			"@dentalyzer/models": ["src/app/common/models/index.ts"],
-			"@dentalyzer/services": ["src/app/common/services/index.ts"],
-			"@dentalyzer/utils": ["src/app/common/utils/index.ts"],
-			"@dentalyzer/base": ["src/app/common/base/index.ts"],
-			"@dentalyzer/stores": ["src/app/common/stores/index.ts"],
-			"@dentalyzer/analysis/frs": ["src/app/analysis-frs/index.ts"],
-			"@dentalyzer/config": ["src/app/config/index.ts"]
+			"@dentalyzer/common": ["src/app/common/index.ts"],
+			"@dentalyzer/frs-analysis": ["src/app/frs-analysis/index.ts"]
 		}
 	},
 	"angularCompilerOptions": {

@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common'
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { RouterModule } from '@angular/router'
-import { Language } from '@dentalyzer/enums'
-import { LanguageService } from '@dentalyzer/services'
 import { TranslateService } from '@ngx-translate/core'
+import { Language, LanguageService } from './common'
 import { HeaderComponent } from './header/header.component'
 
 @Component({

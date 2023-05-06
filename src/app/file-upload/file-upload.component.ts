@@ -2,9 +2,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop'
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
-import { DndDirective } from '@dentalyzer/directives'
-import { FileType } from '@dentalyzer/enums'
 import { TranslateModule } from '@ngx-translate/core'
+import { DndDirective } from '../common/dnd/dnd.directive'
+import { FileType } from './file-type.enum'
 
 @Component({
 	selector: 'dent-file-upload',

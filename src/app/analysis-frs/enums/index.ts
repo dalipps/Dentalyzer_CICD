@@ -1,5 +1,0 @@
-export * from './frs-calculation-data-type.enum'
-export * from './frs-calculation-type.enum'
-export * from './frs-calculation-unit.enum'
-export * from './frs-edge-type.enum'
-export * from './frs-mark-type.enum'
