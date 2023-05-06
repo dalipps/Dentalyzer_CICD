@@ -24,7 +24,7 @@ export class FrsFacade extends BaseFacade<FrsState> {
 		this.initStore(FrsPageActions.init())
 	}
 
-	generateAnalysis(image: File): void {
-		console.log('to be implemented', image)
+	create(image: File): void {
+		this.dispatch(FrsPageActions.create({ image }))
 	}
 }

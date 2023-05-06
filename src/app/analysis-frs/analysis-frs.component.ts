@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy, Component, ElementRef, Injector, ViewChild } f
 import { ThreeData } from '@dentalyzer/models'
 import { RenderingService } from '@dentalyzer/services'
 import { FrsAnalysis, FrsFacade } from '@dentalyzer/stores'
-import { getFirstIntersection, getNormalizedMousePosition, getSelectedMark } from '@dentalyzer/utils'
 import {
 	BehaviorSubject,
 	EMPTY,
@@ -21,6 +20,7 @@ import { BaseComponent } from 'src/app/common/base'
 import * as THREE from 'three'
 import { FileUploadComponent } from '../file-upload/file-upload.component'
 import { TabMenuComponent } from './components/tab-menu/tab-menu.component'
+import { getNormalizedMousePosition } from './utils/mouse.utils'
 
 @Component({
 	selector: 'dent-analysis-frs',
@@ -46,7 +46,12 @@ export class AnalysisFrsComponent extends BaseComponent {
 	constructor(private readonly renderingService: RenderingService, frsFacade: FrsFacade, injector: Injector) {
 		super(injector)
 
-		this.analysis$ = frsFacade.active$
+		this.analysis$ = combineLatest([frsFacade.active$, this.imageSubject$]).pipe(
+			tap(([analysis, image]) => {
+				if (!analysis && image) frsFacade.create(image)
+			}),
+			map(([analysis]) => analysis)
+		)
 
 		this.raycaster = new THREE.Raycaster()
 
@@ -82,12 +87,7 @@ export class AnalysisFrsComponent extends BaseComponent {
 		if (!this.canvas || !this.threeData) return
 
 		const mousePosition = getNormalizedMousePosition(this.canvas.nativeElement, event.clientX, event.clientY)
-		this.selectedMarkObject = getSelectedMark(
-			mousePosition,
-			this.raycaster,
-			this.threeData.camera,
-			this.threeData.scene
-		)
+		this.selectedMarkObject = this.getSelectedMark(mousePosition)
 	}
 
 	onPointerUp(event: PointerEvent): void {
@@ -100,12 +100,7 @@ export class AnalysisFrsComponent extends BaseComponent {
 		}
 
 		const mousePosition = getNormalizedMousePosition(this.canvas.nativeElement, event.clientX, event.clientY)
-		const intersection = getFirstIntersection(
-			mousePosition,
-			this.threeData.sprite,
-			this.raycaster,
-			this.threeData.camera
-		)
+		const intersection = this.getFirstIntersection(mousePosition)
 
 		if (intersection) {
 			// TODO: create mark object with userData: id should be the uuid of the select mark from the sidebar
@@ -135,5 +130,24 @@ export class AnalysisFrsComponent extends BaseComponent {
 
 	override ngOnDestroy(): void {
 		this.renderingService.cancelAnimation()
+	}
+
+	private getFirstIntersection(v2: THREE.Vector2): THREE.Vector3 | undefined {
+		if (!this.threeData) return
+
+		this.raycaster.setFromCamera(v2, this.threeData.camera)
+		const intersects = this.raycaster.intersectObject(this.threeData.sprite)
+
+		// TODO: wird das benötigt
+		// intersects[0].point.z = 0;
+
+		return intersects[0]?.point
+	}
+
+	private getSelectedMark(_mousePosition: THREE.Vector2): THREE.Object3D | undefined {
+		// TODO: implement
+		console.log('to be implemented', _mousePosition)
+
+		return
 	}
 }

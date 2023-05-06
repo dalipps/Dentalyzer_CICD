@@ -6,6 +6,7 @@ export const FrsPageActions = createActionGroup({
 	source: 'Frs Page',
 	events: {
 		Init: emptyProps(),
+		Create: props<{ image: File }>(),
 	},
 })
 

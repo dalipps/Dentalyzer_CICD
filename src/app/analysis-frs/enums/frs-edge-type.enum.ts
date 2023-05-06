@@ -14,5 +14,4 @@ export enum FrsEdgeType {
 	InUK1ApUK1 = 'InUK1-ApUK1',
 	VPOcPHPOcP = 'vPocP-hPOcP',
 	ProNPog2 = 'ProN-Pog\'',
-	Helper = 'Helper',
 }
