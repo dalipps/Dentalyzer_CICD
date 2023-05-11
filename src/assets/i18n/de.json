@@ -1,14 +1,96 @@
 {
-	"FileUpload.DragAndDrop": "Dateien ziehen und ablegen",
-	"FileUpload.Or": "oder",
-	"FileUpload.SearchFiles": "Dateien durchsuchen",
-	"Header.Menu.Language": "Sprache",
-	"Header.Menu.Language.English": "Englisch",
-	"Header.Menu.Language.German": "Deutsch",
-	"Home.2d": "FRS-Analyse",
-	"Home.3d": "3D-Analyse",
-	"TabMenu.Calculations": "Berechnungen",
-	"TabMenu.Edges": "Ebenen",
-	"TabMenu.Marker": "Punkte",
-	"home.welcome": "Willkommen im Dentalyzer"
+	"Dialog": {
+		"No": "Nein",
+		"Yes": "Ja"
+	},
+	"FileUpload": {
+		"DragAndDrop": "Dateien ziehen und ablegen",
+		"Or": "oder",
+		"SearchFiles": "Dateien durchsuchen"
+	},
+	"FrsAnalysis": {
+		"ExistingAnalysisContent": "Es wurde eine vorhandene Analyse gefunden. Möchtest Du diese weiter bearbeiten?\n\n Wenn Nein, wird sie unwiederruflich gelöscht. ",
+		"ExistingAnalysisTitle": "Vorhandene Analyse gefunden"
+	},
+	"FrsFacade": {
+		"Error": {
+			"HasActiveAnalysis": "Eine Analyse ist bereits vorhanden"
+		}
+	},
+	"FrsMarkType": {
+		"A": "A-Punkt",
+		"ApOK1": "Apex OK1",
+		"ApUK1": "Apex UK1",
+		"Ar": "Articulare",
+		"B": "B-Punkt",
+		"Calibration1": "Kalibrierungsmarke 1",
+		"Calibration2": "Kalibrierungsmarke 2",
+		"Go": "Gonion",
+		"Goa": "Anat. Gonion",
+		"HPOcP": "Hinterer Punkt des Occlusionsplanums",
+		"InOK1": "Incision OK1",
+		"InUK1": "Incision UK1",
+		"Li": "Labrale inferius",
+		"Ls": "Labrale superius",
+		"Me": "Menton",
+		"N": "Nasion",
+		"Pog": "Pogonion",
+		"Pog2": "Weichteilpogonion",
+		"ProN": "Pronasale",
+		"S": "Sella",
+		"Sp": "Spinaebenenpunkt",
+		"Spa": "Spina nasalis anterior",
+		"Spp": "Spina nasalis posterior",
+		"Tga": "Tangentenpunkt anterior",
+		"Tgp": "Tangentenpunkt posterior",
+		"TrainingText": {
+			"A": "Am weitesten dorsal gelegener Punkt der vorderen Kontur des OKAlveolarfortsatzes in der Median-Sagittal-Ebene",
+			"ApOK1": "Wurzelspitze des oberen mittleren Schneidezahnes",
+			"ApUK1": "Wurzelspitze des unteren mittleren Schneidezahnes",
+			"Ar": "Orientierungspunkt zur Beschreibung des aufsteigenden UK-Astes; röntgenologischer Schnittpunkt zwischen der (gemittelten) dorsalen Kontur des Ramus ascendens und dem Unterrand der Schädelbasis; kein anatomischer Punkt (Björk, 1947)",
+			"B": "Am weitesten dorsal liegender Punkt der vorderen Kontur des UKAlveolarfortsatzes in der Median-Sagittal-Ebene; nach Riolo et al. (1974) liegt der B-Punkt im Bereich des apikalen Wurzeldrittels der UK-Schneidezähne",
+			"Calibration1": "Erster Referenzpunkt, der auf dem Lineal bei 0cm gesetzt wird",
+			"Calibration2": "Zweiter Referenzpunkt, der auf dem Lineal bei 1cm gesetzt wird",
+			"Go": "(Go wird automatisch konstruiert, sobald Ar, Me, Tga, Tgp platziert sind) Kieferwinkelpunkt; Schnittpunkt der Tangenten an horizontalen und aufsteigenden UK-Ast",
+			"Goa": "Schnittpunkt der Winkelhalbierenden des Kieferwinkels mit der anatomischen Kontur des Kieferwinkels",
+			"HPOcP": "Am weitesten distal liegender Berührungspunkt der ersten Molaren (modifiziert nach Rakosi, 1988)",
+			"InOK1": "Schneidekante des oberen mittleren Schneidezahnes",
+			"InUK1": "Schneidekante des unteren mittleren Schneidezahnes",
+			"Li": "Am weitesten anterior gelegener Punkt der Unterlippe",
+			"Ls": "Am weitesten anterior gelegener Punkt der Oberlippe",
+			"Me": "Am weitesten kaudal liegender Punkt an der Kontur der Symphyse; tiefster Punkt des knöchernen Kinns",
+			"N": "Anteriores Ende der Sutura fronto-nasalis am Übergang vom Osnasale zum Os frontale (Median-Sagittal-Ebene)",
+			"Pog": "Am weitesten anterior liegender Punkt der UK-Symphyse in der Median-Sagittal-Ebene; knöcherne Kinnspitze",
+			"Pog2": "Vorspringenster Punkt des Kinns",
+			"ProN": "Vorspringenster Punkt der Nasenspitze",
+			"S": "Geometrischer Mittelpunkt der Sella turcica; konstruierter Punkt in der Median-Sagittal-Ebene",
+			"Sp": "(Sp wird automatisch konstruiert, sobald Me, N, Spa, Spp platziert sind) Schnittpunkt der Strecke N-Me mit dem Spinaplanum",
+			"Spa": "Am weitesten anterior gelegene Spitze der knöchernen Spinanasalis anterior in der Median-Sagittal-Ebene",
+			"Spp": "Am weitesten posterior gelegener Punkt des Nasenbodens bzw. des knöchernen Gaumens; liegt in der Verlängerung der Vorderwand der Fossa pterygopalatina",
+			"Tga": "Am weitesten kaudal liegender Punkt im Kieferwinkelbereich; Tangentenpunkt (von Menton aus) an den Unterrand des horizontalen UK-Astes",
+			"Tgp": "Am weitesten dorsal liegender Punkt im Kieferwinkelbereich; Tangentenpunkt (vom Articulare aus) an den Hinterrand des aufsteigenden UK-Astes",
+			"VPOcP": "(vPOcP wird automatisch konstruiert, sobald InOK1, InUK1 platziert sind) Halbierung der Strecke des Schneidezahnüberbisses im Schlussbiss (Rakosi, 1988)"
+		},
+		"VPOcP": "Vorderer Punkt des Occlusionsplanums "
+	},
+	"FrsStoreInitResolver": {
+		"Timeout": "Timeout beim Initialiseren der FRS-Analyse. Bitte versuche es erneut."
+	},
+	"Header": {
+		"Menu": {
+			"English": "Englisch",
+			"German": "Deutsch",
+			"Language": "Sprache"
+		}
+	},
+	"Home": {
+		"2d": "FRS-Analyse",
+		"3d": "3D-Analyse",
+		"Welcome": "Willkommen im Dentalyzer"
+	},
+	"TabMenu": {
+		"Calculations": "Berechnungen",
+		"Edges": "Ebenen",
+		"Marker": "Punkte"
+	}
 }

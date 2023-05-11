@@ -1,14 +1,96 @@
 {
-	"FileUpload.DragAndDrop": "",
-	"FileUpload.Or": "",
-	"FileUpload.SearchFiles": "",
-	"Header.Menu.Language": "Language",
-	"Header.Menu.Language.English": "English",
-	"Header.Menu.Language.German": "German",
-	"Home.2d": "FRS Analysis",
-	"Home.3d": "3D Analysis",
-	"TabMenu.Calculations": "Calculations",
-	"TabMenu.Edges": "Levels",
-	"TabMenu.Marker": "Marks",
-	"home.welcome": "Welcome to Dentalyzer"
+	"Dialog": {
+		"No": "No",
+		"Yes": "Yes"
+	},
+	"FileUpload": {
+		"DragAndDrop": "Drag and drop files",
+		"Or": "or",
+		"SearchFiles": "Search files"
+	},
+	"FrsAnalysis": {
+		"ExistingAnalysisContent": "An existing analysis was found. Do you want to keep editing it?\n\n If not it will be permanently deleted.",
+		"ExistingAnalysisTitle": "Found existing analysis"
+	},
+	"FrsFacade": {
+		"Error": {
+			"HasActiveAnalysis": "An anlysis already exists"
+		}
+	},
+	"FrsMarkType": {
+		"A": "A-Point",
+		"ApOK1": "Apex UJ1",
+		"ApUK1": "Apex LJ1",
+		"Ar": "Articulare",
+		"B": "B-Point",
+		"Calibration1": "Calibration mark 1",
+		"Calibration2": "Calibration mark 2",
+		"Go": "Gonion",
+		"Goa": "Anat. Gonion",
+		"HPOcP": "Posterior point of the occlusal plane",
+		"InOK1": "Incision UJ1",
+		"InUK1": "Incision LJ1",
+		"Li": "Labrale inferius",
+		"Ls": "Labrale superius",
+		"Me": "Menton",
+		"N": "Nasion",
+		"Pog": "Pogonion",
+		"Pog2": "Soft tissue pogonion",
+		"ProN": "Pronasale",
+		"S": "Sella",
+		"Sp": "Spina plane point",
+		"Spa": "Spina nasalis anterior",
+		"Spp": "Spina nasalis posterior",
+		"Tga": "Tangent point anterior",
+		"Tgp": "Tangent point posterior",
+		"TrainingText": {
+			"A": "Most dorsally located point of the anterior contour of the maxillary alveolar process in the mid-sagittal plane",
+			"ApOK1": "Root tip of the upper central incisor",
+			"ApUK1": "Root tip of the lower central incisor",
+			"Ar": "Orientation point for the description of the ascending mandibular ramus; radiographic intersection between the (averaged) dorsal contour of the Ramus ascendens and the inferior border of the skull base; Not an anatomical point (Björk, 1947)",
+			"B": "Most dorsal point of the anterior contour of the mandibular alveolar process in the median-sagittal plane; according to Riolo et al. (1974), the B-Point is located in the area of the apical root third of the mandibular incisors",
+			"Calibration1": "First reference point that is set on the ruler at 0cm",
+			"Calibration2": "First reference point that is set on the ruler at 1cm",
+			"Go": "(Go will be set automatically when Ar, Me, Tga, Tgp are placed) Jaw angle point; intersection of tangents to horizontal and ascending mandibular ramus",
+			"Goa": "Intersection of the bisector of the jaw angle with the anatomical contour of the jaw angle",
+			"HPOcP": "Most distal point of contact of the first molars (modified after Rakosi, 1988)",
+			"InOK1": "Incisal edge of the upper central incisor",
+			"InUK1": "Incisal edge of the lower central incisor",
+			"Li": "Most anterior point of the lower lip",
+			"Ls": "Most anterior point of the upper lip",
+			"Me": "Furthest caudal point on the contour of the symphysis; deepest point of the bony chin",
+			"N": "Anterior end of the sutura fronto-nasalis at the junction from the Osnasale to the Os frontale (mid-sagittal plane)",
+			"Pog": "Most anterior point of mandibular symphysis in mid-sagittal plane; bony tip of chin",
+			"Pog2": "Most protruding point of the chin",
+			"ProN": "Most protruding point of the nose tip",
+			"S": "Geometric center of the Sella turcica; constructed point in the mid-sagittal plane",
+			"Sp": "(Sp will be set automatically when Me, N, Spa, Spp are placed) Intersection of the line N-Me with the spinaplanum",
+			"Spa": "Most anteriorly located tip of the bony spinanasalis anterior in the mid-sagittal plane",
+			"Spp": "The most posterior point of the nasal floor or bony palate; located at the extension of the anterior wall of the fossa pterygopalatina",
+			"Tga": "Most caudally located point in the mandibular angle region; tangent point ( starting from Menton) to the inferior border of the horizontal mandibular ramus",
+			"Tgp": "Most dorsally located point in the mandibular angle region; tangent point (starting from Articulare) to the posterior margin of the ascending mandibular ramus",
+			"VPOcP": "(fPOcP will be set automatically when InUJ1, InLJ1 are placed) Halving the distance of incisor overbite in the final bite (Rakosi, 1988)"
+		},
+		"VPOcP": "Front point of the occlusal plane"
+	},
+	"FrsStoreInitResolver": {
+		"Timeout": "Initialization of the FRS analysis timed out. Please try again."
+	},
+	"Header": {
+		"Menu": {
+			"English": "English",
+			"German": "German",
+			"Language": "Language"
+		}
+	},
+	"Home": {
+		"2d": "FRS Analysis",
+		"3d": "3D Analysis",
+		"Welcome": "Welcome to Dentalyzer"
+	},
+	"TabMenu": {
+		"Calculations": "Calculations",
+		"Edges": "Levels",
+		"Marker": "Marks"
+	}
 }

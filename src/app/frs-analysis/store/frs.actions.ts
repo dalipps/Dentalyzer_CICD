@@ -6,14 +6,15 @@ export const FrsPageActions = createActionGroup({
 	source: 'Frs Page',
 	events: {
 		Init: emptyProps(),
-		Create: props<{ image: File }>(),
+		Create: props<{ analysis: FrsAnalysis }>(),
+		'Remove all': emptyProps(),
 	},
 })
 
 export const FrsApiActions = createActionGroup({
 	source: 'Frs API',
 	events: {
-		'Init Success': props<{ frsAnalyses: FrsAnalysis[] }>(),
+		'Init Success': props<{ frsAnalysis: FrsAnalysis | undefined }>(),
 		'Init Failure': props<{ error: FrsStoreError }>(),
 	},
 })

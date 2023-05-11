@@ -1,14 +1,10 @@
-import { Observable, from, fromEvent, map, switchMap } from 'rxjs'
+import { Observable, from, map } from 'rxjs'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { ThreeData } from './three-data.model'
 
-export function initImageRendering(canvas: HTMLCanvasElement, file: File): Observable<ThreeData> {
-	const reader = new FileReader()
-	reader.readAsDataURL(file)
-
-	return fromEvent(reader, 'loadend').pipe(
-		switchMap(() => from(new THREE.TextureLoader().loadAsync(reader.result as string))),
+export function initImageRendering(canvas: HTMLCanvasElement, imageBase64: string): Observable<ThreeData> {
+	return from(new THREE.TextureLoader().loadAsync(imageBase64)).pipe(
 		map((texture) => {
 			const scene = new THREE.Scene()
 			const camera = new THREE.PerspectiveCamera(45, canvas.offsetWidth / canvas.offsetHeight, 0.1, 1000)

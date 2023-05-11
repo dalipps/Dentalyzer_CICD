@@ -1,4 +1,5 @@
 import { APP_INITIALIZER, EnvironmentProviders, Provider, makeEnvironmentProviders } from '@angular/core'
+import { MatSnackBar } from '@angular/material/snack-bar'
 import { provideEffects } from '@ngrx/effects'
 import { provideState } from '@ngrx/store'
 import { FrsEffects, FrsFacade, fromFrs } from './frs-analysis/store'
@@ -17,5 +18,6 @@ export function provideApp(): (Provider | EnvironmentProviders)[] {
 				deps: [FrsFacade],
 			},
 		]),
+		MatSnackBar,
 	]
 }

@@ -1,9 +1,15 @@
-<mat-tab-group>
+<mat-tab-group class="dent-tab-group" animationDuration="0ms">
 	<mat-tab [label]="'TabMenu.Marker' | translate">
-		<dent-marker-list *ngIf="analysis" [marks]="analysis.marks"></dent-marker-list>
+		<ng-template matTabContent>
+			<dent-marker-list *ngIf="analysis" [marks]="analysis.marks"></dent-marker-list>
+		</ng-template>
 	</mat-tab>
 	<mat-tab [label]="'TabMenu.Edges' | translate">
-		<dent-edges-list *ngIf="analysis"></dent-edges-list>
+		<ng-template matTabContent>
+			<dent-edges-list *ngIf="analysis"></dent-edges-list>
+		</ng-template>
 	</mat-tab>
-	<mat-tab [label]="'TabMenu.Calculations' | translate"> Calculations goes here </mat-tab>
+	<mat-tab [label]="'TabMenu.Calculations' | translate"
+		><ng-template matTabContent> Calculations goes here </ng-template>
+	</mat-tab>
 </mat-tab-group>

@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core'
+import { MatSnackBar } from '@angular/material/snack-bar'
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import { BaseFacade } from '@dentalyzer/common'
 import { select } from '@ngrx/store'
-import { filter, switchMap } from 'rxjs'
-import { IndexedDbService } from 'src/app/common/indexed-db'
+import { filter, switchMap, takeUntil } from 'rxjs'
+import { IndexedDbService, TABLES } from 'src/app/common/indexed-db'
+import { FrsCalculation } from '../calculation'
+import { frsCalculationsConfig, frsEdgesConfig, frsMarksConfig } from '../config'
+import { FrsEdge } from '../edge'
+import { FrsMark } from '../mark'
 import { FrsPageActions } from './frs.actions'
+import { FrsAnalysis } from './frs.model'
 import { FrsState } from './frs.reducer'
 import * as FrsSelectors from './frs.selectors'
 
@@ -12,22 +19,54 @@ import * as FrsSelectors from './frs.selectors'
 })
 export class FrsFacade extends BaseFacade<FrsState> {
 	initialized$ = this.store.pipe(select(FrsSelectors.selectFrsInit))
+	all$ = this.store.pipe(select(FrsSelectors.selectAllFrs))
 	active$ = this.initialized$.pipe(
 		filter((init) => init),
 		switchMap(() => this.store.pipe(select(FrsSelectors.selectActive)))
 	)
 
-	constructor(private dbService: IndexedDbService) {
+	private hasActiveAnalysis = false
+
+	constructor(private dbService: IndexedDbService, private snackBar: MatSnackBar) {
 		super()
 
-		this.dbService.recreateDatabase()
+		this.initialize()
+
+		this.active$
+			.pipe(
+				takeUntil(this.destroy$),
+				switchMap((analysis) =>
+					analysis
+						? this.dbService.addOrUpdateOne(TABLES.FRS_ANALYSIS, analysis)
+						: this.dbService.clearAll(TABLES.FRS_ANALYSIS)
+				)
+			)
+			.subscribe()
 	}
 
 	init(): void {
 		this.initStore(FrsPageActions.init())
 	}
 
-	create(image: File): void {
-		this.dispatch(FrsPageActions.create({ image }))
+	create(imageBase64: string): void {
+		if (this.hasActiveAnalysis) {
+			this.snackBar.open(_('FrsFacade.Error.HasActiveAnalysis'))
+			return
+		}
+
+		let analysis = new FrsAnalysis(
+			imageBase64,
+			frsMarksConfig.map((c) => new FrsMark(c)),
+			frsEdgesConfig.map((c) => new FrsEdge(c)),
+			frsCalculationsConfig.map((c) => new FrsCalculation(c))
+		)
+
+		analysis = JSON.parse(JSON.stringify(analysis))
+
+		this.dispatch(FrsPageActions.create({ analysis }))
+	}
+
+	removeAll(): void {
+		this.dispatch(FrsPageActions.removeAll())
 	}
 }

@@ -32,8 +32,8 @@ export class RenderingService extends BaseService {
 			.subscribe()
 	}
 
-	initImageRendering(canvas: HTMLCanvasElement, file: File): Observable<ThreeData> {
-		return initImageRendering(canvas, file).pipe(
+	initImageRendering(canvas: HTMLCanvasElement, imageBase64: string): Observable<ThreeData> {
+		return initImageRendering(canvas, imageBase64).pipe(
 			tap((data) => {
 				this.canvas = canvas
 				this.threeDataSubject$.next(data)

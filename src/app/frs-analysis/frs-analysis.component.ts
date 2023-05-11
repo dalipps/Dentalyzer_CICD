@@ -1,5 +1,7 @@
 import { AsyncPipe, NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, ElementRef, Injector, ViewChild } from '@angular/core'
+import { MatDialog, MatDialogModule } from '@angular/material/dialog'
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import { BaseComponent, RenderingService, ThreeData } from '@dentalyzer/common'
 import {
 	BehaviorSubject,
@@ -8,14 +10,18 @@ import {
 	combineLatest,
 	debounceTime,
 	filter,
+	first,
 	fromEvent,
 	map,
+	of,
 	switchMap,
 	takeUntil,
 	tap,
 } from 'rxjs'
 import * as THREE from 'three'
+import { DialogComponent, DialogData } from '../dialog/dialog.component'
 import { FileUploadComponent } from '../file-upload/file-upload.component'
+import { convertImageToBase64 } from './image'
 import { getNormalizedMousePosition } from './mouse/mouse.utils'
 import { FrsAnalysis, FrsFacade } from './store'
 import { TabMenuComponent } from './tab-menu/tab-menu.component'
@@ -23,7 +29,7 @@ import { TabMenuComponent } from './tab-menu/tab-menu.component'
 @Component({
 	selector: 'dent-frs-analysis',
 	standalone: true,
-	imports: [NgIf, AsyncPipe, FileUploadComponent, TabMenuComponent],
+	imports: [NgIf, AsyncPipe, FileUploadComponent, MatDialogModule, TabMenuComponent],
 	templateUrl: './frs-analysis.component.html',
 	styleUrls: ['./frs-analysis.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,22 +40,59 @@ export class FrsAnalysisComponent extends BaseComponent {
 	@ViewChild('analysisFrsCanvas', { read: ElementRef<HTMLCanvasElement>, static: false })
 	canvas: ElementRef<HTMLCanvasElement> | undefined
 
-	imageSubject$ = new BehaviorSubject<File | undefined>(undefined)
+	private imageSubject$ = new BehaviorSubject<string | undefined>(undefined)
 	analysis$: Observable<FrsAnalysis | undefined> = EMPTY
 
 	private threeData: ThreeData | undefined
 	private raycaster: THREE.Raycaster
 	private selectedMarkObject: THREE.Object3D | undefined
 
-	constructor(private readonly renderingService: RenderingService, frsFacade: FrsFacade, injector: Injector) {
+	constructor(
+		private readonly renderingService: RenderingService,
+		dialog: MatDialog,
+		frsFacade: FrsFacade,
+		injector: Injector
+	) {
 		super(injector)
 
 		this.analysis$ = combineLatest([frsFacade.active$, this.imageSubject$]).pipe(
-			tap(([analysis, image]) => {
-				if (!analysis && image) frsFacade.create(image)
-			}),
-			map(([analysis]) => analysis)
+			switchMap(([analysis, image]) => {
+				if (analysis && !image) {
+					const ref = dialog.open(DialogComponent, {
+						data: <DialogData>{
+							title: this.translateService.instant(_('FrsAnalysis.ExistingAnalysisTitle')),
+							content: this.translateService.instant(_('FrsAnalysis.ExistingAnalysisContent')),
+							rejectButton: this.translateService.instant(_('Dialog.No')),
+							submitButton: this.translateService.instant(_('Dialog.Yes')),
+							rejectAction: () => {
+								frsFacade.removeAll()
+							},
+							submitAction: () => this.imageSubject$.next(analysis.image),
+						},
+					})
+
+					return ref.afterClosed().pipe(map(() => analysis))
+				}
+
+				if (!analysis && image) {
+					frsFacade.create(image)
+					return EMPTY
+				}
+
+				return of(analysis)
+			})
 		)
+
+		combineLatest([this.imageSubject$, this.afterViewInit$])
+			.pipe(
+				takeUntil(this.destroy$),
+				debounceTime(500),
+				map(([image]) => [image, this.canvas]),
+				filter((array): array is [string, ElementRef<HTMLCanvasElement>] => !!array[0] && !!array[1]),
+				switchMap(([image, canvas]) => this.renderingService.initImageRendering(canvas.nativeElement, image)),
+				tap((data) => (this.threeData = data))
+			)
+			.subscribe()
 
 		this.raycaster = new THREE.Raycaster()
 
@@ -64,21 +107,15 @@ export class FrsAnalysisComponent extends BaseComponent {
 				})
 			)
 			.subscribe()
-
-		combineLatest([this.imageSubject$, this.afterViewInit$])
-			.pipe(
-				takeUntil(this.destroy$),
-				debounceTime(500),
-				map(([image]) => [image, this.canvas]),
-				filter((array): array is [File, ElementRef<HTMLCanvasElement>] => !!array[0] && !!array[1]),
-				switchMap(([file, canvas]) => this.renderingService.initImageRendering(canvas.nativeElement, file)),
-				tap((data) => (this.threeData = data))
-			)
-			.subscribe()
 	}
 
 	onUploadFiles(fileList: FileList): void {
-		this.imageSubject$.next(fileList[0])
+		convertImageToBase64(fileList[0])
+			.pipe(
+				first(),
+				tap((imageBase64) => this.imageSubject$.next(imageBase64))
+			)
+			.subscribe()
 	}
 
 	onPointerDown(event: PointerEvent): void {
