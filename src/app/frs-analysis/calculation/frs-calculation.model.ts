@@ -4,7 +4,6 @@ import { FrsMarkType } from '../mark'
 import { FrsCalculationDataType } from './frs-calculation-data-type.enum'
 import { FrsCalculationType } from './frs-calculation-type.enum'
 import { FrsCalculationUnit } from './frs-calculation-unit.enum'
-import { Gender } from './gender.enum'
 
 export type FrsCalculationData =
 	| FrsAngleCalculation
@@ -62,7 +61,8 @@ export interface FrsCalculationConfigDto {
 	id: FrsCalculationType
 	unit: FrsCalculationUnit
 	data: FrsCalculationData
-	targetValue?: number | Map<Gender, number>
+	targetValueMaleOrAll?: number
+	targetValueFemale?: number
 	deviation?: number
 	interpretation?: FrsInterpretation
 }
@@ -71,18 +71,18 @@ export class FrsCalculation implements FrsCalculationConfigDto {
 	id: FrsCalculationType
 	unit: FrsCalculationUnit
 	data: FrsCalculationData
-	targetValue?: number | Map<Gender, number>
+	targetValueMaleOrAll?: number
+	targetValueFemale?: number
 	deviation?: number
-	interpretation?: FrsInterpretation
 	value?: number
 
 	constructor(config: FrsCalculationConfigDto, value?: number) {
 		this.id = config.id
 		this.unit = config.unit
 		this.data = config.data
-		this.targetValue = config.targetValue
+		this.targetValueMaleOrAll = config.targetValueMaleOrAll
+		this.targetValueFemale = config.targetValueFemale
 		this.deviation = config.deviation
-		this.interpretation = config.interpretation
 		this.value = value
 	}
 }

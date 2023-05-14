@@ -1,4 +1,9 @@
 {
+	"CalculationList": {
+		"Description": "Beschreibung",
+		"TargetValue": "Ist",
+		"Value": "Soll"
+	},
 	"Dialog": {
 		"No": "Nein",
 		"Yes": "Ja"
@@ -12,37 +17,313 @@
 		"ExistingAnalysisContent": "Es wurde eine vorhandene Analyse gefunden. Möchtest Du diese weiter bearbeiten?\n\n Wenn Nein, wird sie unwiederruflich gelöscht. ",
 		"ExistingAnalysisTitle": "Vorhandene Analyse gefunden"
 	},
+	"FrsCalculationType": {
+		"ANB": {
+			"Abbreviation": "ANB",
+			"Description": "Sagittale Kieferrelation",
+			"Interpretation": {
+				"Equals": "Neutrale Basalrelation",
+				"Greater": "Distale Basalrelation",
+				"Smaller": "Mesiale Basalrelation"
+			}
+		},
+		"ANBIndiv": {
+			"Abbreviation": "ANB indiv.",
+			"Description": "Sagittale Kieferrelation",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"ArGoMe": {
+			"Abbreviation": "Ar-Go-Me",
+			"Description": "Abknickung zwischen Ramus and Corpus (UK-Form)",
+			"Interpretation": {
+				"Equals": "Neutrales WTM",
+				"Greater": "Vertikales WTM",
+				"Smaller": "Horizontales WTM"
+			}
+		},
+		"GoaPogSN": {
+			"Abbreviation": "Goa-Pog / S-N",
+			"Description": "Längenrelation der Unterkieferbasis zur anterioren Schädelbasis",
+			"Interpretation": {
+				"Equals": "Harmonische Entwicklung",
+				"Greater": "Relative Übergröße der Unterkieferbasis",
+				"Smaller": "Relative Untergröße der Unterkieferbasis"
+			}
+		},
+		"LiEsthetic": {
+			"Abbreviation": "Li-Esthetic-line",
+			"Description": "Abstand der Unterlippe zur Esthetic line (Ricketts)",
+			"Interpretation": {
+				"Equals": "Klinischer Richtwert für Unterlippe",
+				"Greater": "Konkaves Profil / retrusive Lippenkonfiguration",
+				"Smaller": "Konvexes Profil / protrusive Lippenkonfiguration"
+			}
+		},
+		"LsEsthetic": {
+			"Abbreviation": "Ls-Esthetic-line",
+			"Description": "Abstand der Oberlippe zur Esthetic line (Ricketts)",
+			"Interpretation": {
+				"Equals": "Klinischer Richtwert für Oberlippe",
+				"Greater": "Konvexes Profil / protrusive Lippenkonfiguration",
+				"Smaller": "Konkaves Profil / retrusive Lippenkonfiguration"
+			}
+		},
+		"NSpSpMe": {
+			"Abbreviation": "N-Sp / Sp-Me",
+			"Description": "Anteriores Gesichtshöhenverhältnis: Mittelgesichtshöhe zu Untergesichtshöhe",
+			"Interpretation": {
+				"Equals": "Harmonische Proportion",
+				"Greater": "Relativ kleine Untergesichtshöhe",
+				"Smaller": "Relativ große Untergesichtshöhe"
+			}
+		},
+		"OK1NA": {
+			"Abbreviation": "OK1-NA",
+			"Description": "Position der OK-Schneidezähne zur OK-Basis",
+			"Interpretation": {
+				"Equals": "Orthoposition der OK-Schneidezähne",
+				"Greater": "Anteposition der OK-Schneidezähne",
+				"Smaller": "Retroposition der OK-Schneidezähne"
+			}
+		},
+		"OK1SN": {
+			"Abbreviation": "OK1-SN",
+			"Description": "Achsenstellung der OK-Schneidezähne zur anterioren Schädelbasis",
+			"Interpretation": {
+				"Equals": "Achsengerecht",
+				"Greater": "Labialkippung",
+				"Smaller": "Palatinalkippung"
+			}
+		},
+		"OK1SpP": {
+			"Abbreviation": "OK1-SpP",
+			"Description": "Achsenstellung der OK-Schneidezähne zur OK-Basis",
+			"Interpretation": {
+				"Equals": "Achsengerecht",
+				"Greater": "Palatinalkippung",
+				"Smaller": "Labialkippung"
+			}
+		},
+		"OK1UK1": {
+			"Abbreviation": "OK1-UK1 (Interinzisalwinkel)",
+			"Description": "Interinzisalwinkel; Winkel zwischen OK-und UK-Schneidezahnachsen",
+			"Interpretation": {
+				"Equals": "Stabile Incisivenposition, wichtig für Stabilität des Behandlungsergebnisses, insbesondere problematisch falls vergrößert",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"SGONMe": {
+			"Abbreviation": "S-Go / N-Me",
+			"Description": "Vertikaler Einbau des UK zur anterioren Schädelbasis",
+			"Interpretation": {
+				"Equals": "Neutrales WTM",
+				"Greater": "Horizontales WTM",
+				"Smaller": "Vertikales WTM"
+			}
+		},
+		"SNA": {
+			"Abbreviation": "SNA",
+			"Description": "Sagittaler Einbau des OK",
+			"Interpretation": {
+				"Equals": "OK orthognath",
+				"Greater": "Prognathie des OK",
+				"Smaller": "Retrognathie des OK"
+			}
+		},
+		"SNB": {
+			"Abbreviation": "SNB",
+			"Description": "Sagittaler Einbau des UK",
+			"Interpretation": {
+				"Equals": "UK orthognath",
+				"Greater": "Prognathie des UK",
+				"Smaller": "Retrognathie des UK"
+			}
+		},
+		"SNMeGo": {
+			"Abbreviation": "SN-MeGo",
+			"Description": "Vertikaler Einbau des UK zur anterioren Schädelbasis",
+			"Interpretation": {
+				"Equals": "Neutrales WTM /Gesichtsschädelaufbau (GSA)",
+				"Greater": "Vertikales WTM",
+				"Smaller": "Horizontales WTM"
+			}
+		},
+		"SNPog": {
+			"Abbreviation": "SNPog",
+			"Description": "Sagittaler Einbau des UK (basal)",
+			"Interpretation": {
+				"Equals": "UK-Basis orthognath",
+				"Greater": "Basale Prognathie des UK",
+				"Smaller": "Basale Retrognathie des UK"
+			}
+		},
+		"SNSpP": {
+			"Abbreviation": "SN-SpP",
+			"Description": "Vertikaler Einbau des OK zur anterioren Schädelbasis",
+			"Interpretation": {
+				"Equals": "OK in Normoinklination",
+				"Greater": "Posteriore Neigung des OK",
+				"Smaller": "Anteriore Neigung des OK"
+			}
+		},
+		"SpPMeGo": {
+			"Abbreviation": "SpP-MeGo",
+			"Description": "Vertikaler Einbau des UK zur anterioren Schädelbasis",
+			"Interpretation": {
+				"Equals": "Neutrales WTM",
+				"Greater": "Vertikales WTM",
+				"Smaller": "Horizontales WTM"
+			}
+		},
+		"SppAGoaPog": {
+			"Abbreviation": "Spp-A / Goa-Pog",
+			"Description": "Längenrelation der Oberkieferbasis zur Unterkieferbasis",
+			"Interpretation": {
+				"Equals": "Harmonische Entwicklung",
+				"Greater": "Relative Übergröße der Oberkieferbasis",
+				"Smaller": "Relative Übergröße der Unterkieferbasis"
+			}
+		},
+		"SppASN": {
+			"Abbreviation": "Spp-A / S-N",
+			"Description": "Längenrelation der Oberkieferbasis zur anterioren Schädelbasis",
+			"Interpretation": {
+				"Equals": "Harmonische Entwicklung",
+				"Greater": "Relative Übergröße der Oberkieferbasis",
+				"Smaller": "Relative Untergröße der Oberkieferbasis"
+			}
+		},
+		"UK1MeGo": {
+			"Abbreviation": "UK1-MeGo",
+			"Description": "Achsenstellung der UK-Schneidezähne zur UK-Basis",
+			"Interpretation": {
+				"Equals": "Achsengerecht (sehr variabel)",
+				"Greater": "Labialkippung",
+				"Smaller": "Lingualkippung"
+			}
+		},
+		"UK1NB": {
+			"Abbreviation": "UK1-NB",
+			"Description": "Position der UK-Schneidezähne zur UK-Basis",
+			"Interpretation": {
+				"Equals": "Orthoposition der UK-Schneidezähne",
+				"Greater": "Anteposition der UK-Schneidezähne",
+				"Smaller": "Retroposition der UK-Schneidezähne"
+			}
+		},
+		"Wits": {
+			"Abbreviation": "Wits",
+			"Description": "Sagittale Kieferrelation",
+			"Interpretation": {
+				"Equals": "Neutrale Basalrelation",
+				"Greater": "Mesiale Basalrelation",
+				"Smaller": "Distale Basalrelation"
+			}
+		}
+	},
+	"FrsEdgeType": {
+		"Abbreviation": {
+			"ArGo": "Ar - Go",
+			"Calibration": "K0 - K1",
+			"GoaPog2": "Goa - Pog'",
+			"InOK1ApOK1": "InOK1 - ApOK1",
+			"InUK1ApUK1": "InUK1 - ApUK1",
+			"MeGo": "Me - Go",
+			"NA": "N - A",
+			"NB": "N - B",
+			"NMe": "N - Me",
+			"NPog": "N - Pog",
+			"ProNPog2": "ProN - Pog'",
+			"SN": "S - N",
+			"SpaSpp": "Spa - Spp",
+			"SppA": "Spp - A",
+			"VPOcPHPOcP": "vPOcP - hPOcP"
+		},
+		"Name": {
+			"ArGo": "Articulare - Gonion",
+			"Calibration": "Kalibrierungsmarke 0 - Kalibrierungsmarke 1",
+			"GoaPog2": "Anat. Gonion - Weichteilpogonion",
+			"InOK1ApOK1": "Incision OK1 - Apex OK1",
+			"InUK1ApUK1": "Incision UK1 - Apex UK1",
+			"MeGo": "Menton - Gonion",
+			"NA": "Nasion - A-Punkt",
+			"NB": "Nasion - B-Punkt",
+			"NMe": "Nasion - Menton",
+			"NPog": "Nasion - Pogonion",
+			"ProNPog2": "Pronasale - Weichteilpogonion",
+			"SN": "Sella - Nasion",
+			"SpaSpp": "Spina nasalis anterior - Spina nasalis posterior",
+			"SppA": "Spina nasalis posterior - A-Punkt",
+			"VPOcPHPOcP": "Vorderer Punkt des Occlusionsplanums - Hinterer Punkt des Occlusionsplanums"
+		}
+	},
 	"FrsFacade": {
 		"Error": {
 			"HasActiveAnalysis": "Eine Analyse ist bereits vorhanden"
 		}
 	},
 	"FrsMarkType": {
-		"A": "A-Punkt",
-		"ApOK1": "Apex OK1",
-		"ApUK1": "Apex UK1",
-		"Ar": "Articulare",
-		"B": "B-Punkt",
-		"Calibration1": "Kalibrierungsmarke 1",
-		"Calibration2": "Kalibrierungsmarke 2",
-		"Go": "Gonion",
-		"Goa": "Anat. Gonion",
-		"HPOcP": "Hinterer Punkt des Occlusionsplanums",
-		"InOK1": "Incision OK1",
-		"InUK1": "Incision UK1",
-		"Li": "Labrale inferius",
-		"Ls": "Labrale superius",
-		"Me": "Menton",
-		"N": "Nasion",
-		"Pog": "Pogonion",
-		"Pog2": "Weichteilpogonion",
-		"ProN": "Pronasale",
-		"S": "Sella",
-		"Sp": "Spinaebenenpunkt",
-		"Spa": "Spina nasalis anterior",
-		"Spp": "Spina nasalis posterior",
-		"Tga": "Tangentenpunkt anterior",
-		"Tgp": "Tangentenpunkt posterior",
+		"Abbreviation": {
+			"A": "A",
+			"ApOK1": "ApOK1",
+			"ApUK1": "ApUK1",
+			"Ar": "Ar",
+			"B": "B",
+			"Calibration1": "K0",
+			"Calibration2": "K1",
+			"Go": "Go",
+			"Goa": "Goa",
+			"HPOcP": "pPOcP",
+			"InOK1": "InOK1",
+			"InUK1": "InUK1",
+			"Li": "Li",
+			"Ls": "Ls",
+			"Me": "Me",
+			"N": "N",
+			"Pog": "Pog",
+			"Pog2": "Pog'",
+			"ProN": "ProN",
+			"S": "S",
+			"Sp": "Sp",
+			"Spa": "Spa",
+			"Spp": "Spp",
+			"Tga": "Tga",
+			"Tgp": "Tgp",
+			"VPOcP": "vPOcP"
+		},
+		"Name": {
+			"A": "A-Punkt",
+			"ApOK1": "Apex OK1",
+			"ApUK1": "Apex UK1",
+			"Ar": "Articulare",
+			"B": "B-Punkt",
+			"Calibration1": "Kalibrierungsmarke 1",
+			"Calibration2": "Kalibrierungsmarke 2",
+			"Go": "Gonion",
+			"Goa": "Anat. Gonion",
+			"HPOcP": "Hinterer Punkt des Occlusionsplanums",
+			"InOK1": "Incision OK1",
+			"InUK1": "Incision UK1",
+			"Li": "Labrale inferius",
+			"Ls": "Labrale superius",
+			"Me": "Menton",
+			"N": "Nasion",
+			"Pog": "Pogonion",
+			"Pog2": "Weichteilpogonion",
+			"ProN": "Pronasale",
+			"S": "Sella",
+			"Sp": "Spinaebenenpunkt",
+			"Spa": "Spina nasalis anterior",
+			"Spp": "Spina nasalis posterior",
+			"Tga": "Tangentenpunkt anterior",
+			"Tgp": "Tangentenpunkt posterior",
+			"VPOcP": "Vorderer Punkt des Occlusionsplanums "
+		},
 		"TrainingText": {
 			"A": "Am weitesten dorsal gelegener Punkt der vorderen Kontur des OKAlveolarfortsatzes in der Median-Sagittal-Ebene",
 			"ApOK1": "Wurzelspitze des oberen mittleren Schneidezahnes",
@@ -70,8 +351,7 @@
 			"Tga": "Am weitesten kaudal liegender Punkt im Kieferwinkelbereich; Tangentenpunkt (von Menton aus) an den Unterrand des horizontalen UK-Astes",
 			"Tgp": "Am weitesten dorsal liegender Punkt im Kieferwinkelbereich; Tangentenpunkt (vom Articulare aus) an den Hinterrand des aufsteigenden UK-Astes",
 			"VPOcP": "(vPOcP wird automatisch konstruiert, sobald InOK1, InUK1 platziert sind) Halbierung der Strecke des Schneidezahnüberbisses im Schlussbiss (Rakosi, 1988)"
-		},
-		"VPOcP": "Vorderer Punkt des Occlusionsplanums "
+		}
 	},
 	"FrsStoreInitResolver": {
 		"Timeout": "Timeout beim Initialiseren der FRS-Analyse. Bitte versuche es erneut."

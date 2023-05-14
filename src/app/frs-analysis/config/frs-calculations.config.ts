@@ -1,4 +1,3 @@
-import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
 import {
 	FrsAngleCalculation,
 	FrsAngleMultiplicationCalculation,
@@ -10,10 +9,8 @@ import {
 	FrsDistanceCalculation,
 	FrsIntersectionDistanceCalculation,
 	FrsQuotientCalculation,
-	Gender,
 } from '../calculation'
 import { FrsEdgeType } from '../edge'
-import { FrsInterpretation } from '../interpretation'
 import { FrsMarkType } from '../mark'
 
 export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
@@ -26,13 +23,8 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			edge2: FrsEdgeType.NA,
 			isLeft: false,
 		},
-		targetValue: 81,
+		targetValueMaleOrAll: 81,
 		deviation: 3,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.SNA} + '.Same' `),
-			greater: _(`${FrsCalculationType.SNA} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.SNA} + '.Smaller'`),
-		},
 	},
 	{
 		id: FrsCalculationType.SNB,
@@ -43,13 +35,8 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			edge2: FrsEdgeType.NB,
 			isLeft: false,
 		},
-		targetValue: 79,
+		targetValueMaleOrAll: 79,
 		deviation: 3,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.SNB} + '.Same' `),
-			greater: _(`${FrsCalculationType.SNB} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.SNB} + '.Smaller'`),
-		},
 	},
 	{
 		id: FrsCalculationType.SNPog,
@@ -60,13 +47,8 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			edge2: FrsEdgeType.NPog,
 			isLeft: false,
 		},
-		targetValue: 80,
+		targetValueMaleOrAll: 80,
 		deviation: 3,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.SNPog} + '.Same' `),
-			greater: _(`${FrsCalculationType.SNPog} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.SNPog} + '.Smaller'`),
-		},
 	},
 	{
 		id: FrsCalculationType.ANB,
@@ -77,13 +59,8 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			edge2: FrsEdgeType.NB,
 			isLeft: true,
 		},
-		targetValue: 2,
+		targetValueMaleOrAll: 2,
 		deviation: 2,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.ANB} + '.Same' `),
-			greater: _(`${FrsCalculationType.ANB} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.ANB} + '.Smaller'`),
-		},
 	},
 	{
 		id: FrsCalculationType.ANBIndiv,
@@ -97,9 +74,8 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			targetAngle2: FrsCalculationType.SNMeGo,
 			valueDuplicate: FrsCalculationType.ANB,
 		},
-		targetValue: undefined,
+		targetValueMaleOrAll: undefined,
 		deviation: undefined,
-		interpretation: undefined,
 	},
 	{
 		id: FrsCalculationType.Wits,
@@ -110,16 +86,10 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			point1: FrsMarkType.A,
 			point2: FrsMarkType.B,
 		},
-		targetValue: new Map([
-			[Gender.Male, -1],
-			[Gender.FEMALE, 0],
-		]),
+
+		targetValueMaleOrAll: -1,
+		targetValueFemale: 0,
 		deviation: 2,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.Wits} + '.Same' `),
-			greater: _(`${FrsCalculationType.Wits} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.Wits} + '.Smaller'`),
-		},
 	},
 	{
 		id: FrsCalculationType.SNMeGo,
@@ -129,13 +99,8 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			angle1: FrsCalculationType.SNSpP,
 			angle2: FrsCalculationType.SpPMeGo,
 		},
-		targetValue: 32,
+		targetValueMaleOrAll: 32,
 		deviation: 5,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.SNMeGo} + '.Same' `),
-			greater: _(`${FrsCalculationType.SNMeGo} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.SNMeGo} + '.Smaller'`),
-		},
 	},
 	{
 		id: FrsCalculationType.SNSpP,
@@ -146,13 +111,8 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			edge2: FrsEdgeType.SpaSpp,
 			isLeft: true,
 		},
-		targetValue: 7,
+		targetValueMaleOrAll: 7,
 		deviation: 3,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.SNSpP} + '.Same' `),
-			greater: _(`${FrsCalculationType.SNSpP} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.SNSpP} + '.Smaller'`),
-		},
 	},
 	{
 		id: FrsCalculationType.SpPMeGo,
@@ -163,13 +123,8 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			edge2: FrsEdgeType.MeGo,
 			isLeft: true,
 		},
-		targetValue: 25,
+		targetValueMaleOrAll: 25,
 		deviation: 5,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.SpPMeGo} + '.Same' `),
-			greater: _(`${FrsCalculationType.SpPMeGo} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.SpPMeGo} + '.Smaller'`),
-		},
 	},
 	{
 		id: FrsCalculationType.SGONMe,
@@ -181,13 +136,8 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			line2point1: FrsMarkType.N,
 			line2point2: FrsMarkType.Me,
 		},
-		targetValue: 65,
+		targetValueMaleOrAll: 65,
 		deviation: 4,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.SGONMe} + '.Same' `),
-			greater: _(`${FrsCalculationType.SGONMe} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.SGONMe} + '.Smaller'`),
-		},
 	},
 	{
 		id: FrsCalculationType.ArGoMe,
@@ -198,13 +148,8 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			edge2: FrsEdgeType.MeGo,
 			isLeft: false,
 		},
-		targetValue: 126,
+		targetValueMaleOrAll: 126,
 		deviation: 6,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.ArGoMe} + '.Same' `),
-			greater: _(`${FrsCalculationType.ArGoMe} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.ArGoMe} + '.Smaller'`),
-		},
 	},
 	{
 		id: FrsCalculationType.NSpSpMe,
@@ -216,13 +161,8 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			line2point1: FrsMarkType.Sp,
 			line2point2: FrsMarkType.Me,
 		},
-		targetValue: 80,
+		targetValueMaleOrAll: 80,
 		deviation: 6,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.NSpSpMe} + '.Same' `),
-			greater: _(`${FrsCalculationType.NSpSpMe} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.NSpSpMe} + '.Smaller'`),
-		},
 	},
 	{
 		id: FrsCalculationType.OK1SN,
@@ -233,13 +173,8 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			edge2: FrsEdgeType.SN,
 			isLeft: true,
 		},
-		targetValue: 102,
+		targetValueMaleOrAll: 102,
 		deviation: 5,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.OK1SN} + '.Same' `),
-			greater: _(`${FrsCalculationType.OK1SN} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.OK1SN} + '.Smaller'`),
-		},
 	},
 	{
 		id: FrsCalculationType.OK1SpP,
@@ -250,13 +185,8 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			edge2: FrsEdgeType.SpaSpp,
 			isLeft: false,
 		},
-		targetValue: 70,
+		targetValueMaleOrAll: 70,
 		deviation: 5,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.OK1SpP} + '.Same' `),
-			greater: _(`${FrsCalculationType.OK1SpP} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.OK1SpP} + '.Smaller'`),
-		},
 	},
 	{
 		id: FrsCalculationType.UK1MeGo,
@@ -267,13 +197,8 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			edge2: FrsEdgeType.MeGo,
 			isLeft: false,
 		},
-		targetValue: 93,
+		targetValueMaleOrAll: 93,
 		deviation: 6,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.UK1MeGo} + '.Same' `),
-			greater: _(`${FrsCalculationType.UK1MeGo} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.UK1MeGo} + '.Smaller'`),
-		},
 	},
 	{
 		id: FrsCalculationType.OK1UK1,
@@ -284,13 +209,8 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			edge2: FrsEdgeType.InUK1ApUK1,
 			isLeft: true,
 		},
-		targetValue: 131,
+		targetValueMaleOrAll: 131,
 		deviation: 9,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.OK1UK1} + '.Same' `),
-			greater: _(`${FrsCalculationType.OK1UK1} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.OK1UK1} + '.Smaller'`),
-		},
 	},
 	{
 		id: FrsCalculationType.OK1NA,
@@ -300,13 +220,8 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			edge: FrsEdgeType.NA,
 			point: FrsMarkType.InOK1,
 		},
-		targetValue: 4,
+		targetValueMaleOrAll: 4,
 		deviation: 2,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.OK1NA} + '.Same' `),
-			greater: _(`${FrsCalculationType.OK1NA} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.OK1NA} + '.Smaller'`),
-		},
 	},
 	{
 		id: FrsCalculationType.UK1NB,
@@ -316,13 +231,8 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			edge: FrsEdgeType.NB,
 			point: FrsMarkType.InUK1,
 		},
-		targetValue: 4,
+		targetValueMaleOrAll: 4,
 		deviation: 2,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.UK1NB} + '.Same' `),
-			greater: _(`${FrsCalculationType.UK1NB} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.UK1NB} + '.Smaller'`),
-		},
 	},
 	{
 		id: FrsCalculationType.SppASN,
@@ -334,13 +244,8 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			line2point1: FrsMarkType.S,
 			line2point2: FrsMarkType.N,
 		},
-		targetValue: 68,
+		targetValueMaleOrAll: 68,
 		deviation: 4,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.SppASN} + '.Same' `),
-			greater: _(`${FrsCalculationType.SppASN} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.SppASN} + '.Smaller'`),
-		},
 	},
 	{
 		id: FrsCalculationType.GoaPogSN,
@@ -352,13 +257,8 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			line2point1: FrsMarkType.S,
 			line2point2: FrsMarkType.N,
 		},
-		targetValue: 105,
+		targetValueMaleOrAll: 105,
 		deviation: 5,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.GoaPogSN} + '.Same' `),
-			greater: _(`${FrsCalculationType.GoaPogSN} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.GoaPogSN} + '.Smaller'`),
-		},
 	},
 	{
 		id: FrsCalculationType.SppAGoaPog,
@@ -370,13 +270,8 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			line2point1: FrsMarkType.Goa,
 			line2point2: FrsMarkType.Pog,
 		},
-		targetValue: 64,
+		targetValueMaleOrAll: 64,
 		deviation: 4,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.SppAGoaPog} + '.Same' `),
-			greater: _(`${FrsCalculationType.SppAGoaPog} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.SppAGoaPog} + '.Smaller'`),
-		},
 	},
 	{
 		id: FrsCalculationType.LsEsthetic,
@@ -386,13 +281,8 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			edge: FrsEdgeType.ProNPog2,
 			point: FrsMarkType.Ls,
 		},
-		targetValue: -4,
+		targetValueMaleOrAll: -4,
 		deviation: 2,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.LsEsthetic} + '.Same' `),
-			greater: _(`${FrsCalculationType.LsEsthetic} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.LsEsthetic} + '.Smaller'`),
-		},
 	},
 	{
 		id: FrsCalculationType.LiEsthetic,
@@ -402,12 +292,7 @@ export const frsCalculationsConfig: FrsCalculationConfigDto[] = [
 			edge: FrsEdgeType.ProNPog2,
 			point: FrsMarkType.Li,
 		},
-		targetValue: -2,
+		targetValueMaleOrAll: -2,
 		deviation: 2,
-		interpretation: <FrsInterpretation>{
-			same: _(`${FrsCalculationType.LiEsthetic} + '.Same' `),
-			greater: _(`${FrsCalculationType.LiEsthetic} + '.Greater'`),
-			smaller: _(`${FrsCalculationType.LiEsthetic} + '.Smaller'`),
-		},
 	},
 ]

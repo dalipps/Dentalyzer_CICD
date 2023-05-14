@@ -1,0 +1,70 @@
+table {
+	width: 100%;
+	display: block;
+}
+
+tr.dent-calculation-detail-row {
+	height: 0;
+}
+
+tr.dent-calculation-row:not(.dent-expanded-row):hover {
+	background: whitesmoke;
+}
+
+tr.dent-calculation-row:not(.dent-expanded-row):active {
+	background: #efefef;
+}
+
+.dent-table-column {
+	font-size: 1rem;
+	font-weight: normal;
+}
+
+.dent-calculation-expanded {
+	display: flex;
+	flex-direction: column;
+}
+
+.dent-calculation-description {
+	margin-bottom: 0.5rem;
+}
+
+.dent-target-value-female-male {
+	display: flex;
+	flex-direction: column;
+}
+
+.mat-column-calculationDescription {
+	width: 50%;
+	word-break: normal;
+}
+
+.mat-column-calculationValue {
+	width: 10%;
+	word-break: normal;
+}
+
+.mat-column-calculationTargetValue {
+	width: 40%;
+	word-break: normal;
+}
+
+.mat-column-calculationDescription {
+	width: 20%;
+	word-break: break-all;
+}
+
+.mat-column-calculationTargetValue {
+	width: 30%;
+	word-break: break-all;
+}
+
+.mat-column-calculationValue {
+	width: 25%;
+	word-break: break-all;
+}
+
+.mat-column-calculationDescription {
+	width: 45%;
+	word-break: break-all;
+}

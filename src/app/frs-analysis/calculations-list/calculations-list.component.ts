@@ -5,32 +5,25 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTableModule } from '@angular/material/table'
 import { TranslateModule } from '@ngx-translate/core'
-import { getTrainingImageUrl } from '../image'
-import { FrsMark, FrsMarkType } from '../mark'
-import { FrsMarkTrainingImagePipe } from './frs-mark-training-image.pipe'
-import { FrsMarkTypePipe } from './frs-mark-type.pipe'
-
-interface ListItem {
-	id: FrsMarkType
-	isSet: boolean
-	helperImage?: string
-}
+import { FrsCalculation } from '../calculation/frs-calculation.model'
+import { FrsCalculationTypePipe } from './frs-calculation-type.pipe'
+import { FrsCalculationUnitPipe } from './frs-calculation-unit.pipe'
 
 @Component({
-	selector: 'dent-marker-list',
+	selector: 'dent-calculations-list',
 	standalone: true,
 	imports: [
 		TranslateModule,
 		MatTableModule,
+		FrsCalculationUnitPipe,
+		FrsCalculationTypePipe,
 		MatButtonModule,
-		FrsMarkTrainingImagePipe,
 		NgFor,
 		NgIf,
-		FrsMarkTypePipe,
 		MatIconModule,
 	],
-	templateUrl: './marker-list.component.html',
-	styleUrls: ['./marker-list.component.scss'],
+	templateUrl: './calculations-list.component.html',
+	styleUrls: ['./calculations-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	animations: [
 		trigger('detailExpand', [
@@ -40,20 +33,8 @@ interface ListItem {
 		]),
 	],
 })
-export class MarkerListComponent {
-	@Input() set marks(marks: FrsMark[]) {
-		this.listItems = marks.map(
-			(m) =>
-				<ListItem>{
-					id: m.id,
-					isSet: !!m.position,
-					helperImage: getTrainingImageUrl(m.id),
-				}
-		)
-	}
-
-	listItems: ListItem[] = []
-	expandedElement: ListItem | undefined
-
-	columnsToDisplayWithExpand = ['markStatus', 'markDescription', 'markDelete']
+export class CalculationsListComponent {
+	@Input() calculations: FrsCalculation[] = []
+	columnsToDisplay = ['calculationDescription', 'calculationValue', 'calculationTargetValue']
+	expandedElement: FrsCalculation | undefined
 }

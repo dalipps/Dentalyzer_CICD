@@ -1,7 +1,7 @@
 import { inject } from '@angular/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { ResolveFn, Router } from '@angular/router'
-import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
+import { marker as t } from '@biesbjerg/ngx-translate-extract-marker'
 import { TranslateService } from '@ngx-translate/core'
 import { EMPTY, catchError, distinctUntilChanged, filter, throwError, timeout } from 'rxjs'
 import { FrsFacade } from '../store'
@@ -15,7 +15,7 @@ export const frsStoreInitResolver: ResolveFn<boolean> = () => {
 	return frsFacade.initialized$.pipe(
 		timeout({
 			each: 6_000,
-			with: () => throwError(() => new Error(translateService.instant(_('FrsStoreInitResolver.Timeout')))),
+			with: () => throwError(() => new Error(translateService.instant(t('FrsStoreInitResolver.Timeout')))),
 		}),
 		distinctUntilChanged(),
 		filter((initialized: boolean) => initialized),

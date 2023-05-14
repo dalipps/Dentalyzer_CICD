@@ -1,4 +1,9 @@
 {
+	"CalculationList": {
+		"Description": "Description",
+		"TargetValue": "Target",
+		"Value": "Value"
+	},
 	"Dialog": {
 		"No": "No",
 		"Yes": "Yes"
@@ -12,37 +17,313 @@
 		"ExistingAnalysisContent": "An existing analysis was found. Do you want to keep editing it?\n\n If not it will be permanently deleted.",
 		"ExistingAnalysisTitle": "Found existing analysis"
 	},
+	"FrsCalculationType": {
+		"ANB": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"ANBIndiv": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"ArGoMe": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"GoaPogSN": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"LiEsthetic": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"LsEsthetic": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"NSpSpMe": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"OK1NA": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"OK1SN": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"OK1SpP": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"OK1UK1": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"SGONMe": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"SNA": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"SNB": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"SNMeGo": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"SNPog": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"SNSpP": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"SpPMeGo": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"SppAGoaPog": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"SppASN": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"UK1MeGo": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"UK1NB": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		},
+		"Wits": {
+			"Abbreviation": "",
+			"Description": "",
+			"Interpretation": {
+				"Equals": "",
+				"Greater": "",
+				"Smaller": ""
+			}
+		}
+	},
+	"FrsEdgeType": {
+		"Abbreviation": {
+			"ArGo": "Ar - Go",
+			"Calibration": "C0 - C1",
+			"GoaPog2": "Goa - Pog'",
+			"InOK1ApOK1": "InUJ1 - ApUJ1",
+			"InUK1ApUK1": "InLJ1 - ApLJ1",
+			"MeGo": "Me - Go",
+			"NA": "N - A",
+			"NB": "N - B",
+			"NMe": "N - Me",
+			"NPog": "N - Pog",
+			"ProNPog2": "ProN - Pog'",
+			"SN": "S - N",
+			"SpaSpp": "Spa - Spp",
+			"SppA": "Spp - A",
+			"VPOcPHPOcP": "fPOcP - pPOcP"
+		},
+		"Name": {
+			"ArGo": "Articulare - Gonion",
+			"Calibration": "Calibration mark 0 - Calibration mark 1",
+			"GoaPog2": "Anat. Gonion - Soft tissue pogonion",
+			"InOK1ApOK1": "Incision UJ1 - Apex UJ1",
+			"InUK1ApUK1": "Incision LJ1 - Apex LJ1",
+			"MeGo": "Menton - Gonion",
+			"NA": "Nasion - A-Point",
+			"NB": "Nasion - B-Point",
+			"NMe": "Nasion - Menton",
+			"NPog": "Nasion - Pogonion",
+			"ProNPog2": "Pronasale - Soft tissue pogonion",
+			"SN": "Sella - Nasion",
+			"SpaSpp": "Spina nasalis anterior - Spina nasalis posterior",
+			"SppA": "Spina nasalis posterior - A-Point",
+			"VPOcPHPOcP": "Front point of the occlusal plane - Posterior point of the occlusal plane"
+		}
+	},
 	"FrsFacade": {
 		"Error": {
 			"HasActiveAnalysis": "An anlysis already exists"
 		}
 	},
 	"FrsMarkType": {
-		"A": "A-Point",
-		"ApOK1": "Apex UJ1",
-		"ApUK1": "Apex LJ1",
-		"Ar": "Articulare",
-		"B": "B-Point",
-		"Calibration1": "Calibration mark 1",
-		"Calibration2": "Calibration mark 2",
-		"Go": "Gonion",
-		"Goa": "Anat. Gonion",
-		"HPOcP": "Posterior point of the occlusal plane",
-		"InOK1": "Incision UJ1",
-		"InUK1": "Incision LJ1",
-		"Li": "Labrale inferius",
-		"Ls": "Labrale superius",
-		"Me": "Menton",
-		"N": "Nasion",
-		"Pog": "Pogonion",
-		"Pog2": "Soft tissue pogonion",
-		"ProN": "Pronasale",
-		"S": "Sella",
-		"Sp": "Spina plane point",
-		"Spa": "Spina nasalis anterior",
-		"Spp": "Spina nasalis posterior",
-		"Tga": "Tangent point anterior",
-		"Tgp": "Tangent point posterior",
+		"Abbreviation": {
+			"A": "A",
+			"ApOK1": "ApUJ1",
+			"ApUK1": "ApLJ1",
+			"Ar": "Ar",
+			"B": "B",
+			"Calibration1": "C0",
+			"Calibration2": "C1",
+			"Go": "Go",
+			"Goa": "Goa",
+			"HPOcP": "pPOcP",
+			"InOK1": "InUJ1",
+			"InUK1": "InLJ1",
+			"Li": "Li",
+			"Ls": "Ls",
+			"Me": "Me",
+			"N": "N",
+			"Pog": "Pog",
+			"Pog2": "Pog'",
+			"ProN": "ProN",
+			"S": "S",
+			"Sp": "Sp",
+			"Spa": "Spa",
+			"Spp": "Spp",
+			"Tga": "Tga",
+			"Tgp": "Tgp",
+			"VPOcP": "fPOcP"
+		},
+		"Name": {
+			"A": "A-Point",
+			"ApOK1": "Apex UJ1",
+			"ApUK1": "Apex LJ1",
+			"Ar": "Articulare",
+			"B": "B-Point",
+			"Calibration1": "Calibration mark 1",
+			"Calibration2": "Calibration mark 2",
+			"Go": "Gonion",
+			"Goa": "Anat. Gonion",
+			"HPOcP": "Posterior point of the occlusal plane",
+			"InOK1": "Incision UJ1",
+			"InUK1": "Incision LJ1",
+			"Li": "Labrale inferius",
+			"Ls": "Labrale superius",
+			"Me": "Menton",
+			"N": "Nasion",
+			"Pog": "Pogonion",
+			"Pog2": "Soft tissue pogonion",
+			"ProN": "Pronasale",
+			"S": "Sella",
+			"Sp": "Spina plane point",
+			"Spa": "Spina nasalis anterior",
+			"Spp": "Spina nasalis posterior",
+			"Tga": "Tangent point anterior",
+			"Tgp": "Tangent point posterior",
+			"VPOcP": "Front point of the occlusal plane"
+		},
 		"TrainingText": {
 			"A": "Most dorsally located point of the anterior contour of the maxillary alveolar process in the mid-sagittal plane",
 			"ApOK1": "Root tip of the upper central incisor",
@@ -70,8 +351,7 @@
 			"Tga": "Most caudally located point in the mandibular angle region; tangent point ( starting from Menton) to the inferior border of the horizontal mandibular ramus",
 			"Tgp": "Most dorsally located point in the mandibular angle region; tangent point (starting from Articulare) to the posterior margin of the ascending mandibular ramus",
 			"VPOcP": "(fPOcP will be set automatically when InUJ1, InLJ1 are placed) Halving the distance of incisor overbite in the final bite (Rakosi, 1988)"
-		},
-		"VPOcP": "Front point of the occlusal plane"
+		}
 	},
 	"FrsStoreInitResolver": {
 		"Timeout": "Initialization of the FRS analysis timed out. Please try again."

@@ -1,7 +1,7 @@
 import { AsyncPipe, NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, ElementRef, Injector, ViewChild } from '@angular/core'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
-import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
+import { marker as t } from '@biesbjerg/ngx-translate-extract-marker'
 import { BaseComponent, RenderingService, ThreeData } from '@dentalyzer/common'
 import {
 	BehaviorSubject,
@@ -60,10 +60,10 @@ export class FrsAnalysisComponent extends BaseComponent {
 				if (analysis && !image) {
 					const ref = dialog.open(DialogComponent, {
 						data: <DialogData>{
-							title: this.translateService.instant(_('FrsAnalysis.ExistingAnalysisTitle')),
-							content: this.translateService.instant(_('FrsAnalysis.ExistingAnalysisContent')),
-							rejectButton: this.translateService.instant(_('Dialog.No')),
-							submitButton: this.translateService.instant(_('Dialog.Yes')),
+							title: this.translateService.instant(t('FrsAnalysis.ExistingAnalysisTitle')),
+							content: this.translateService.instant(t('FrsAnalysis.ExistingAnalysisContent')),
+							rejectButton: this.translateService.instant(t('Dialog.No')),
+							submitButton: this.translateService.instant(t('Dialog.Yes')),
 							rejectAction: () => {
 								frsFacade.removeAll()
 							},

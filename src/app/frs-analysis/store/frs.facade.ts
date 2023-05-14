@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
-import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker'
+import { marker as t } from '@biesbjerg/ngx-translate-extract-marker'
 import { BaseFacade } from '@dentalyzer/common'
 import { select } from '@ngrx/store'
 import { filter, switchMap, takeUntil } from 'rxjs'
@@ -50,7 +50,7 @@ export class FrsFacade extends BaseFacade<FrsState> {
 
 	create(imageBase64: string): void {
 		if (this.hasActiveAnalysis) {
-			this.snackBar.open(_('FrsFacade.Error.HasActiveAnalysis'))
+			this.snackBar.open(t('FrsFacade.Error.HasActiveAnalysis'))
 			return
 		}
 

@@ -6,10 +6,12 @@
 	</mat-tab>
 	<mat-tab [label]="'TabMenu.Edges' | translate">
 		<ng-template matTabContent>
-			<dent-edges-list *ngIf="analysis"></dent-edges-list>
+			<dent-edges-list *ngIf="analysis" [edges]="analysis.edges"></dent-edges-list>
 		</ng-template>
 	</mat-tab>
-	<mat-tab [label]="'TabMenu.Calculations' | translate"
-		><ng-template matTabContent> Calculations goes here </ng-template>
+	<mat-tab [label]="'TabMenu.Calculations' | translate">
+		<ng-template matTabContent>
+			<dent-calculations-list *ngIf="analysis" [calculations]="analysis.calculations"></dent-calculations-list>
+		</ng-template>
 	</mat-tab>
 </mat-tab-group>

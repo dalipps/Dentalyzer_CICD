@@ -1,0 +1,81 @@
+<table mat-table [dataSource]="calculations" multiTemplateDataRows>
+	<ng-container matColumnDef="{{ columnsToDisplay[0] }}">
+		<th mat-header-cell *matHeaderCellDef>
+			{{ 'CalculationList.Description' | translate }}
+		</th>
+		<td mat-cell *matCellDef="let calculation">
+			{{ (calculation.id | frsCalculationTypeTranslation).abbreviation | translate }}
+		</td>
+	</ng-container>
+
+	<ng-container matColumnDef="{{ columnsToDisplay[1] }}">
+		<th mat-header-cell *matHeaderCellDef>{{ 'CalculationList.Value' | translate }}</th>
+		<td mat-cell *matCellDef="let calculation">
+			<ng-container *ngIf="calculation.value !== undefined">
+				{{ calculation.value }} {{ calculation.unit | frsCalculationUnit }}
+			</ng-container>
+		</td>
+	</ng-container>
+
+	<ng-container matColumnDef="{{ columnsToDisplay[2] }}">
+		<th mat-header-cell *matHeaderCellDef>
+			{{ 'CalculationList.TargetValue' | translate }}
+		</th>
+		<td mat-cell *matCellDef="let calculation">
+			<ng-container
+				*ngIf="calculation.targetValueMaleOrAll !== undefined && calculation.targetValueFemale === undefined"
+			>
+				{{ calculation.targetValueMaleOrAll }} {{ calculation.unit | frsCalculationUnit }} ±
+				{{ calculation.deviation }} {{ calculation.unit | frsCalculationUnit }}
+			</ng-container>
+			<ng-container
+				*ngIf="calculation.targetValueMaleOrAll !== undefined && calculation.targetValueFemale !== undefined"
+			>
+				<div class="dent-target-value-female-male">
+					<span>
+						M: {{ calculation.targetValueMaleOrAll }} {{ calculation.unit | frsCalculationUnit }} ±
+						{{ calculation.deviation }} {{ calculation.unit | frsCalculationUnit }}
+					</span>
+
+					<span>
+						F: {{ calculation.targetValueFemale }} {{ calculation.unit | frsCalculationUnit }} ±
+						{{ calculation.deviation }} {{ calculation.unit | frsCalculationUnit }}
+					</span>
+				</div>
+			</ng-container>
+		</td>
+	</ng-container>
+
+	<ng-container matColumnDef="expandedDetail">
+		<td mat-cell *matCellDef="let calculation" [attr.colspan]="columnsToDisplay.length">
+			<div
+				class="dent-calculation-expanded"
+				[@detailExpand]="calculation == expandedElement ? 'expanded' : 'collapsed'"
+			>
+				<p class="dent-calculation-description">
+					{{ (calculation.id | frsCalculationTypeTranslation).description | translate }}
+				</p>
+
+				<p *ngIf="(calculation.id | frsCalculationTypeTranslation).interpretation.equals | translate as equals">
+					= {{ equals }}
+				</p>
+				<p *ngIf="(calculation.id | frsCalculationTypeTranslation).interpretation.smaller | translate as smaller">
+					&lt; {{ smaller }}
+				</p>
+				<p *ngIf="(calculation.id | frsCalculationTypeTranslation).interpretation.greater | translate as greater">
+					&gt; {{ greater }}
+				</p>
+			</div>
+		</td>
+	</ng-container>
+
+	<tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+	<tr
+		mat-row
+		*matRowDef="let element; columns: columnsToDisplay"
+		class="dent-calculation-row"
+		[class.dent-expanded-row]="expandedElement === element"
+		(click)="expandedElement = expandedElement === element ? null : element"
+	></tr>
+	<tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="dent-calculation-detail-row"></tr>
+</table>
