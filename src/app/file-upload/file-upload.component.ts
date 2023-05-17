@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { TranslateModule } from '@ngx-translate/core'
-import { DndDirective } from '../common/dnd/dnd.directive'
+import { DndDirective } from './dnd/dnd.directive'
 import { FileType } from './file-type.enum'
 
 @Component({
@@ -15,19 +15,18 @@ import { FileType } from './file-type.enum'
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FileUploadComponent {
+	supportedFileTypes?: string
+
 	@Output() uploadedFiles = new EventEmitter<FileList>()
 	@Input() set acceptFileTypes(types: FileType[]) {
-		this.transformedFileTypes = this.transformFileTypes(types)
+		this.supportedFileTypes = types.join(',')
 	}
 
-	transformedFileTypes = this.transformFileTypes([FileType.JPEG])
-
 	onFileDropped(fileList: FileList): void {
-		const firstFile = fileList[0]
-		const secondFile = fileList[1]
-
-		// TODO: show error unsupported type
-		if ([firstFile, secondFile].some((file) => !this.transformedFileTypes.includes(file.type))) return
+		if (this.isSupportedFileType(fileList[0])) {
+			// TODO: show error unsupported type
+			return
+		}
 
 		this.uploadedFiles.emit(fileList)
 	}
@@ -41,7 +40,7 @@ export class FileUploadComponent {
 		document.getElementById('fileDropRef')?.click()
 	}
 
-	private transformFileTypes(fileTypes: FileType[]): string {
-		return fileTypes.join(', ')
+	private isSupportedFileType(file: File) {
+		return this.supportedFileTypes?.includes(file.type)
 	}
 }

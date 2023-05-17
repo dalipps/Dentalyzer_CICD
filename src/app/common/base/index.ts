@@ -1,4 +1,5 @@
 export * from './base.component'
 export * from './base.effect'
 export * from './base.facade'
+export * from './base.rendering.service'
 export * from './base.service'

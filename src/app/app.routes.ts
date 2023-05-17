@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router'
-import { Analysis3dComponent } from './analysis3d/analysis3d.component'
 import { FrsAnalysisComponent } from './frs-analysis'
 import { frsStoreInitResolver } from './frs-analysis/resolver/frs-store-init.resolver'
 import { HomeComponent } from './home/home.component'
+import { PkmAnalysisComponent } from './pkm-analysis/pkm-analysis.component'
 
 export const globalRoutes: Routes = [
 	{
@@ -20,7 +20,7 @@ export const globalRoutes: Routes = [
 		resolve: { init: frsStoreInitResolver },
 	},
 	{
-		path: 'anaylsis-3d',
-		component: Analysis3dComponent,
+		path: 'analysis-3d',
+		component: PkmAnalysisComponent,
 	},
 ]

@@ -2,7 +2,7 @@ import { AsyncPipe, NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, ElementRef, Injector, ViewChild } from '@angular/core'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { marker as t } from '@biesbjerg/ngx-translate-extract-marker'
-import { BaseComponent, RenderingService, ThreeData } from '@dentalyzer/common'
+import { BaseComponent } from '@dentalyzer/common'
 import {
 	BehaviorSubject,
 	EMPTY,
@@ -23,6 +23,8 @@ import { DialogComponent, DialogData } from '../dialog/dialog.component'
 import { FileUploadComponent } from '../file-upload/file-upload.component'
 import { convertImageToBase64 } from './image'
 import { getNormalizedMousePosition } from './mouse/mouse.utils'
+import { FrsRenderingService } from './rendering/frs-rendering.service'
+import { ThreeData } from './rendering/three-data.model'
 import { FrsAnalysis, FrsFacade } from './store'
 import { TabMenuComponent } from './tab-menu/tab-menu.component'
 
@@ -48,7 +50,7 @@ export class FrsAnalysisComponent extends BaseComponent {
 	private selectedMarkObject: THREE.Object3D | undefined
 
 	constructor(
-		private readonly renderingService: RenderingService,
+		private readonly renderingService: FrsRenderingService,
 		dialog: MatDialog,
 		frsFacade: FrsFacade,
 		injector: Injector
@@ -164,7 +166,7 @@ export class FrsAnalysisComponent extends BaseComponent {
 	}
 
 	override ngOnDestroy(): void {
-		this.renderingService.cancelAnimation()
+		this.renderingService.stopAnimation()
 	}
 
 	private getFirstIntersection(v2: THREE.Vector2): THREE.Vector3 | undefined {

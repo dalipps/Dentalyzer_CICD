@@ -1,17 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { PkmAnalysisComponent } from './pkm-analysis.component'
 
-import { Analysis3dComponent } from './analysis3d.component'
-
-describe('Analysis3dComponent', () => {
-	let component: Analysis3dComponent
-	let fixture: ComponentFixture<Analysis3dComponent>
+describe('PkmAnalysisComponent', () => {
+	let component: PkmAnalysisComponent
+	let fixture: ComponentFixture<PkmAnalysisComponent>
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [Analysis3dComponent],
+			imports: [PkmAnalysisComponent],
 		}).compileComponents()
 
-		fixture = TestBed.createComponent(Analysis3dComponent)
+		fixture = TestBed.createComponent(PkmAnalysisComponent)
 		component = fixture.componentInstance
 		fixture.detectChanges()
 	})
