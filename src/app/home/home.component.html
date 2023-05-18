@@ -1,12 +1,12 @@
-<div class="dent-page-content dent-home-content">
-	<div class="dent-home-title">
+<div class="page flex-col">
+	<div class="flex justify-center items-center h-3/10">
 		<h1>{{ 'Home.Welcome' | translate }}</h1>
 	</div>
-	<div class="dent-home-buttons">
-		<button mat-raised-button class="dent-home-button dent-frs-button" [routerLink]="['../frs-analysis']">
+	<div class="flex h-7/10 justify-center">
+		<button mat-raised-button class="p-20 text-xl mr-4" [routerLink]="['../frs-analysis']">
 			{{ 'Home.2d' | translate }}
 		</button>
-		<button mat-raised-button class="dent-home-button" [routerLink]="['../analysis-3d']">
+		<button mat-raised-button class="p-20 text-xl" [routerLink]="['../analysis-3d']">
 			{{ 'Home.3d' | translate }}
 		</button>
 	</div>

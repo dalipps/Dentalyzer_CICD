@@ -1,14 +1,14 @@
-<div class="dent-page-content">
-	<div id="pkmAnalysisContainer" class="dent-full-size" #pkmAnalysisContainer>
+<div class="page">
+	<div id="pkmAnalysisContainer" class="full-size" #pkmAnalysisContainer>
 		<canvas
 			id="analysisFrsCanvas"
 			#analysisFrsCanvas
 			*ngIf="pkmSubject$ | async; else showFileUpload"
-			class="dent-full-size"
+			class="full-size"
 		></canvas>
 	</div>
 	<ng-template #showFileUpload>
-		<div class="dent-file-upload-container">
+		<div class="flex-center full-size">
 			<dent-file-upload (uploadedFiles)="loadFile($event)" [acceptFileTypes]="supportedFileTypes"></dent-file-upload>
 		</div>
 	</ng-template>

@@ -10,7 +10,6 @@ import { HeaderComponent } from './header/header.component'
 	selector: 'dent-root',
 	imports: [CommonModule, RouterModule, HeaderComponent],
 	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {

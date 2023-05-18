@@ -1,57 +1,7 @@
 @use '@angular/material' as mat;
-@use 'assets/styles/color-palette' as palette;
-@use 'assets/styles/variables' as variables;
-
-@include mat.core();
-
-$Dentalyzer-primary: mat.define-palette(palette.$dent-light);
-$Dentalyzer-accent: mat.define-palette(palette.$dent-light, A200, A100, A400);
-
-$Dentalyzer-warn: mat.define-palette(palette.$dent-warn);
-
-$Dentalyzer-theme: mat.define-light-theme(
-	(
-		color: (
-			primary: $Dentalyzer-primary,
-			accent: $Dentalyzer-accent,
-			warn: $Dentalyzer-warn,
-		),
-	)
-);
-
-@include mat.all-component-themes($Dentalyzer-theme);
-
-// Custom Stylings
-
-html,
-body {
-	height: 100%;
-	font-size: 14px;
-}
-body {
-	margin: 0;
-	font-family: Roboto, 'Helvetica Neue', sans-serif;
-}
-
-p {
-	margin: 0;
-}
-
-.dent-page-content {
-	padding: 1rem;
-	box-sizing: border-box;
-	height: calc(100% - variables.$header-height);
-}
-
-.dent-analysis-canvas {
-	height: 100%;
-	width: 70%;
-}
-
-.dent-analysis-menu {
-	height: 100%;
-	width: 30%;
-	min-width: 20rem;
-	padding-left: 0.5rem;
-	padding-right: 0.5rem;
-}
+@use 'assets/styles/theme';
+@use 'assets/styles/components';
+@use 'assets/styles/utilities';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

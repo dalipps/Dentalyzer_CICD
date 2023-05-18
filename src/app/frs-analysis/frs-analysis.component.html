@@ -1,5 +1,5 @@
-<div class="dent-page-content dent-frs-content" *ngIf="{ analysis: analysis$ | async } as data">
-	<div class="dent-analysis-canvas" id="analysisFrsContainer" #analysisFrsContainer>
+<div class="page dent-frs-content" *ngIf="{ analysis: analysis$ | async } as data">
+	<div class="analysis-canvas" id="analysisFrsContainer" #analysisFrsContainer>
 		<canvas
 			*ngIf="data.analysis?.image; else showFileUpload"
 			id="analysisFrsCanvas"
@@ -17,7 +17,7 @@
 			</div>
 		</ng-template>
 	</div>
-	<div class="dent-analysis-menu">
+	<div class="analysis-sidebar">
 		<dent-tab-menu [analysis]="data.analysis ?? undefined"></dent-tab-menu>
 	</div>
 </div>

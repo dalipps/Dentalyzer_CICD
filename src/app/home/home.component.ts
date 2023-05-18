@@ -8,7 +8,6 @@ import { TranslateModule } from '@ngx-translate/core'
 	standalone: true,
 	imports: [TranslateModule, MatButtonModule, RouterModule],
 	templateUrl: './home.component.html',
-	styleUrls: ['./home.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {}

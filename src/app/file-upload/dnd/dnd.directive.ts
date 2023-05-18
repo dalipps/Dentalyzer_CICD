@@ -5,7 +5,7 @@ import { Directive, EventEmitter, HostBinding, HostListener, Output } from '@ang
 	standalone: true,
 })
 export class DndDirective {
-	@HostBinding('class.dent-file-over') fileOver = false
+	@HostBinding('class.animate-shake') fileOver = false
 	@Output() filesDropped = new EventEmitter<FileList>()
 
 	@HostListener('dragover', ['$event']) onDragOver(evt: DragEvent) {

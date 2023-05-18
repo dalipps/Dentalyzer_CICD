@@ -1,15 +1,20 @@
-<div class="dent-file-upload" dentDnd (filesDropped)="onFileDropped($event)">
+<div
+	class="flex justify-center items-center w-full h-full border-dotted border-2 border-light-contrast-D100 rounded"
+	dentDnd
+	(filesDropped)="onFileDropped($event)"
+>
 	<!-- TODO: loading spinner -->
-	<div class="dent-file-upload-content">
-		<mat-icon>publish</mat-icon>
-		<span>{{ 'FileUpload.DragAndDrop' | translate }}</span>
-		<span>{{ 'FileUpload.Or' | translate }}</span>
+	<div class="flex flex-col items-center">
+		<mat-icon class="mb-2">publish</mat-icon>
+		<span class="mb-2">{{ 'FileUpload.DragAndDrop' | translate }}</span>
+		<span class="mb-2">{{ 'FileUpload.Or' | translate }}</span>
 
-		<button mat-raised-button color="accent" (click)="openFileExplorer()">
+		<button class="mb-2" mat-raised-button color="accent" (click)="openFileExplorer()">
 			{{ 'FileUpload.SearchFiles' | translate }}
 		</button>
 
 		<input
+			class="hidden"
 			type="file"
 			#fileDropRef
 			id="fileDropRef"

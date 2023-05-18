@@ -13,7 +13,6 @@ import { BaseComponent } from 'src/app/common/base'
 	standalone: true,
 	imports: [TranslateModule, MatIconModule, MatMenuModule, MatButtonModule, MatToolbarModule],
 	templateUrl: './header.component.html',
-	styleUrls: ['./header.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent extends BaseComponent {

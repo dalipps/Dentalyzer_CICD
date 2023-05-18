@@ -1,6 +1,4 @@
 {
-	"azdoPullRequests.orgUrl": "https://dev.azure.com/oris-technologies",
-	"azdoPullRequests.projectName": "Dentalyzer",
 	"editor.formatOnSave": true,
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"[javascript]": {
@@ -10,5 +8,16 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll": true,
 		"source.organizeImports": true
-	}
+	},
+
+	"files.associations": {
+		"*.{css,scss,sass}": "tailwindcss"
+	},
+	"tailwindCSS.emmetCompletions": true,
+	"editor.inlineSuggest.enabled": true,
+	"editor.quickSuggestions": {
+		"strings": true
+	},
+	"css.validate": false,
+	"css.lint.unknownAtRules": "ignore"
 }

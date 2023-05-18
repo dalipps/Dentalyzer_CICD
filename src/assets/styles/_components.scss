@@ -1,0 +1,21 @@
+$header-height: 4rem;
+
+@layer components {
+	.page {
+		@apply p-4 box-border;
+		height: calc(100% - $header-height);
+	}
+
+	.header {
+		height: $header-height;
+		@apply flex-row justify-between;
+	}
+
+	.analysis-canvas {
+		@apply h-full w-7/10;
+	}
+
+	.analysis-sidebar {
+		@apply h-full w-3/10 min-w-20 pl-2 pr-2;
+	}
+}

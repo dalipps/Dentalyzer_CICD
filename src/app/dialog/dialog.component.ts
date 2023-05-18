@@ -16,7 +16,6 @@ export interface DialogData {
 	standalone: true,
 	imports: [MatDialogModule, MatButtonModule],
 	templateUrl: './dialog.component.html',
-	styleUrls: ['./dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogComponent {

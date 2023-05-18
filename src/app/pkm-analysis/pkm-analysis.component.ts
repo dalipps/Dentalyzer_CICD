@@ -10,7 +10,6 @@ import { PkmRenderingService } from './rendering/pkm-rendering.service'
 	selector: 'dent-pkm-analysis',
 	standalone: true,
 	templateUrl: './pkm-analysis.component.html',
-	styleUrls: ['./pkm-analysis.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [CommonModule, FileUploadComponent],
 })
