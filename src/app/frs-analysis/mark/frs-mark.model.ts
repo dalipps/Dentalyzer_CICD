@@ -1,9 +1,7 @@
-import { Vector3 } from 'three'
 import { FrsCalculationType } from '../calculation'
 import { FrsEdgeType } from '../edge/frs-edge-type.enum'
 import { FrsMarkType } from './frs-mark-type.enum'
 
-// Generated from Backend
 export interface FrsMarkConfigDto {
 	id: FrsMarkType
 	edgeTypes: FrsEdgeType[]
@@ -11,15 +9,21 @@ export interface FrsMarkConfigDto {
 	isGenerated?: boolean
 }
 
+export interface FrsPosition {
+	x: number
+	y: number
+	z: number
+}
+
 export class FrsMark implements FrsMarkConfigDto {
 	id: FrsMarkType
 	edgeTypes: FrsEdgeType[]
 	calculationTypes: FrsCalculationType[]
 	isGenerated?: boolean
-	position?: Vector3
-	isSelected?: boolean
+	position?: FrsPosition
+	isSelected: boolean
 
-	constructor(config: FrsMarkConfigDto, position?: Vector3, isSelected?: boolean) {
+	constructor(config: FrsMarkConfigDto, position?: FrsPosition, isSelected = false) {
 		this.id = config.id
 		this.edgeTypes = config.edgeTypes
 		this.calculationTypes = config.calculationTypes

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core'
 import { BaseEffects } from '@dentalyzer/common'
 import { createEffect, ofType } from '@ngrx/effects'
-import { catchError, map, of, switchMap } from 'rxjs'
+import { catchError, map, of, switchMap, tap } from 'rxjs'
 import { IndexedDbService, TABLES } from 'src/app/common/indexed-db'
+import { FrsRenderingService } from '../rendering/frs-rendering.service'
 import { FrsStoreErrorType } from './frs-store-error.enum'
-import { FrsApiActions, FrsPageActions } from './frs.actions'
+import { FrsApiActions, FrsMarkActions, FrsPageActions } from './frs.actions'
 import { FrsAnalysis } from './frs.model'
 import { FrsState } from './frs.reducer'
 
@@ -29,7 +30,27 @@ export class FrsEffects extends BaseEffects<FrsState> {
 		)
 	)
 
-	constructor(private dbService: IndexedDbService) {
+	setPositionOfMark$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(FrsMarkActions.setPositionOfMark),
+				tap((data) => {
+					this.renderingService.addMarker(data.position, data.markId, data.showLabel)
+				})
+			),
+		{ dispatch: false }
+	)
+
+	removePositionOfMark$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(FrsMarkActions.removePositionOfMark),
+				tap((data) => this.renderingService.removeMarker(data.markId))
+			),
+		{ dispatch: false }
+	)
+
+	constructor(private dbService: IndexedDbService, private renderingService: FrsRenderingService) {
 		super()
 	}
 }

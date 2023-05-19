@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { debounceTime, fromEvent, takeUntil, tap } from 'rxjs'
-import { PerspectiveCamera, Scene, WebGLRenderer } from 'three'
+import { PerspectiveCamera, Raycaster, Scene, WebGLRenderer } from 'three'
+import { DragControls } from 'three/examples/jsm/controls/DragControls'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { BaseService } from './base.service'
 
@@ -13,6 +14,8 @@ export abstract class BaseRenderingService extends BaseService {
 	protected renderer?: WebGLRenderer
 	protected orbitControls?: OrbitControls
 	protected canvas?: HTMLCanvasElement
+	protected dragControls?: DragControls
+	protected raycaster?: Raycaster
 
 	private animationFrameId?: number
 

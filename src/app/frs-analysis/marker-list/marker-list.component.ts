@@ -5,8 +5,10 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTableModule } from '@angular/material/table'
 import { TranslateModule } from '@ngx-translate/core'
+import { FrsAnalysisService } from '../frs-analysis.service'
 import { getTrainingImageUrl } from '../image'
 import { FrsMark, FrsMarkType } from '../mark'
+import { FrsFacade } from '../store'
 import { FrsMarkTrainingImagePipe } from './frs-mark-training-image.pipe'
 import { FrsMarkTypePipe } from './frs-mark-type.pipe'
 
@@ -53,7 +55,18 @@ export class MarkerListComponent {
 	}
 
 	listItems: ListItem[] = []
-	expandedElement: ListItem | undefined
+	selectedItem: ListItem | undefined
 
 	columnsToDisplayWithExpand = ['markStatus', 'markDescription', 'markDelete']
+
+	constructor(private frsService: FrsAnalysisService, private frsFacade: FrsFacade) {}
+
+	onItemClick(item: ListItem): void {
+		this.selectedItem = this.selectedItem === item ? undefined : item
+		this.frsService.setSelectedMarkId(this.selectedItem?.id)
+	}
+
+	onRemoveMark(id: FrsMarkType): void {
+		this.frsFacade.removePositionOfMark(id)
+	}
 }

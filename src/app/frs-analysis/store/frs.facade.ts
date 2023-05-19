@@ -3,14 +3,10 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { marker as t } from '@biesbjerg/ngx-translate-extract-marker'
 import { BaseFacade } from '@dentalyzer/common'
 import { select } from '@ngrx/store'
-import { filter, switchMap, takeUntil } from 'rxjs'
+import { filter, switchMap, takeUntil, tap } from 'rxjs'
 import { IndexedDbService, TABLES } from 'src/app/common/indexed-db'
-import { FrsCalculation } from '../calculation'
-import { frsCalculationsConfig, frsEdgesConfig, frsMarksConfig } from '../config'
-import { FrsEdge } from '../edge'
-import { FrsMark } from '../mark'
-import { FrsPageActions } from './frs.actions'
-import { FrsAnalysis } from './frs.model'
+import { FrsMarkType, FrsPosition } from '../mark'
+import { FrsMarkActions, FrsPageActions } from './frs.actions'
 import { FrsState } from './frs.reducer'
 import * as FrsSelectors from './frs.selectors'
 
@@ -26,6 +22,7 @@ export class FrsFacade extends BaseFacade<FrsState> {
 	)
 
 	private hasActiveAnalysis = false
+	private setMarkIds: FrsMarkType[] = []
 
 	constructor(private dbService: IndexedDbService, private snackBar: MatSnackBar) {
 		super()
@@ -35,6 +32,9 @@ export class FrsFacade extends BaseFacade<FrsState> {
 		this.active$
 			.pipe(
 				takeUntil(this.destroy$),
+				tap((analysis) => {
+					this.setMarkIds = analysis?.marks.filter((m) => m.position).map((m) => m.id) ?? []
+				}),
 				switchMap((analysis) =>
 					analysis
 						? this.dbService.addOrUpdateOne(TABLES.FRS_ANALYSIS, analysis)
@@ -54,16 +54,16 @@ export class FrsFacade extends BaseFacade<FrsState> {
 			return
 		}
 
-		let analysis = new FrsAnalysis(
-			imageBase64,
-			frsMarksConfig.map((c) => new FrsMark(c)),
-			frsEdgesConfig.map((c) => new FrsEdge(c)),
-			frsCalculationsConfig.map((c) => new FrsCalculation(c))
-		)
+		this.dispatch(FrsPageActions.create({ imageBase64 }))
+	}
 
-		analysis = JSON.parse(JSON.stringify(analysis))
+	setPositionOfMark(markId: FrsMarkType, position: FrsPosition, showLabel: boolean): void {
+		if (this.setMarkIds.includes(markId)) this.removePositionOfMark(markId)
+		this.dispatch(FrsMarkActions.setPositionOfMark({ markId, position, showLabel }))
+	}
 
-		this.dispatch(FrsPageActions.create({ analysis }))
+	removePositionOfMark(markId: FrsMarkType): void {
+		this.dispatch(FrsMarkActions.removePositionOfMark({ markId }))
 	}
 
 	removeAll(): void {

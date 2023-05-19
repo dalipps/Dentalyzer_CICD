@@ -1,5 +1,7 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http'
 import { enableProdMode, importProvidersFrom, isDevMode } from '@angular/core'
+import { MatDialogModule } from '@angular/material/dialog'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { bootstrapApplication } from '@angular/platform-browser'
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations'
 import { provideRouter } from '@angular/router'
@@ -34,7 +36,9 @@ bootstrapApplication(AppComponent, {
 					useFactory: HttpLoaderFactory,
 					deps: [HttpClient],
 				},
-			})
+			}),
+			MatDialogModule,
+			MatSnackBarModule
 		),
 		provideApp(),
 		provideStore(undefined, {

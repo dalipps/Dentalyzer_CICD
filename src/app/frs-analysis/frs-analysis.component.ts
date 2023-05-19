@@ -1,102 +1,59 @@
 import { AsyncPipe, NgIf } from '@angular/common'
-import { ChangeDetectionStrategy, Component, ElementRef, Injector, ViewChild } from '@angular/core'
-import { MatDialog, MatDialogModule } from '@angular/material/dialog'
-import { marker as t } from '@biesbjerg/ngx-translate-extract-marker'
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Injector, ViewChild } from '@angular/core'
 import { BaseComponent } from '@dentalyzer/common'
-import {
-	BehaviorSubject,
-	EMPTY,
-	Observable,
-	combineLatest,
-	debounceTime,
-	filter,
-	first,
-	fromEvent,
-	map,
-	of,
-	switchMap,
-	takeUntil,
-	tap,
-} from 'rxjs'
+import { EMPTY, Observable, debounceTime, filter, first, fromEvent, map, pairwise, takeUntil, tap } from 'rxjs'
 import * as THREE from 'three'
-import { DialogComponent, DialogData } from '../dialog/dialog.component'
 import { FileUploadComponent } from '../file-upload/file-upload.component'
-import { convertImageToBase64 } from './image'
+import { FrsAnalysisService } from './frs-analysis.service'
+import { FrsMarkType } from './mark'
 import { getNormalizedMousePosition } from './mouse/mouse.utils'
 import { FrsRenderingService } from './rendering/frs-rendering.service'
-import { ThreeData } from './rendering/three-data.model'
-import { FrsAnalysis, FrsFacade } from './store'
+import { FrsAnalysis } from './store'
 import { TabMenuComponent } from './tab-menu/tab-menu.component'
 
 @Component({
 	selector: 'dent-frs-analysis',
 	standalone: true,
-	imports: [NgIf, AsyncPipe, FileUploadComponent, MatDialogModule, TabMenuComponent],
+	imports: [NgIf, AsyncPipe, FileUploadComponent, TabMenuComponent],
 	templateUrl: './frs-analysis.component.html',
 	styleUrls: ['./frs-analysis.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FrsAnalysisComponent extends BaseComponent {
+export class FrsAnalysisComponent extends BaseComponent implements AfterViewInit {
 	@ViewChild('analysisFrsContainer', { read: ElementRef<HTMLDivElement>, static: false })
 	container: ElementRef<HTMLDivElement> | undefined
 	@ViewChild('analysisFrsCanvas', { read: ElementRef<HTMLCanvasElement>, static: false })
 	canvas: ElementRef<HTMLCanvasElement> | undefined
 
-	private imageSubject$ = new BehaviorSubject<string | undefined>(undefined)
 	analysis$: Observable<FrsAnalysis | undefined> = EMPTY
 
-	private threeData: ThreeData | undefined
-	private raycaster: THREE.Raycaster
-	private selectedMarkObject: THREE.Object3D | undefined
+	private selectedMarker: THREE.Object3D | undefined
+	private selectedMarkId: FrsMarkType | undefined
+
+	private wasFastClick = true
+	private checkFastClickTime: number | undefined
+	private readonly fastClickDetectionTime = 100
 
 	constructor(
 		private readonly renderingService: FrsRenderingService,
-		dialog: MatDialog,
-		frsFacade: FrsFacade,
+		private frsService: FrsAnalysisService,
 		injector: Injector
 	) {
 		super(injector)
 
-		this.analysis$ = combineLatest([frsFacade.active$, this.imageSubject$]).pipe(
-			switchMap(([analysis, image]) => {
-				if (analysis && !image) {
-					const ref = dialog.open(DialogComponent, {
-						data: <DialogData>{
-							title: this.translateService.instant(t('FrsAnalysis.ExistingAnalysisTitle')),
-							content: this.translateService.instant(t('FrsAnalysis.ExistingAnalysisContent')),
-							rejectButton: this.translateService.instant(t('Dialog.No')),
-							submitButton: this.translateService.instant(t('Dialog.Yes')),
-							rejectAction: () => {
-								frsFacade.removeAll()
-							},
-							submitAction: () => this.imageSubject$.next(analysis.image),
-						},
-					})
+		this.analysis$ = frsService.analysis$
 
-					return ref.afterClosed().pipe(map(() => analysis))
-				}
-
-				if (!analysis && image) {
-					frsFacade.create(image)
-					return EMPTY
-				}
-
-				return of(analysis)
-			})
-		)
-
-		combineLatest([this.imageSubject$, this.afterViewInit$])
+		frsService.selectedMarkId$
 			.pipe(
 				takeUntil(this.destroy$),
-				debounceTime(500),
-				map(([image]) => [image, this.canvas]),
-				filter((array): array is [string, ElementRef<HTMLCanvasElement>] => !!array[0] && !!array[1]),
-				switchMap(([image, canvas]) => this.renderingService.initImageRendering(canvas.nativeElement, image)),
-				tap((data) => (this.threeData = data))
+				tap((markId) => (this.selectedMarkId = markId)),
+				pairwise(),
+				tap(([oldMarkId, newMarkId]) => {
+					if (oldMarkId) this.renderingService.toggleLabelOfMark(oldMarkId, false)
+					if (newMarkId) this.renderingService.toggleLabelOfMark(newMarkId, true)
+				})
 			)
 			.subscribe()
-
-		this.raycaster = new THREE.Raycaster()
 
 		fromEvent(window, 'resize')
 			.pipe(
@@ -111,80 +68,101 @@ export class FrsAnalysisComponent extends BaseComponent {
 			.subscribe()
 	}
 
-	onUploadFiles(fileList: FileList): void {
-		convertImageToBase64(fileList[0])
+	override ngAfterViewInit(): void {
+		super.ngAfterViewInit()
+
+		this.analysis$
 			.pipe(
+				debounceTime(10),
+				filter((x) => !!x),
 				first(),
-				tap((imageBase64) => this.imageSubject$.next(imageBase64))
+				map((analysis) => [analysis, this.canvas]),
+				filter((array): array is [FrsAnalysis, ElementRef<HTMLCanvasElement>] => !!array[0] && !!array[1]),
+				tap(([analysis, canvas]) => this.renderingService.initImageRendering(canvas.nativeElement, analysis))
 			)
 			.subscribe()
 	}
 
+	onUploadFiles(fileList: FileList): void {
+		this.frsService.hanleFilesUpload(fileList)
+	}
+
 	onPointerDown(event: PointerEvent): void {
-		if (!this.canvas || !this.threeData) return
+		if (!this.canvas) return
+
+		this.startClickTest()
 
 		const mousePosition = getNormalizedMousePosition(this.canvas.nativeElement, event.clientX, event.clientY)
-		this.selectedMarkObject = this.getSelectedMark(mousePosition)
+
+		this.selectedMarker = this.frsService.checkSelectedMarker(mousePosition)
+
+		if (this.selectedMarker) {
+			const markId = this.selectedMarker.userData['markId']
+			this.renderingService.toggleLabelOfMark(markId, false)
+		}
+
+		if (this.selectedMarker) this.renderingService.toggleOrbitControls(false)
 	}
 
 	onPointerUp(event: PointerEvent): void {
-		if (!this.canvas || !this.threeData) return
+		if (!this.canvas) return
+		this.endClickTest()
 
-		if (this.selectedMarkObject) {
-			// TODO: change position of selected mark
-			this.threeData.orbitControls.enabled = true
+		if (this.selectedMarker && !this.wasFastClick) {
+			const mousePosition = getNormalizedMousePosition(this.canvas.nativeElement, event.clientX, event.clientY)
+			const markId = <FrsMarkType | undefined>this.selectedMarker.userData['markId']
+			if (markId) this.frsService.resetMarker(markId, mousePosition, this.selectedMarkId === markId)
+			this.renderingService.toggleOrbitControls(true)
+
+			this.selectedMarker = undefined
+
 			return
 		}
 
-		const mousePosition = getNormalizedMousePosition(this.canvas.nativeElement, event.clientX, event.clientY)
-		const intersection = this.getFirstIntersection(mousePosition)
-
-		if (intersection) {
-			// TODO: create mark object with userData: id should be the uuid of the select mark from the sidebar
+		if (this.wasFastClick) {
+			const mousePosition = getNormalizedMousePosition(this.canvas.nativeElement, event.clientX, event.clientY)
+			this.frsService.addMarker(mousePosition)
 		}
 
-		this.threeData.orbitControls.enabled = true
+		this.renderingService.toggleOrbitControls(true)
 	}
 
-	onPointerMove(): void {
-		if (!this.threeData) return
-		this.threeData.orbitControls.enabled = true
-	}
+	onPointerOut(event: PointerEvent): void {
+		if (!this.canvas || !this.selectedMarker) return
+		this.endClickTest()
 
-	onPointerOut(): void {
-		if (!this.threeData) return
+		const mousePosition = getNormalizedMousePosition(this.canvas.nativeElement, event.clientX, event.clientY)
+		const markId = <FrsMarkType | undefined>this.selectedMarker.userData['markId']
+		if (markId) this.frsService.resetMarker(markId, mousePosition, this.selectedMarkId === markId)
 
-		// TODO: set marker on last position
-		this.threeData.orbitControls.enabled = true
+		this.renderingService.toggleOrbitControls(true)
+		this.selectedMarker = undefined
 	}
 
 	onPointerCancel(): void {
-		if (!this.threeData) return
+		this.endClickTest()
+		this.renderingService.toggleOrbitControls(true)
+		this.selectedMarker = undefined
+	}
 
-		this.threeData.orbitControls.enabled = true
-		this.selectedMarkObject = undefined
+	onTabChanged() {
+		this.frsService.setSelectedMarkId(undefined)
 	}
 
 	override ngOnDestroy(): void {
+		super.ngOnDestroy()
 		this.renderingService.stopAnimation()
+		this.frsService.setSelectedMarkId(undefined)
 	}
 
-	private getFirstIntersection(v2: THREE.Vector2): THREE.Vector3 | undefined {
-		if (!this.threeData) return
-
-		this.raycaster.setFromCamera(v2, this.threeData.camera)
-		const intersects = this.raycaster.intersectObject(this.threeData.sprite)
-
-		// TODO: wird das benötigt
-		// intersects[0].point.z = 0;
-
-		return intersects[0]?.point
+	private startClickTest(): void {
+		this.checkFastClickTime = new Date().getTime()
 	}
 
-	private getSelectedMark(_mousePosition: THREE.Vector2): THREE.Object3D | undefined {
-		// TODO: implement
-		console.log('to be implemented', _mousePosition)
+	private endClickTest(): void {
+		if (!this.checkFastClickTime) return
 
-		return
+		this.wasFastClick = new Date().getTime() - this.checkFastClickTime < this.fastClickDetectionTime
+		this.checkFastClickTime = undefined
 	}
 }

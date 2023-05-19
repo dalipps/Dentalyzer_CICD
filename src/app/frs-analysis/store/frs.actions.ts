@@ -1,4 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store'
+import { FrsMarkType, FrsPosition } from '../mark'
 import { FrsStoreError } from './frs-store-error.model'
 import { FrsAnalysis } from './frs.model'
 
@@ -6,8 +7,17 @@ export const FrsPageActions = createActionGroup({
 	source: 'Frs Page',
 	events: {
 		Init: emptyProps(),
-		Create: props<{ analysis: FrsAnalysis }>(),
+		Create: props<{ imageBase64: string }>(),
+
 		'Remove all': emptyProps(),
+	},
+})
+
+export const FrsMarkActions = createActionGroup({
+	source: 'Frs Mark',
+	events: {
+		'Set position of mark': props<{ markId: FrsMarkType; position: FrsPosition; showLabel: boolean }>(),
+		'Remove position of mark': props<{ markId: FrsMarkType }>(),
 	},
 })
 

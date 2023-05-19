@@ -19,7 +19,7 @@ export class FrsMarkTypePipe implements PipeTransform {
 	}
 }
 
-const frsMarkTypeMapping: { [key: string]: FrsMarkTranslation } = {
+export const frsMarkTypeMapping: { [key: string]: FrsMarkTranslation } = {
 	[FrsMarkType.S]: {
 		abbreviation: t('FrsMarkType.Abbreviation.S'),
 		name: t('FrsMarkType.Name.S'),

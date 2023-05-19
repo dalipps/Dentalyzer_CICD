@@ -1,4 +1,4 @@
-<mat-tab-group class="dent-tab-group" animationDuration="0ms">
+<mat-tab-group class="w-full" animationDuration="0ms" (selectedTabChange)="onSelectedTabChange($event)">
 	<mat-tab [label]="'TabMenu.Marker' | translate">
 		<ng-template matTabContent>
 			<dent-marker-list *ngIf="analysis" [marks]="analysis.marks"></dent-marker-list>

@@ -13,8 +13,8 @@ export abstract class BaseComponent extends Destroy implements AfterViewInit {
 	private afterViewInitSubject$ = new BehaviorSubject(false)
 	translateService: TranslateService
 
-	isLoading$: Observable<boolean>
 	afterViewInit$ = this.afterViewInitSubject$.asObservable()
+	isLoading$: Observable<boolean>
 
 	constructor(injector: Injector) {
 		super()
