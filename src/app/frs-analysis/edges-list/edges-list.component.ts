@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatTableModule } from '@angular/material/table'
 import { TranslateModule } from '@ngx-translate/core'
 import { FrsEdge } from '../edge/frs-edge.model'
+import { FrsFacade } from '../store'
 import { FrsEdgeTypePipe } from './frs-edge-type.pipe'
 
 @Component({
@@ -18,4 +19,10 @@ import { FrsEdgeTypePipe } from './frs-edge-type.pipe'
 export class EdgesListComponent {
 	@Input() edges: FrsEdge[] = []
 	columnsToDisplay = ['edgeDescription', 'edgeIsVisible']
+
+	constructor(private frsFacade: FrsFacade) {}
+
+	toggleVisibility(edge: FrsEdge) {
+		this.frsFacade.setEdgeVisibility(edge.id, !edge.isVisible)
+	}
 }

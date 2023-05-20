@@ -99,6 +99,15 @@ export class FrsAnalysisComponent extends BaseComponent implements AfterViewInit
 		if (this.selectedMarker) {
 			const markId = this.selectedMarker.userData['markId']
 			this.renderingService.toggleLabelOfMark(markId, false)
+			this.frsService
+				.getMarkForMarker(markId)
+				.pipe(
+					first(),
+					tap((mark) => {
+						if (mark) this.renderingService.toggleEdges(mark.edgeTypes, false)
+					})
+				)
+				.subscribe()
 		}
 
 		if (this.selectedMarker) this.renderingService.toggleOrbitControls(false)

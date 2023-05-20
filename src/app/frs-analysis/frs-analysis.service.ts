@@ -2,12 +2,24 @@ import { Injectable } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { marker as t } from '@biesbjerg/ngx-translate-extract-marker'
 import { TranslateService } from '@ngx-translate/core'
-import { BehaviorSubject, EMPTY, Observable, combineLatest, filter, first, map, of, share, switchMap, tap } from 'rxjs'
+import {
+	BehaviorSubject,
+	EMPTY,
+	Observable,
+	combineLatest,
+	filter,
+	first,
+	map,
+	of,
+	shareReplay,
+	switchMap,
+	tap,
+} from 'rxjs'
 import * as THREE from 'three'
 import { BaseService } from '../common/base'
 import { DialogComponent, DialogData } from '../dialog/dialog.component'
 import { convertImageToBase64 } from './image'
-import { FrsMarkType } from './mark'
+import { FrsMark, FrsMarkType } from './mark'
 import { FrsRenderingService } from './rendering/frs-rendering.service'
 import { ObjectType } from './rendering/marker.model'
 import { FrsAnalysis, FrsFacade } from './store'
@@ -50,6 +62,7 @@ export class FrsAnalysisService extends BaseService {
 		const model = this.renderingService.getSceneChild(ObjectType.Model)
 		const intersection = model ? this.renderingService.getFirstIntersection(mousePosition, model) : undefined
 		if (!intersection) return
+		intersection.z += 1
 
 		this.frsFacade.setPositionOfMark(this.selectedMarkIdSubject$.value, intersection, true)
 	}
@@ -67,6 +80,10 @@ export class FrsAnalysisService extends BaseService {
 	checkSelectedMarker(mousePosition: THREE.Vector2): THREE.Object3D | undefined {
 		const allMarkers = this.renderingService.getSceneChildren(ObjectType.Marker)
 		return allMarkers?.find((m) => this.renderingService.getFirstIntersection(mousePosition, m))
+	}
+
+	getMarkForMarker(markId: FrsMarkType): Observable<FrsMark | undefined> {
+		return this.analysis$.pipe(map((a) => a?.marks.find((m) => m.id === markId)))
 	}
 
 	private openExistingAnalysisDialog(): Observable<boolean> {
@@ -90,7 +107,7 @@ export class FrsAnalysisService extends BaseService {
 				if (analysis) return this.openExistingAnalysisDialog()
 				return of(true)
 			}),
-			share()
+			shareReplay(1)
 		)
 
 		this.analysis$ = combineLatest([existingAnalysisChecked$, this.frsFacade.active$]).pipe(

@@ -5,8 +5,9 @@ import { BaseFacade } from '@dentalyzer/common'
 import { select } from '@ngrx/store'
 import { filter, switchMap, takeUntil, tap } from 'rxjs'
 import { IndexedDbService, TABLES } from 'src/app/common/indexed-db'
+import { FrsEdgeType } from '../edge'
 import { FrsMarkType, FrsPosition } from '../mark'
-import { FrsMarkActions, FrsPageActions } from './frs.actions'
+import { FrsEdgeActions, FrsMarkActions, FrsPageActions } from './frs.actions'
 import { FrsState } from './frs.reducer'
 import * as FrsSelectors from './frs.selectors'
 
@@ -64,6 +65,10 @@ export class FrsFacade extends BaseFacade<FrsState> {
 
 	removePositionOfMark(markId: FrsMarkType): void {
 		this.dispatch(FrsMarkActions.removePositionOfMark({ markId }))
+	}
+
+	setEdgeVisibility(edgeId: FrsEdgeType, isVisible: boolean): void {
+		this.dispatch(FrsEdgeActions.setEdgeVisibility({ edgeId, isVisible }))
 	}
 
 	removeAll(): void {

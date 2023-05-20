@@ -19,11 +19,13 @@ import {
 } from 'three'
 import { DragControls } from 'three/examples/jsm/controls/DragControls'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import { FrsMarkType, FrsPosition } from '../mark'
+import { FrsEdge, FrsEdgePositionMap, FrsEdgeType } from '../edge'
+import { getEdge } from '../edge/edge.utils'
+import { FrsMark, FrsMarkType, FrsPosition } from '../mark'
 import { frsMarkTypeMapping } from '../marker-list/frs-mark-type.pipe'
 import { FrsAnalysis } from '../store'
 import { ObjectType } from './marker.model'
-import { getLabel, getMarkerMesh } from './marker.utils'
+import { getLabel, getMarker } from './marker.utils'
 
 interface HoverEvent {
 	object: Object3D
@@ -99,8 +101,49 @@ export class FrsRenderingService extends BaseRenderingService {
 	}
 
 	addMarker(position: FrsPosition, markId: FrsMarkType, showLabel: boolean): void {
-		this.addMarkMeshToScene(position, markId, showLabel)
+		const markerMesh = getMarker(markId, position)
+
+		const labelText = this.translateService.instant(frsMarkTypeMapping[markId].abbreviation)
+		const label = getLabel(labelText, markId, position)
+
+		if (label) label.visible = showLabel
+
+		this.scene?.add(markerMesh)
+		if (label) this.scene?.add(label)
+
 		this.addDragControls()
+	}
+
+	recalculateEdges(edges: FrsEdge[], allMarks: FrsMark[]): FrsEdgePositionMap[] {
+		const allSetMarkers = allMarks.filter((m) => m.position)
+		const setEdges: FrsEdgePositionMap[] = []
+
+		this.removeEdges(edges.map((e) => e.id))
+
+		edges.forEach((e) => {
+			const mark1 = allSetMarkers.find((m) => m.id === e.markType1 && m.position)
+			const mark2 = allSetMarkers.find((m) => m.id === e.markType2 && m.position)
+			if (!mark1 || !mark2) return
+
+			const line = getEdge(e, mark1, mark2)
+			if (line) {
+				line.visible = e.isVisible !== false
+
+				const direction = this.calculateDirection(mark1, mark2)
+				if (direction) setEdges.push({ edgeId: e.id, direction })
+
+				this.scene?.add(line)
+			}
+		})
+
+		return setEdges
+	}
+
+	toggleEdges(edgeIds: FrsEdgeType[], isVisible: boolean) {
+		edgeIds.forEach((edgeId) => {
+			const edge = this.getSceneChild(ObjectType.Edge, undefined, edgeId)
+			if (edge) edge.visible = isVisible
+		})
 	}
 
 	toggleLabelOfMark(markId: FrsMarkType, isVisible: boolean) {
@@ -119,9 +162,9 @@ export class FrsRenderingService extends BaseRenderingService {
 		this.removeLabel(markId)
 	}
 
-	getSceneChild(objectType: ObjectType, markId?: FrsMarkType): THREE.Object3D | undefined {
+	getSceneChild(objectType: ObjectType, markId?: FrsMarkType, edgeId?: FrsEdgeType): THREE.Object3D | undefined {
 		return this.scene?.children
-			.filter((m) => (markId ? markId === m.userData['markId'] : true))
+			.filter((m) => (markId ? markId === m.userData['markId'] : edgeId ? m.userData['edgeId'] === edgeId : true))
 			.find((m) => m.userData['objectType'] === objectType)
 	}
 
@@ -141,6 +184,25 @@ export class FrsRenderingService extends BaseRenderingService {
 
 		this.addHoverOnListener(this.dragControls)
 		this.addHoverOffListener(this.dragControls)
+	}
+
+	private removeEdges(edgeIds: FrsEdgeType[]) {
+		this.getSceneChildren(ObjectType.Edge)
+			?.filter((o) => {
+				const edgeId = <FrsEdgeType | undefined>o.userData['edgeId']
+				return edgeId && edgeIds.includes(edgeId)
+			})
+			.forEach((e) => this.scene?.remove(e))
+	}
+
+	private calculateDirection(mark1: FrsMark, mark2: FrsMark): Vector3 | undefined {
+		if (!mark1.position || !mark2.position) return
+
+		return new Vector3(
+			mark2.position.x - mark1.position.x,
+			mark2.position.y - mark1.position.y,
+			mark2.position.z - mark1.position.z
+		)
 	}
 
 	private addHoverOnListener(dragControls: DragControls) {
@@ -204,21 +266,10 @@ export class FrsRenderingService extends BaseRenderingService {
 			.filter((m) => !!m.position)
 			.forEach((m) => {
 				if (!m.position) return
-				this.addMarkMeshToScene(m.position, m.id, false)
-				this.addDragControls()
+				this.addMarker(m.position, m.id, false)
 			})
-	}
 
-	private addMarkMeshToScene(position: FrsPosition, markId: FrsMarkType, showLabel: boolean) {
-		const markerMesh = getMarkerMesh(markId, position)
-
-		const labelText = this.translateService.instant(frsMarkTypeMapping[markId].abbreviation)
-		const label = getLabel(labelText, markId, position)
-
-		if (label) label.visible = showLabel
-
-		this.scene?.add(markerMesh)
-		if (label) this.scene?.add(label)
+		this.recalculateEdges(analysis.edges, analysis.marks)
 	}
 
 	private initSprite(frsTexture: Texture) {
