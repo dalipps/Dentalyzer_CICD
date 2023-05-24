@@ -2,6 +2,8 @@
 @use 'assets/styles/theme';
 @use 'assets/styles/components';
 @use 'assets/styles/utilities';
+@use 'assets/styles/base';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

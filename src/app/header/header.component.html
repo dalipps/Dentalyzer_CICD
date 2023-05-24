@@ -12,6 +12,9 @@
 			<mat-icon>language</mat-icon>
 			<span>{{ 'Header.Menu.Language' | translate }}</span>
 		</button>
+		<button mat-menu-item (click)="logout()">
+			<mat-icon>exit_to_app</mat-icon> <span>{{ 'Header.Menu.Logout' | translate }}</span>
+		</button>
 	</mat-menu>
 	<mat-menu #languages="matMenu">
 		<button mat-menu-item (click)="setLanguage(language.German)">

@@ -7,6 +7,7 @@ import { Router } from '@angular/router'
 import { Language, LanguageService } from '@dentalyzer/common'
 import { TranslateModule } from '@ngx-translate/core'
 import { BaseComponent } from 'src/app/common/base'
+import { AccountService } from '../login/account/account.service'
 
 @Component({
 	selector: 'dent-header',
@@ -18,7 +19,12 @@ import { BaseComponent } from 'src/app/common/base'
 export class HeaderComponent extends BaseComponent {
 	language = Language
 
-	constructor(private router: Router, private languageService: LanguageService, injector: Injector) {
+	constructor(
+		private router: Router,
+		private languageService: LanguageService,
+		private accountService: AccountService,
+		injector: Injector
+	) {
 		super(injector)
 	}
 
@@ -29,5 +35,10 @@ export class HeaderComponent extends BaseComponent {
 	setLanguage(newLanguage: Language): void {
 		this.translateService.use(newLanguage)
 		this.languageService.saveLanguage(newLanguage)
+	}
+
+	logout() {
+		this.accountService.logout()
+		this.router.navigateByUrl('/login')
 	}
 }

@@ -25,8 +25,8 @@ export abstract class BaseRenderingService extends BaseService {
 		this.onWindowResize().pipe(takeUntil(this.destroy$)).subscribe()
 	}
 
-	startAnimation() {
-		const animate = () => {
+	startAnimation(): void {
+		const animate = (): void => {
 			this.animationFrameId = requestAnimationFrame(animate)
 			if (this.renderer && this.scene && this.orbitControls && this.camera) {
 				this.orbitControls.update()

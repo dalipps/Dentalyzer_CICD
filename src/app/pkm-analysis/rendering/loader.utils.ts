@@ -1,5 +1,5 @@
-import { fromEvent, map } from 'rxjs'
-import { Mesh, MeshPhongMaterial } from 'three'
+import { Observable, fromEvent, map } from 'rxjs'
+import { BufferGeometry, Mesh, MeshPhongMaterial } from 'three'
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader'
 
 const pkmMaterial = {
@@ -8,7 +8,7 @@ const pkmMaterial = {
 	transparent: true,
 }
 
-export function loadPkmFromFile(file: File) {
+export function loadPkmFromFile(file: File): Observable<Mesh<BufferGeometry, MeshPhongMaterial>> {
 	const reader = new FileReader()
 	const loader = new STLLoader()
 	reader.readAsArrayBuffer(file)

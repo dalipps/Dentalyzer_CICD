@@ -360,7 +360,8 @@
 		"Menu": {
 			"English": "Englisch",
 			"German": "Deutsch",
-			"Language": "Sprache"
+			"Language": "Sprache",
+			"Logout": "Ausloggen"
 		}
 	},
 	"Home": {
@@ -372,5 +373,24 @@
 		"Calculations": "Berechnungen",
 		"Edges": "Ebenen",
 		"Marker": "Punkte"
+	},
+	"Login": {
+		"Title": "Einloggen",
+		"Subtitle": "Willkommen bei Dentalyzer",
+		"Username": {
+			"Label": "Username",
+			"Error": {
+				"Required": "Geben Sie ein Usernamen ein."
+			}
+		},
+		"Password": {
+			"Label": "Passwort",
+			"Error": {
+				"Required": "Geben Sie ein Passwort ein.",
+				"Length": "Das angegebene Passwort muss aus mindestens {{minLength}} Zeichen bestehen.",
+				"Authenticate": "Das angegebene Passwort ist nicht korrekt."
+			}
+		},
+		"Submit": "Einloggen"
 	}
 }

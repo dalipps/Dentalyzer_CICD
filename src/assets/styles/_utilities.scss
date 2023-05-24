@@ -1,9 +1,9 @@
 @layer utilities {
 	.full-size {
-		@apply h-full w-full;
+		@apply h-full w-full #{!important};
 	}
 
 	.flex-center {
-		@apply flex items-center justify-center;
+		@apply flex items-center justify-center #{!important};
 	}
 }

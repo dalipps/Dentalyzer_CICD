@@ -1,12 +1,12 @@
 <div class="page flex-col">
-	<div class="flex justify-center items-center h-3/10">
+	<div class="flex-center h-3/10">
 		<h1>{{ 'Home.Welcome' | translate }}</h1>
 	</div>
 	<div class="flex h-7/10 justify-center">
-		<button mat-raised-button class="p-20 text-xl mr-4" [routerLink]="['../frs-analysis']">
+		<button mat-raised-button class="p-20 text-xl mr-4" [routerLink]="[frsAnalysisPath]">
 			{{ 'Home.2d' | translate }}
 		</button>
-		<button mat-raised-button class="p-20 text-xl" [routerLink]="['../analysis-3d']">
+		<button mat-raised-button class="p-20 text-xl" [routerLink]="[pkmAnalysisPath]">
 			{{ 'Home.3d' | translate }}
 		</button>
 	</div>

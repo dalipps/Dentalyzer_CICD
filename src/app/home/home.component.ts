@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { RouterModule } from '@angular/router'
 import { TranslateModule } from '@ngx-translate/core'
+import { Path } from '../app.routes'
 
 @Component({
 	selector: 'dent-home',
@@ -10,4 +11,7 @@ import { TranslateModule } from '@ngx-translate/core'
 	templateUrl: './home.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent {}
+export class HomeComponent {
+	readonly frsAnalysisPath = `/${Path.FrsAnalysis}`
+	readonly pkmAnalysisPath = `/${Path.PkmAnalysis}`
+}

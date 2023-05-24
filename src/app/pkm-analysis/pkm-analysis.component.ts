@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { ChangeDetectionStrategy, Component, ElementRef, Injector, ViewChild } from '@angular/core'
-import { BehaviorSubject, combineLatest, debounceTime, takeUntil, tap } from 'rxjs'
+import { BehaviorSubject, Observable, combineLatest, debounceTime, takeUntil, tap } from 'rxjs'
 import { BaseComponent } from '../common/base'
 import { FileType } from '../file-upload'
 import { FileUploadComponent } from '../file-upload/file-upload.component'
@@ -37,17 +37,17 @@ export class PkmAnalysisComponent extends BaseComponent {
 			.subscribe()
 	}
 
-	override ngAfterViewInit() {
+	override ngAfterViewInit(): void {
 		this.onFileLoaded().pipe(takeUntil(this.destroy$)).subscribe()
 	}
 
-	onFileLoaded() {
+	onFileLoaded(): Observable<File | undefined> {
 		return this.pkmSubject$.pipe(
 			tap((pkm) => this.canvas && pkm && this.renderingService.render(this.canvas.nativeElement, pkm))
 		)
 	}
 
-	loadFile(files: FileList) {
+	loadFile(files: FileList): void {
 		this.pkmSubject$.next(files[0])
 	}
 }

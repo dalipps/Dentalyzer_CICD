@@ -15,7 +15,7 @@ export class PkmRenderingService extends BaseRenderingService {
 		super()
 	}
 
-	render(canvas: HTMLCanvasElement, file: File) {
+	render(canvas: HTMLCanvasElement, file: File): void {
 		loadPkmFromFile(file)
 			.pipe(
 				first(),
@@ -27,7 +27,7 @@ export class PkmRenderingService extends BaseRenderingService {
 			.subscribe()
 	}
 
-	private initAnimation(canvas: HTMLCanvasElement, pkm: Object3D) {
+	private initAnimation(canvas: HTMLCanvasElement, pkm: Object3D): void {
 		const { offsetWidth, offsetHeight } = canvas
 
 		this.canvas = canvas
