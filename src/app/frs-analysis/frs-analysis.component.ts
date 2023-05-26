@@ -26,6 +26,7 @@ export class FrsAnalysisComponent extends BaseComponent implements AfterViewInit
 	canvas: ElementRef<HTMLCanvasElement> | undefined
 
 	analysis$: Observable<FrsAnalysis | undefined> = EMPTY
+	selectedMarkId$: Observable<FrsMarkType | undefined> = EMPTY
 
 	private selectedMarker: THREE.Object3D | undefined
 	private selectedMarkId: FrsMarkType | undefined
@@ -43,17 +44,15 @@ export class FrsAnalysisComponent extends BaseComponent implements AfterViewInit
 
 		this.analysis$ = frsService.analysis$
 
-		frsService.selectedMarkId$
-			.pipe(
-				takeUntil(this.destroy$),
-				tap((markId) => (this.selectedMarkId = markId)),
-				pairwise(),
-				tap(([oldMarkId, newMarkId]) => {
-					if (oldMarkId) this.renderingService.toggleLabelOfMark(oldMarkId, false)
-					if (newMarkId) this.renderingService.toggleLabelOfMark(newMarkId, true)
-				})
-			)
-			.subscribe()
+		this.selectedMarkId$ = frsService.selectedMarkId$.pipe(
+			tap((markId) => (this.selectedMarkId = markId)),
+			pairwise(),
+			tap(([oldMarkId, newMarkId]) => {
+				if (oldMarkId) this.renderingService.toggleLabelOfMark(oldMarkId, false)
+				if (newMarkId) this.renderingService.toggleLabelOfMark(newMarkId, true)
+			}),
+			map(([, newMarkId]) => newMarkId)
+		)
 
 		fromEvent(window, 'resize')
 			.pipe(
@@ -122,6 +121,8 @@ export class FrsAnalysisComponent extends BaseComponent implements AfterViewInit
 			const markId = <FrsMarkType | undefined>this.selectedMarker.userData['markId']
 			if (markId) this.frsService.resetMarker(markId, mousePosition, this.selectedMarkId === markId)
 			this.renderingService.toggleOrbitControls(true)
+
+			this.frsService.setSelectedMarkId(markId)
 
 			this.selectedMarker = undefined
 

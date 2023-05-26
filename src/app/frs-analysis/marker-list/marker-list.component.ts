@@ -54,6 +54,10 @@ export class MarkerListComponent {
 		)
 	}
 
+	@Input() set selectedMarkId(markId: FrsMarkType | undefined) {
+		this.selectedItem = this.listItems.find((i) => i.id === markId)
+	}
+
 	listItems: ListItem[] = []
 	selectedItem: ListItem | undefined
 

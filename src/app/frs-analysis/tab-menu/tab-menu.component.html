@@ -1,7 +1,7 @@
 <mat-tab-group class="w-full" animationDuration="0ms" (selectedTabChange)="onSelectedTabChange($event)">
 	<mat-tab [label]="'TabMenu.Marker' | translate">
 		<ng-template matTabContent>
-			<dent-marker-list *ngIf="analysis" [marks]="analysis.marks"></dent-marker-list>
+			<dent-marker-list *ngIf="analysis" [marks]="analysis.marks" [selectedMarkId]="selectedMarkId"></dent-marker-list>
 		</ng-template>
 	</mat-tab>
 	<mat-tab [label]="'TabMenu.Edges' | translate">
