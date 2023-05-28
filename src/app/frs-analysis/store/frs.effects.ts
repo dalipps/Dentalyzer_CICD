@@ -186,6 +186,8 @@ export class FrsEffects extends BaseEffects<FrsState> {
 					})
 				)
 			})
+
+			return returnActions
 		}
 		return
 	}
