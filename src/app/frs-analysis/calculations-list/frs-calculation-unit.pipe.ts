@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core'
-import { FrsCalculationUnit } from '../calculation/frs-calculation-unit.enum'
+import { FrsCalculationUnit } from '../calculation'
 
 @Pipe({
 	name: 'frsCalculationUnit',

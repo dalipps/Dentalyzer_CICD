@@ -16,6 +16,7 @@ interface ListItem {
 	id: FrsMarkType
 	isSet: boolean
 	helperImage?: string
+	isGenerated?: boolean
 }
 
 @Component({
@@ -50,6 +51,7 @@ export class MarkerListComponent {
 					id: m.id,
 					isSet: !!m.position,
 					helperImage: getTrainingImageUrl(m.id),
+					isGenerated: !!m.generationData,
 				}
 		)
 	}
@@ -67,7 +69,8 @@ export class MarkerListComponent {
 
 	onItemClick(item: ListItem): void {
 		this.selectedItem = this.selectedItem === item ? undefined : item
-		this.frsService.setSelectedMarkId(this.selectedItem?.id)
+
+		this.frsService.setSelectedMarkId(this.selectedItem?.isGenerated ? undefined : this.selectedItem?.id)
 	}
 
 	onRemoveMark(id: FrsMarkType): void {

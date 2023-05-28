@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core'
 import { marker as t } from '@biesbjerg/ngx-translate-extract-marker'
-import { FrsCalculationType } from '../calculation/frs-calculation-type.enum'
+import { FrsCalculationType } from '../calculation'
 
 export interface FrsInterpretation {
 	equals: string

@@ -1,7 +1,8 @@
 import { cloneDeep } from 'lodash-es'
 import { BufferGeometry, Line, LineBasicMaterial, Vector3 } from 'three'
+import { calculateDirection } from '../calculation'
 import { FrsMark } from '../mark'
-import { ObjectType } from '../rendering/marker.model'
+import { ObjectType } from '../rendering'
 import { FrsAnalysis } from '../store'
 import { FrsEdgeType } from './frs-edge-type.enum'
 import { FrsEdge, FrsEdgePositionMap } from './frs-edge.model'
@@ -60,4 +61,18 @@ export function setEdgeVisibility(analysis: FrsAnalysis, edgeId: FrsEdgeType, is
 	if (edge) edge.isVisible = isVisible
 
 	return clonedAnalysis
+}
+
+export function checkChangedEges(edges: FrsEdge[], allMarks: FrsMark[]): FrsEdgePositionMap[] {
+	const allSetMarkers = allMarks.filter((m) => m.position)
+	const changedEdges: FrsEdgePositionMap[] = []
+
+	edges.forEach((e) => {
+		const mark1 = allSetMarkers.find((m) => m.id === e.markType1 && m.position)
+		const mark2 = allSetMarkers.find((m) => m.id === e.markType2 && m.position)
+		const direction = calculateDirection(mark1, mark2)
+		if (direction !== e.direction) changedEdges.push({ edgeId: e.id, direction })
+	})
+
+	return changedEdges
 }

@@ -1,19 +1,16 @@
 import { cloneDeep } from 'lodash-es'
 import { Line3, Vector3 } from 'three'
-import { FrsEdge } from '../edge'
-import { FrsMark, FrsMarkType } from '../mark'
+import { FrsMark, FrsMarkType, getVectorFromPosition } from '../mark'
 import { FrsAnalysis } from '../store'
+import { checkAngleCalculation } from './angle-calculation.utils'
+import { checkAngleMultiplicationTarget } from './angle-multiplication-calculation.utils'
+import { checkAngleSum } from './angle-sum-calculation.utils'
+import { checkDistance } from './distance-calculation.utils'
 import { FrsCalculationDataType as DataType } from './frs-calculation-data-type.enum'
 import { FrsCalculationType } from './frs-calculation-type.enum'
-import {
-	FrsAngleCalculation,
-	FrsAngleMultiplicationCalculation,
-	FrsAngleSumCalculation,
-	FrsCalculation,
-	FrsDistanceCalculation,
-	FrsIntersectionDistanceCalculation,
-	FrsQuotientCalculation,
-} from './frs-calculation.model'
+import { FrsAngleMultiplicationCalculation } from './frs-calculation.model'
+import { checkIntersectionDistance } from './intersection-distance-calculation.utils'
+import { checkQuotient } from './quotient-calculation.utils'
 
 export function recalculate(analysis: FrsAnalysis, changedMarkId?: FrsMarkType): FrsAnalysis {
 	const clonedAnalysis = cloneDeep(analysis)
@@ -74,194 +71,65 @@ export function recalculate(analysis: FrsAnalysis, changedMarkId?: FrsMarkType):
 	return clonedAnalysis
 }
 
-export function checkAngleCalculation(
-	calculationData: FrsAngleCalculation,
-	edges: FrsEdge[],
-	mark?: FrsMark,
-	initialValue?: number
-): number | undefined {
-	if (!mark || mark.edgeTypes.includes(calculationData.edge1) || mark.edgeTypes.includes(calculationData.edge2)) {
-		const edge1 = edges.find((e) => e.id === calculationData.edge1)
-		const edge2 = edges.find((e) => e.id === calculationData.edge2)
-		if (edge1 && edge2) {
-			return calculateAngle(edge1, edge2, calculationData.isLeft)
-		}
+export function getHalfCutting(mark1: FrsMark, mark2: FrsMark): Vector3 | undefined {
+	const v1 = getVectorFromPosition(mark1.position)
+	const v2 = getVectorFromPosition(mark2.position)
+	if (!v1 || !v2) return
+
+	return new Vector3().subVectors(v2, v1).multiplyScalar(0.5).add(v1)
+}
+
+// Inspired by https://jsfiddle.net/justin_c_rounds/Gd2S2/light/
+export function getIntersectionBetweenEdges(
+	edge1mark1: FrsMark,
+	edge1mark2: FrsMark,
+	edge2mark1: FrsMark,
+	edge2mark2: FrsMark
+): Vector3 | undefined {
+	const edge1point1 = getVectorFromPosition(edge1mark1.position)
+	const edge1point2 = getVectorFromPosition(edge1mark2.position)
+	const edge2point1 = getVectorFromPosition(edge2mark1.position)
+	const edge2point2 = getVectorFromPosition(edge2mark2.position)
+
+	if (!edge1point1 || !edge1point2 || !edge2point1 || !edge2point2) return
+	return getIntersectionOfEdgePoints(edge1point1, edge1point2, edge2point1, edge2point2)
+}
+
+export function getIntersectionOfEdgePoints(
+	edge1point1: Vector3,
+	edge1point2: Vector3,
+	edge2point1: Vector3,
+	edge2point2: Vector3
+): Vector3 | undefined {
+	const line1StartX = edge1point1.x
+	const line1StartY = edge1point1.y
+	const line1EndX = edge1point2.x
+	const line1EndY = edge1point2.y
+	const line2StartX = edge2point1.x
+	const line2StartY = edge2point1.y
+	const line2EndX = edge2point2.x
+	const line2EndY = edge2point2.y
+
+	const denominator =
+		(line2EndY - line2StartY) * (line1EndX - line1StartX) - (line2EndX - line2StartX) * (line1EndY - line1StartY)
+	if (denominator == 0) {
+		return
 	}
+	const startHelperY = line1StartY - line2StartY
+	const startHelperX = line1StartX - line2StartX
+	const numerator1 = (line2EndX - line2StartX) * startHelperY - (line2EndY - line2StartY) * startHelperX
+	const quotient = numerator1 / denominator
 
-	return initialValue
+	const result = new Vector3()
+
+	result.x = line1StartX + quotient * (line1EndX - line1StartX)
+	result.y = line1StartY + quotient * (line1EndY - line1StartY)
+	result.z = 0
+
+	return result
 }
 
-export function checkIntersectionDistance(
-	calculationData: FrsIntersectionDistanceCalculation,
-	edges: FrsEdge[],
-	marks: FrsMark[],
-	mark?: FrsMark,
-	initialValue?: number
-): number | undefined {
-	if (
-		!mark ||
-		mark.edgeTypes.includes(calculationData.edge) ||
-		mark.id === calculationData.point1 ||
-		mark.id === calculationData.point2
-	) {
-		const edge = edges.find((e) => e.id === calculationData.edge)
-		const point1 = marks.find((m) => m.id === calculationData.point1)
-		const point2 = marks.find((m) => m.id === calculationData.point2)
-		if (edge && point1 && point2) {
-			return calculateIntersectionDistance(edge, point1, point2, marks)
-		}
-	}
-
-	return initialValue
-}
-
-export function checkDistance(
-	calculationData: FrsDistanceCalculation,
-	edges: FrsEdge[],
-	marks: FrsMark[],
-	mark?: FrsMark,
-	initialValue?: number
-): number | undefined {
-	if (!mark || mark.edgeTypes.includes(calculationData.edge) || mark.id === calculationData.point) {
-		const edge = edges.find((e) => e.id === calculationData.edge)
-		const point = marks.find((m) => m.id === calculationData.point)
-		if (edge && point) {
-			return calculateDistance(edge, point, marks)
-		}
-	}
-
-	return initialValue
-}
-
-export function checkQuotient(
-	calculationData: FrsQuotientCalculation,
-	marks: FrsMark[],
-	mark?: FrsMark,
-	mmPerPixel?: number,
-	initialValue?: number
-): number | undefined {
-	// TODO: David show message toast
-	if (!mmPerPixel) return
-
-	if (
-		!mark ||
-		[
-			calculationData.line1point1,
-			calculationData.line1point2,
-			calculationData.line2point1,
-			calculationData.line2point2,
-		].includes(mark.id)
-	) {
-		const line1point1 = marks.find((m) => m.id === calculationData.line1point1)
-		const line1point2 = marks.find((m) => m.id === calculationData.line1point2)
-		const line2point1 = marks.find((m) => m.id === calculationData.line2point1)
-		const line2point2 = marks.find((m) => m.id === calculationData.line2point2)
-
-		if (line1point1 && line1point2 && line2point1 && line2point2) {
-			return calculateQuotient(line1point1, line1point2, line2point1, line2point2, mmPerPixel)
-		}
-	}
-
-	return initialValue
-}
-
-export function checkAngleSum(
-	calculationData: FrsAngleSumCalculation,
-	recalculatedTypes: FrsCalculationType[],
-	calculations: FrsCalculation[],
-	initialValue?: number
-): number | undefined {
-	if (recalculatedTypes.includes(calculationData.angle1) || recalculatedTypes.includes(calculationData.angle2)) {
-		const angle1 = calculations.find((c) => c.id === calculationData.angle1)?.value
-		const angle2 = calculations.find((c) => c.id === calculationData.angle2)?.value
-		if (angle1 !== undefined && angle2 !== undefined) {
-			return calculateAngleSum(angle1, angle2)
-		}
-	}
-
-	return initialValue
-}
-
-export function checkAngleMultiplicationTarget(
-	calculationData: FrsAngleMultiplicationCalculation,
-	recalculatedTypes: FrsCalculationType[],
-	calculations: FrsCalculation[]
-): number | undefined {
-	if (
-		recalculatedTypes.includes(calculationData.targetAngle1) ||
-		recalculatedTypes.includes(calculationData.targetAngle2)
-	) {
-		const angle1 = calculations.find((c) => c.id === calculationData.targetAngle1)?.value
-		const angle2 = calculations.find((c) => c.id === calculationData.targetAngle2)?.value
-		if (angle1 !== undefined && angle2 !== undefined) {
-			return calculateAngleMultiplicationTarget(calculationData, angle1, angle2)
-		}
-	}
-	return
-}
-
-function calculateAngle(edge1: FrsEdge, edge2: FrsEdge, isLeft: boolean): number | undefined {
-	const direction1 = edge1.direction
-	const direction2 = edge2.direction
-	if (direction1 && direction2) {
-		const test1 = new Vector3(direction1.x, direction1.y, direction1.z)
-		const test2 = new Vector3(direction2.x, direction2.y, direction2.z)
-
-		if (isLeft) {
-			return (test1.angleTo(test2) * 180) / Math.PI
-		} else {
-			return 180 - (test1.angleTo(test2) * 180) / Math.PI
-		}
-	}
-
-	return undefined
-}
-
-function calculateAngleMultiplicationTarget(
-	data: FrsAngleMultiplicationCalculation,
-	angle1: number,
-	angle2: number
-): number {
-	return data.targetStartValue + data.targetFactor1 * angle1 + data.targetFactor2 * angle2
-}
-
-function calculateAngleSum(angle1: number, angle2: number): number {
-	return angle1 + angle2
-}
-
-function calculateIntersectionDistance(
-	edge: FrsEdge,
-	point1: FrsMark,
-	point2: FrsMark,
-	marks: FrsMark[]
-): number | undefined {
-	const mark1 = marks.find((m) => m.id === edge.markType1)
-	const mark2 = marks.find((m) => m.id === edge.markType2)
-	if (!mark1?.position || !mark2?.position || !point1.position || !point2.position) return
-
-	const v1 = new Vector3(mark1.position.x, mark1.position.y, mark1.position.z)
-	const v2 = new Vector3(mark2?.position.x, mark2?.position.y, mark2?.position.z)
-	const p1 = new Vector3(point1.position.x, point1.position.y, point1.position.z)
-	const p2 = new Vector3(point2.position.x, point2.position.y, point2.position.z)
-	const intersection1 = getNormalIntersection(v1, v2, p1)
-	const intersection2 = getNormalIntersection(v1, v2, p2)
-
-	return intersection1.distanceTo(intersection2)
-}
-
-function calculateDistance(edge: FrsEdge, point: FrsMark, marks: FrsMark[]): number | undefined {
-	const mark1 = marks.find((m) => m.id === edge.markType1)
-	const mark2 = marks.find((m) => m.id === edge.markType2)
-	if (!mark1?.position || !mark2?.position || !point.position) return
-
-	const v1 = new Vector3(mark1.position.x, mark1.position.y, mark1.position.z)
-	const v2 = new Vector3(mark2?.position.x, mark2?.position.y, mark2?.position.z)
-	const p = new Vector3(point.position.x, point.position.y, point.position.z)
-
-	return getNormalIntersection(v1, v2, p).distanceTo(p)
-}
-
-function getNormalIntersection(v1: Vector3, v2: Vector3, p: Vector3): Vector3 {
+export function getNormalIntersection(v1: Vector3, v2: Vector3, p: Vector3): Vector3 {
 	const normal = new Vector3()
 		.subVectors(v1, v2)
 		.applyAxisAngle(new Vector3(0, 0, 1), Math.PI * 0.5)
@@ -281,29 +149,12 @@ function getNormalIntersection(v1: Vector3, v2: Vector3, p: Vector3): Vector3 {
 	return new Vector3().addVectors(pointOnLine1, pointOnLine2).multiplyScalar(0.5)
 }
 
-function calculateQuotient(
-	line1point1: FrsMark,
-	line1point2: FrsMark,
-	line2point1: FrsMark,
-	line2point2: FrsMark,
-	mmPerPixel: number
-): number | undefined {
-	const p11 = line1point1.position
-	const p12 = line1point2.position
-	const p21 = line2point1.position
-	const p22 = line2point2.position
+export function calculateDirection(mark1?: FrsMark, mark2?: FrsMark): Vector3 | undefined {
+	if (!mark1?.position || !mark2?.position) return
 
-	if (!p11 || !p12 || !p21 || !p22) return
-
-	const v11 = new Vector3(p11.x, p11.y, p11.z)
-	const v12 = new Vector3(p12.x, p12.y, p12.z)
-	const v21 = new Vector3(p21.x, p21.y, p21.z)
-	const v22 = new Vector3(p22.x, p22.y, p22.z)
-
-	return (getDistanceBetweenInMm(v11, v12, mmPerPixel) / getDistanceBetweenInMm(v21, v22, mmPerPixel)) * 100
-}
-
-function getDistanceBetweenInMm(v1: Vector3, v2: Vector3, mmPerPixel: number): number {
-	const distance = v1.distanceTo(v2)
-	return distance * mmPerPixel
+	return new Vector3(
+		mark2.position.x - mark1.position.x,
+		mark2.position.y - mark1.position.y,
+		mark2.position.z - mark1.position.z
+	)
 }

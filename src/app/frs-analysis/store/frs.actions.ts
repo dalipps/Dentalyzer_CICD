@@ -22,6 +22,7 @@ export const FrsMarkActions = createActionGroup({
 			position?: FrsPosition
 			showLabel: boolean
 			skipRecalculation: boolean
+			isGenerated?: boolean
 		}>(),
 	},
 })

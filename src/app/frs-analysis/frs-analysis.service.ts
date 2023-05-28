@@ -20,11 +20,10 @@ import { BaseService } from '../common/base'
 import { DialogComponent, DialogData } from '../dialog/dialog.component'
 import { convertImageToBase64 } from './image'
 import { FrsMark, FrsMarkType } from './mark'
-import { FrsRenderingService } from './rendering/frs-rendering.service'
-import { ObjectType } from './rendering/marker.model'
+import { FrsRenderingService, ObjectType } from './rendering'
 import { FrsAnalysis, FrsFacade } from './store'
 
-export const MARKER_Z_RAISE = 0.001
+export const MARKER_Z_RAISE = 0.003
 
 @Injectable({
 	providedIn: 'root',

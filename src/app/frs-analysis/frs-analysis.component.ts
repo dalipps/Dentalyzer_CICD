@@ -7,7 +7,7 @@ import { FileUploadComponent } from '../file-upload/file-upload.component'
 import { FrsAnalysisService } from './frs-analysis.service'
 import { FrsMarkType } from './mark'
 import { getNormalizedMousePosition } from './mouse/mouse.utils'
-import { FrsRenderingService } from './rendering/frs-rendering.service'
+import { FrsRenderingService } from './rendering'
 import { FrsAnalysis } from './store'
 import { TabMenuComponent } from './tab-menu/tab-menu.component'
 
@@ -92,6 +92,12 @@ export class FrsAnalysisComponent extends BaseComponent implements AfterViewInit
 		const mousePosition = getNormalizedMousePosition(this.canvas.nativeElement, event.clientX, event.clientY)
 
 		this.selectedMarker = this.frsService.checkSelectedMarker(mousePosition)
+		const isGenerated: boolean | undefined = this.selectedMarker?.userData['isGenerated']
+
+		if (isGenerated) {
+			this.selectedMarker = undefined
+			return
+		}
 
 		if (this.selectedMarker) {
 			const markId = this.selectedMarker.userData['markId']
@@ -105,9 +111,9 @@ export class FrsAnalysisComponent extends BaseComponent implements AfterViewInit
 					})
 				)
 				.subscribe()
-		}
 
-		if (this.selectedMarker) this.renderingService.toggleOrbitControls(false)
+			this.renderingService.toggleOrbitControls(false)
+		}
 	}
 
 	onPointerUp(event: PointerEvent): void {

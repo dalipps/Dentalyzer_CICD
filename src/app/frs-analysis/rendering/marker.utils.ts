@@ -1,12 +1,12 @@
 import * as THREE from 'three'
 import SpriteText from 'three-spritetext'
 import { FrsMarkType, FrsPosition } from '../mark'
-import { ObjectType } from '../rendering/marker.model'
+import { ObjectType } from '../rendering'
 
 export const LABEL_Z_RAISE = 0.005
 export const LABEL_Y_RAISE = -3
 
-export function getMarker(markId: FrsMarkType, position: FrsPosition, isGenerated?: boolean): THREE.Mesh {
+export function getMarker(markId: FrsMarkType, position: FrsPosition, isGenerated = false): THREE.Mesh {
 	const geometry = new THREE.CircleGeometry(0.5)
 	const material = new THREE.MeshBasicMaterial({
 		color: isGenerated ? '#81acc2' : '#f3c456',
@@ -14,7 +14,7 @@ export function getMarker(markId: FrsMarkType, position: FrsPosition, isGenerate
 	})
 	const marker = new THREE.Mesh(geometry, material)
 	marker.traverse((o) => (o.frustumCulled = false))
-	marker.userData = { markId, objectType: ObjectType.Marker }
+	marker.userData = { markId, objectType: ObjectType.Marker, isGenerated }
 	marker.name = 'Marker ' + markId
 	marker.scale.set(0.6, 0.6, 0.6)
 	marker.position.set(position.x, position.y, position.z)

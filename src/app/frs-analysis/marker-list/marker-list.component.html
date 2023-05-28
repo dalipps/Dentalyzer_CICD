@@ -11,7 +11,7 @@
 	</ng-container>
 	<ng-container matColumnDef="{{ columnsToDisplayWithExpand[2] }}">
 		<td mat-cell *matCellDef="let item">
-			<button mat-icon-button [disabled]="!item.isSet" (click)="onRemoveMark(item.id)">
+			<button mat-icon-button [disabled]="!item.isSet || item.isGenerated" (click)="onRemoveMark(item.id)">
 				<mat-icon>delete</mat-icon>
 			</button>
 		</td>

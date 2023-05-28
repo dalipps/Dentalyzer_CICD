@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTableModule } from '@angular/material/table'
 import { TranslateModule } from '@ngx-translate/core'
-import { FrsCalculation } from '../calculation/frs-calculation.model'
+import { FrsCalculation } from '../calculation'
 import { FrsCalculationTypePipe } from './frs-calculation-type.pipe'
 import { FrsCalculationUnitPipe } from './frs-calculation-unit.pipe'
 

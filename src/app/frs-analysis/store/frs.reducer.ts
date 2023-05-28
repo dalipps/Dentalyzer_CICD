@@ -1,12 +1,12 @@
 import { EntityAdapter, EntityState, createEntityAdapter } from '@ngrx/entity'
 import { Action, createReducer, on } from '@ngrx/store'
-import { recalculate } from '../calculation/calculation.utils'
+import { recalculate } from '../calculation'
 import { setDirectionsOfEdges, setEdgeVisibility } from '../edge/edge.utils'
+import { setPositionOfMark } from '../mark'
 import { createAnalysis } from './analysis.utils'
 import { FrsStoreError } from './frs-store-error.model'
 import { FrsApiActions, FrsCalculationsActions, FrsEdgeActions, FrsMarkActions, FrsPageActions } from './frs.actions'
 import { FrsAnalysis } from './frs.model'
-import { setPositionOfMark } from './mark.utils'
 
 export const FRS_FEATURE_KEY = 'frs'
 

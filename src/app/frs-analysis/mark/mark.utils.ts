@@ -1,6 +1,7 @@
 import { cloneDeep } from 'lodash-es'
-import { FrsMarkType, FrsPosition } from '../mark'
-import { FrsAnalysis } from './frs.model'
+import { Vector3 } from 'three'
+import { FrsMarkType, FrsPosition } from '.'
+import { FrsAnalysis } from '../store/frs.model'
 
 export function setPositionOfMark(analysis: FrsAnalysis, markId: FrsMarkType, position?: FrsPosition): FrsAnalysis {
 	const clonedAnalysis = cloneDeep(analysis)
@@ -9,4 +10,9 @@ export function setPositionOfMark(analysis: FrsAnalysis, markId: FrsMarkType, po
 	if (foundMark) foundMark.position = position
 
 	return clonedAnalysis
+}
+
+export function getVectorFromPosition(position?: FrsPosition): Vector3 | undefined {
+	if (!position) return
+	return new Vector3(position.x, position.y, position.z)
 }

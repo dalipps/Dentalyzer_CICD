@@ -76,7 +76,7 @@ export class FrsRenderingService extends BaseRenderingService {
 		if (!this.camera || !this.raycaster) return
 
 		this.raycaster.setFromCamera(mousePosition, this.camera)
-		const firstIntersection = this.raycaster.intersectObject(object)[0]
+		const firstIntersection = this.raycaster.intersectObject(object, false)[0]
 
 		if (!firstIntersection) return
 
@@ -100,8 +100,8 @@ export class FrsRenderingService extends BaseRenderingService {
 		if (label) this.scene.remove(label)
 	}
 
-	addMarker(position: FrsPosition, markId: FrsMarkType, showLabel: boolean): void {
-		const markerMesh = getMarker(markId, position)
+	addMarker(position: FrsPosition, markId: FrsMarkType, showLabel: boolean, isGenerated = false): void {
+		const markerMesh = getMarker(markId, position, isGenerated)
 
 		const labelText = this.translateService.instant(frsMarkTypeMapping[markId].abbreviation)
 		const label = getLabel(labelText, markId, position)
@@ -124,10 +124,10 @@ export class FrsRenderingService extends BaseRenderingService {
 			const mark1 = allSetMarkers.find((m) => m.id === e.markType1 && m.position)
 			const mark2 = allSetMarkers.find((m) => m.id === e.markType2 && m.position)
 			if (!mark1 || !mark2) return
-			const line = getEdge(e, mark1, mark2)
-			if (line) {
-				line.visible = !!e.isVisible
-				this.scene?.add(line)
+			const edge = getEdge(e, mark1, mark2)
+			if (edge) {
+				edge.visible = !!e.isVisible
+				this.scene?.add(edge)
 			}
 		})
 	}
@@ -171,7 +171,7 @@ export class FrsRenderingService extends BaseRenderingService {
 		if (!this.camera || !this.renderer || !this.scene) return
 		if (this.dragControls) this.dragControls.dispose()
 
-		const allMarkers = this.getSceneChildren(ObjectType.Marker) ?? []
+		const allMarkers = this.getSceneChildren(ObjectType.Marker)?.filter((m) => !m.userData['isGenerated']) ?? []
 
 		this.dragControls = new DragControls(allMarkers, this.camera, this.renderer.domElement)
 
@@ -249,7 +249,7 @@ export class FrsRenderingService extends BaseRenderingService {
 			.filter((m) => !!m.position)
 			.forEach((m) => {
 				if (!m.position) return
-				this.addMarker(m.position, m.id, false)
+				this.addMarker(m.position, m.id, false, !!m.generationData)
 			})
 
 		this.redrawEdges(analysis.marks, analysis.edges)
@@ -286,7 +286,7 @@ export class FrsRenderingService extends BaseRenderingService {
 			return
 		}
 		const { offsetWidth, offsetHeight } = this.canvas
-		const camera = new PerspectiveCamera(45, offsetWidth / offsetHeight, 0.1, 1000)
+		const camera = new PerspectiveCamera(45, offsetWidth / offsetHeight, 0.1, 5000)
 		camera.updateProjectionMatrix()
 
 		const boundingBox = new Box3().setFromObject(this.sprite)
