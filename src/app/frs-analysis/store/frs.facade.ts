@@ -59,12 +59,14 @@ export class FrsFacade extends BaseFacade<FrsState> {
 	}
 
 	setPositionOfMark(markId: FrsMarkType, position: FrsPosition, showLabel: boolean): void {
-		if (this.setMarkIds.includes(markId)) this.removePositionOfMark(markId)
-		this.dispatch(FrsMarkActions.setPositionOfMark({ markId, position, showLabel }))
+		if (this.setMarkIds.includes(markId)) this.removePositionOfMark(markId, true)
+		this.dispatch(FrsMarkActions.setPositionOfMark({ markId, position, showLabel, skipRecalculation: false }))
 	}
 
-	removePositionOfMark(markId: FrsMarkType): void {
-		this.dispatch(FrsMarkActions.removePositionOfMark({ markId }))
+	removePositionOfMark(markId: FrsMarkType, skipRecalculation = false): void {
+		this.dispatch(
+			FrsMarkActions.setPositionOfMark({ markId, position: undefined, showLabel: false, skipRecalculation })
+		)
 	}
 
 	setEdgeVisibility(edgeId: FrsEdgeType, isVisible: boolean): void {

@@ -27,5 +27,5 @@ export class FrsEdge implements FrsEdgeConfigDto {
 
 export interface FrsEdgePositionMap {
 	edgeId: FrsEdgeType
-	direction: Vector3
+	direction?: Vector3
 }

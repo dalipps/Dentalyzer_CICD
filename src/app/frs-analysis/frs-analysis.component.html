@@ -1,22 +1,22 @@
-<div class="page dent-frs-content" *ngIf="{ analysis: analysis$ | async } as data">
+<div class="page flex w-full" *ngIf="{ analysis: analysis$ | async } as data">
 	<div class="analysis-canvas" id="analysisFrsContainer" #analysisFrsContainer>
 		<canvas
 			*ngIf="data.analysis?.image; else showFileUpload"
 			id="analysisFrsCanvas"
 			#analysisFrsCanvas
-			class="dent-frs-analysis-canvas"
+			class="box-shadow h-full w-full"
 			(pointerdown)="onPointerDown($event)"
 			(pointerup)="onPointerUp($event)"
 			(pointerout)="onPointerOut($event)"
 			(pointercancel)="onPointerCancel()"
 		></canvas>
 		<ng-template #showFileUpload>
-			<div class="dent-file-upload-container">
+			<div class="h-full w-full">
 				<dent-file-upload (uploadedFiles)="onUploadFiles($event)"></dent-file-upload>
 			</div>
 		</ng-template>
 	</div>
-	<div class="analysis-sidebar">
+	<div class="analysis-sidebar box-shadow ml-3">
 		<dent-tab-menu
 			[analysis]="data.analysis ?? undefined"
 			(tabChanged)="onTabChanged()"

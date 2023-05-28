@@ -9,7 +9,7 @@ export const FrsPageActions = createActionGroup({
 	events: {
 		Init: emptyProps(),
 		Create: props<{ imageBase64: string }>(),
-
+		'Set calibration': props<{ mmPerPixel?: number }>(),
 		'Remove all': emptyProps(),
 	},
 })
@@ -17,16 +17,31 @@ export const FrsPageActions = createActionGroup({
 export const FrsMarkActions = createActionGroup({
 	source: 'Frs Mark',
 	events: {
-		'Set position of mark': props<{ markId: FrsMarkType; position: FrsPosition; showLabel: boolean }>(),
-		'Remove position of mark': props<{ markId: FrsMarkType }>(),
+		'Set position of mark': props<{
+			markId: FrsMarkType
+			position?: FrsPosition
+			showLabel: boolean
+			skipRecalculation: boolean
+		}>(),
 	},
 })
 
 export const FrsEdgeActions = createActionGroup({
 	source: 'Frs Edge',
 	events: {
-		'Set directions of edges': props<{ edgeMapping: FrsEdgePositionMap[] }>(),
+		'Set directions of edges': props<{
+			edgeMapping: FrsEdgePositionMap[]
+			changedMarkId?: FrsMarkType
+			calibrationChanged?: boolean
+		}>(),
 		'Set edge visibility': props<{ edgeId: FrsEdgeType; isVisible: boolean }>(),
+	},
+})
+
+export const FrsCalculationsActions = createActionGroup({
+	source: 'Frs Calculations',
+	events: {
+		Recalculate: props<{ changedMarkId?: FrsMarkType }>(),
 	},
 })
 

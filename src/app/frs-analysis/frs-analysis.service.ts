@@ -24,6 +24,8 @@ import { FrsRenderingService } from './rendering/frs-rendering.service'
 import { ObjectType } from './rendering/marker.model'
 import { FrsAnalysis, FrsFacade } from './store'
 
+export const MARKER_Z_RAISE = 0.001
+
 @Injectable({
 	providedIn: 'root',
 })
@@ -61,8 +63,9 @@ export class FrsAnalysisService extends BaseService {
 
 		const model = this.renderingService.getSceneChild(ObjectType.Model)
 		const intersection = model ? this.renderingService.getFirstIntersection(mousePosition, model) : undefined
+
 		if (!intersection) return
-		intersection.z += 1
+		intersection.z += MARKER_Z_RAISE
 
 		this.frsFacade.setPositionOfMark(this.selectedMarkIdSubject$.value, intersection, true)
 	}
@@ -71,7 +74,7 @@ export class FrsAnalysisService extends BaseService {
 		const model = this.renderingService.getSceneChild(ObjectType.Model)
 		const intersection = model ? this.renderingService.getFirstIntersection(mousePosition, model) : undefined
 		if (!intersection) return
-		intersection.z += 1
+		intersection.z += MARKER_Z_RAISE
 
 		this.renderingService.removeLabel(markId)
 		this.frsFacade.setPositionOfMark(markId, intersection, isSelectedMarkId)

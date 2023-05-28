@@ -3,13 +3,17 @@ import SpriteText from 'three-spritetext'
 import { FrsMarkType, FrsPosition } from '../mark'
 import { ObjectType } from '../rendering/marker.model'
 
+export const LABEL_Z_RAISE = 0.005
+export const LABEL_Y_RAISE = -3
+
 export function getMarker(markId: FrsMarkType, position: FrsPosition, isGenerated?: boolean): THREE.Mesh {
-	const geometry = new THREE.CircleGeometry(1)
+	const geometry = new THREE.CircleGeometry(0.5)
 	const material = new THREE.MeshBasicMaterial({
 		color: isGenerated ? '#81acc2' : '#f3c456',
 		transparent: true,
 	})
 	const marker = new THREE.Mesh(geometry, material)
+	marker.traverse((o) => (o.frustumCulled = false))
 	marker.userData = { markId, objectType: ObjectType.Marker }
 	marker.name = 'Marker ' + markId
 	marker.scale.set(0.6, 0.6, 0.6)
@@ -34,13 +38,13 @@ export function getLabel(
 	label.borderRadius = 3
 	label.padding = 3
 	label.position.x = markerPosition.x
-	label.position.y = markerPosition.y - 3
-	label.position.z = markerPosition.z + 1
-
+	label.position.y = markerPosition.y + LABEL_Y_RAISE
+	label.position.z = markerPosition.z + LABEL_Z_RAISE
+	label.traverse((o) => (o.frustumCulled = false))
 	label.userData = { markId, objectType: ObjectType.Label, markerPosition }
 	label.name = 'Label ' + markId
 
-	label.scale.set(4.3, 4, 1)
+	label.scale.set(text.length * 1.4 + 1.4, 4, 1)
 
 	label.visible = !!isVisible
 

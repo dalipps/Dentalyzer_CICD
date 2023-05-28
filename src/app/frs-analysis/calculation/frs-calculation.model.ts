@@ -7,11 +7,11 @@ import { FrsCalculationUnit } from './frs-calculation-unit.enum'
 
 export type FrsCalculationData =
 	| FrsAngleCalculation
-	| FrsIntersectionDistanceCalculation
-	| FrsDistanceCalculation
 	| FrsAngleSumCalculation
 	| FrsAngleMultiplicationCalculation
+	| FrsIntersectionDistanceCalculation
 	| FrsQuotientCalculation
+	| FrsDistanceCalculation
 
 export interface FrsAngleCalculation {
 	id: FrsCalculationDataType.Angle
@@ -33,7 +33,7 @@ export interface FrsAngleMultiplicationCalculation {
 	targetAngle1: FrsCalculationType
 	targetFactor2: number
 	targetAngle2: FrsCalculationType
-	valueDuplicate: FrsCalculationType
+	valueDuplicateId: FrsCalculationType
 }
 
 export interface FrsIntersectionDistanceCalculation {

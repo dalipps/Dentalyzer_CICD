@@ -1,11 +1,12 @@
 import { EntityAdapter, EntityState, createEntityAdapter } from '@ngrx/entity'
 import { Action, createReducer, on } from '@ngrx/store'
-import { setDirectionOfEdges, setEdgeVisibility } from '../edge/edge.utils'
+import { recalculate } from '../calculation/calculation.utils'
+import { setDirectionsOfEdges, setEdgeVisibility } from '../edge/edge.utils'
 import { createAnalysis } from './analysis.utils'
 import { FrsStoreError } from './frs-store-error.model'
-import { FrsApiActions, FrsEdgeActions, FrsMarkActions, FrsPageActions } from './frs.actions'
+import { FrsApiActions, FrsCalculationsActions, FrsEdgeActions, FrsMarkActions, FrsPageActions } from './frs.actions'
 import { FrsAnalysis } from './frs.model'
-import { removePositionOfMark, setPositionOfMark } from './mark.utils'
+import { setPositionOfMark } from './mark.utils'
 
 export const FRS_FEATURE_KEY = 'frs'
 
@@ -41,6 +42,20 @@ const reducer = createReducer(
 		return frsAdapter.addOne({ ...analysis }, { ...state, activeId: analysis.id })
 	}),
 	on(FrsPageActions.removeAll, (state) => frsAdapter.removeAll(state)),
+	on(FrsPageActions.setCalibration, (state, { mmPerPixel }) => {
+		const activeEntity = state.activeId ? state.entities[state.activeId] : undefined
+		return activeEntity
+			? frsAdapter.updateOne(
+					{
+						id: activeEntity.id,
+						changes: {
+							mmPerPixel: mmPerPixel,
+						},
+					},
+					state
+			  )
+			: state
+	}),
 	/**
 	 * FrsMarkActions
 	 */
@@ -58,20 +73,6 @@ const reducer = createReducer(
 			  )
 			: state
 	}),
-	on(FrsMarkActions.removePositionOfMark, (state, { markId }) => {
-		const activeEntity = state.activeId ? state.entities[state.activeId] : undefined
-		return activeEntity
-			? frsAdapter.updateOne(
-					{
-						id: activeEntity.id,
-						changes: {
-							...removePositionOfMark(activeEntity, markId),
-						},
-					},
-					state
-			  )
-			: state
-	}),
 	/**
 	 * FrsEdgeActions
 	 */
@@ -82,7 +83,7 @@ const reducer = createReducer(
 					{
 						id: activeEntity.id,
 						changes: {
-							...setDirectionOfEdges(activeEntity, edgeMapping),
+							...setDirectionsOfEdges(activeEntity, edgeMapping),
 						},
 					},
 					state
@@ -97,6 +98,23 @@ const reducer = createReducer(
 						id: activeEntity.id,
 						changes: {
 							...setEdgeVisibility(activeEntity, edgeId, isVisible),
+						},
+					},
+					state
+			  )
+			: state
+	}),
+	/**
+	 * FrsCalculationActions
+	 */
+	on(FrsCalculationsActions.recalculate, (state, { changedMarkId }) => {
+		const activeEntity = state.activeId ? state.entities[state.activeId] : undefined
+		return activeEntity
+			? frsAdapter.updateOne(
+					{
+						id: activeEntity.id,
+						changes: {
+							...recalculate(activeEntity, changedMarkId),
 						},
 					},
 					state

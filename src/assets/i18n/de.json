@@ -229,7 +229,7 @@
 	"FrsEdgeType": {
 		"Abbreviation": {
 			"ArGo": "Ar - Go",
-			"Calibration": "K0 - K1",
+			"Calibration": "K1 - K2",
 			"GoaPog2": "Goa - Pog'",
 			"InOK1ApOK1": "InOK1 - ApOK1",
 			"InUK1ApUK1": "InUK1 - ApUK1",
@@ -246,7 +246,7 @@
 		},
 		"Name": {
 			"ArGo": "Articulare - Gonion",
-			"Calibration": "Kalibrierungsmarke 0 - Kalibrierungsmarke 1",
+			"Calibration": "Kalibrierungsmarke 1 - Kalibrierungsmarke 2",
 			"GoaPog2": "Anat. Gonion - Weichteilpogonion",
 			"InOK1ApOK1": "Incision OK1 - Apex OK1",
 			"InUK1ApUK1": "Incision UK1 - Apex UK1",
@@ -274,8 +274,8 @@
 			"ApUK1": "ApUK1",
 			"Ar": "Ar",
 			"B": "B",
-			"Calibration1": "K0",
-			"Calibration2": "K1",
+			"Calibration1": "K1",
+			"Calibration2": "K2",
 			"Go": "Go",
 			"Goa": "Goa",
 			"HPOcP": "pPOcP",

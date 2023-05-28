@@ -8,12 +8,17 @@
 		<td mat-cell *matCellDef="let edge" [class]="!edge.direction ? 'text-gray-400' : ''">
 			<button
 				mat-icon-button
+				*ngIf="edge.isVisible || !edge.direction; else edgeHidden"
 				[disabled]="!edge.direction"
-				[class]="!edge.isVisible ? 'text-gray-400' : ''"
 				(click)="toggleVisibility(edge)"
 			>
 				<mat-icon>visibility</mat-icon>
 			</button>
+			<ng-template #edgeHidden>
+				<button mat-icon-button (click)="toggleVisibility(edge)">
+					<mat-icon>visibility_off</mat-icon>
+				</button>
+			</ng-template>
 		</td>
 	</ng-container>
 

@@ -229,7 +229,7 @@
 	"FrsEdgeType": {
 		"Abbreviation": {
 			"ArGo": "Ar - Go",
-			"Calibration": "C0 - C1",
+			"Calibration": "C1 - C2",
 			"GoaPog2": "Goa - Pog'",
 			"InOK1ApOK1": "InUJ1 - ApUJ1",
 			"InUK1ApUK1": "InLJ1 - ApLJ1",
@@ -246,7 +246,7 @@
 		},
 		"Name": {
 			"ArGo": "Articulare - Gonion",
-			"Calibration": "Calibration mark 0 - Calibration mark 1",
+			"Calibration": "Calibration mark 1 - Calibration mark 2",
 			"GoaPog2": "Anat. Gonion - Soft tissue pogonion",
 			"InOK1ApOK1": "Incision UJ1 - Apex UJ1",
 			"InUK1ApUK1": "Incision LJ1 - Apex LJ1",
@@ -274,8 +274,8 @@
 			"ApUK1": "ApLJ1",
 			"Ar": "Ar",
 			"B": "B",
-			"Calibration1": "C0",
-			"Calibration2": "C1",
+			"Calibration1": "C1",
+			"Calibration2": "C2",
 			"Go": "Go",
 			"Goa": "Goa",
 			"HPOcP": "pPOcP",

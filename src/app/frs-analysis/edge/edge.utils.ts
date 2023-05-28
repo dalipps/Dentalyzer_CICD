@@ -1,17 +1,22 @@
 import { cloneDeep } from 'lodash-es'
 import { BufferGeometry, Line, LineBasicMaterial, Vector3 } from 'three'
-import { FrsMark, FrsPosition } from '../mark'
+import { FrsMark } from '../mark'
 import { ObjectType } from '../rendering/marker.model'
 import { FrsAnalysis } from '../store'
 import { FrsEdgeType } from './frs-edge-type.enum'
 import { FrsEdge, FrsEdgePositionMap } from './frs-edge.model'
 
+export const EDGE_Z_RAISE = 0.001
+
 export function getEdge(edge: FrsEdge, mark1: FrsMark, mark2: FrsMark) {
 	const markPositions = [mark1, mark2]
-		.filter((m) => m.id === edge.markType1 || m.id === edge.markType2)
-		.map((m) => m.position)
-		.filter((p): p is FrsPosition => !!p)
-		.map((p) => new Vector3(p.x, p.y, p.z + 0.5))
+		.map((m) => {
+			if ((m.id === edge.markType1 || m.id === edge.markType2) && m.position) {
+				return new Vector3(m.position.x, m.position.y, m.position.z + EDGE_Z_RAISE)
+			}
+			return
+		})
+		.filter((v): v is Vector3 => !!v)
 
 	if (markPositions.length !== 2) return
 
@@ -28,19 +33,20 @@ export function getEdge(edge: FrsEdge, mark1: FrsMark, mark2: FrsMark) {
 	})
 	const line = new Line(geometry, material)
 	line.name = 'Edge ' + edge.id
+	line.traverse((o) => (o.frustumCulled = false))
 	line.userData = { edgeId: edge.id, objectType: ObjectType.Edge }
 
 	return line
 }
 
-export function setDirectionOfEdges(analysis: FrsAnalysis, edgeMapping: FrsEdgePositionMap[]): FrsAnalysis {
+export function setDirectionsOfEdges(analysis: FrsAnalysis, edgeMapping: FrsEdgePositionMap[]): FrsAnalysis {
 	const clonedAnalysis = cloneDeep(analysis)
 
 	edgeMapping.forEach((mapping) => {
 		const edge = clonedAnalysis.edges.find((e) => e.id === mapping.edgeId)
 		if (edge) {
+			edge.isVisible = !edge.direction ? true : edge.isVisible
 			edge.direction = mapping.direction
-			edge.isVisible = true
 		}
 	})
 

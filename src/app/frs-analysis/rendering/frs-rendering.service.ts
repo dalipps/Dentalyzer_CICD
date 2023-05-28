@@ -19,7 +19,7 @@ import {
 } from 'three'
 import { DragControls } from 'three/examples/jsm/controls/DragControls'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import { FrsEdge, FrsEdgePositionMap, FrsEdgeType } from '../edge'
+import { FrsEdge, FrsEdgeType } from '../edge'
 import { getEdge } from '../edge/edge.utils'
 import { FrsMark, FrsMarkType, FrsPosition } from '../mark'
 import { frsMarkTypeMapping } from '../marker-list/frs-mark-type.pipe'
@@ -114,29 +114,22 @@ export class FrsRenderingService extends BaseRenderingService {
 		this.addDragControls()
 	}
 
-	recalculateEdges(edges: FrsEdge[], allMarks: FrsMark[]): FrsEdgePositionMap[] {
+	redrawEdges(allMarks: FrsMark[], changedEdges: FrsEdge[]) {
 		const allSetMarkers = allMarks.filter((m) => m.position)
-		const setEdges: FrsEdgePositionMap[] = []
+		const resetEdges = changedEdges.filter((e) => e.direction)
 
-		this.removeEdges(edges.map((e) => e.id))
+		this.removeEdges(changedEdges.map((e) => e.id))
 
-		edges.forEach((e) => {
+		resetEdges.forEach((e) => {
 			const mark1 = allSetMarkers.find((m) => m.id === e.markType1 && m.position)
 			const mark2 = allSetMarkers.find((m) => m.id === e.markType2 && m.position)
 			if (!mark1 || !mark2) return
-
 			const line = getEdge(e, mark1, mark2)
 			if (line) {
-				line.visible = e.isVisible !== false
-
-				const direction = this.calculateDirection(mark1, mark2)
-				if (direction) setEdges.push({ edgeId: e.id, direction })
-
+				line.visible = !!e.isVisible
 				this.scene?.add(line)
 			}
 		})
-
-		return setEdges
 	}
 
 	toggleEdges(edgeIds: FrsEdgeType[], isVisible: boolean) {
@@ -193,16 +186,6 @@ export class FrsRenderingService extends BaseRenderingService {
 				return edgeId && edgeIds.includes(edgeId)
 			})
 			.forEach((e) => this.scene?.remove(e))
-	}
-
-	private calculateDirection(mark1: FrsMark, mark2: FrsMark): Vector3 | undefined {
-		if (!mark1.position || !mark2.position) return
-
-		return new Vector3(
-			mark2.position.x - mark1.position.x,
-			mark2.position.y - mark1.position.y,
-			mark2.position.z - mark1.position.z
-		)
 	}
 
 	private addHoverOnListener(dragControls: DragControls) {
@@ -269,7 +252,7 @@ export class FrsRenderingService extends BaseRenderingService {
 				this.addMarker(m.position, m.id, false)
 			})
 
-		this.recalculateEdges(analysis.edges, analysis.marks)
+		this.redrawEdges(analysis.marks, analysis.edges)
 	}
 
 	private initSprite(frsTexture: Texture) {
@@ -280,6 +263,7 @@ export class FrsRenderingService extends BaseRenderingService {
 		const sprite = new Sprite(material)
 		sprite.scale.set(100, 100 * (height / width), 100)
 		sprite.position.set(0, 0, 0)
+		sprite.traverse((o) => (o.frustumCulled = false))
 		sprite.userData = { objectType: ObjectType.Model }
 		sprite.name = 'Image'
 
