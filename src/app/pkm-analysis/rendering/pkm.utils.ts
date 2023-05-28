@@ -1,5 +1,5 @@
 import { Observable, fromEvent, map } from 'rxjs'
-import { BufferGeometry, Mesh, MeshPhongMaterial } from 'three'
+import { BufferGeometry, HemisphereLight, Light, Mesh, MeshPhongMaterial } from 'three'
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader'
 
 const pkmMaterial = {
@@ -19,4 +19,12 @@ export function loadPkmFromFile(file: File): Observable<Mesh<BufferGeometry, Mes
 			return new Mesh(geometry, matirial)
 		})
 	)
+}
+
+export function initLight(): Light {
+	const skyColor = 0xffffff
+	const groundColor = 0x555555
+	const lightIntensity = 1
+
+	return new HemisphereLight(skyColor, groundColor, lightIntensity)
 }

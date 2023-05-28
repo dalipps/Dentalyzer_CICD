@@ -10,7 +10,7 @@ export const Path = {
 	Login: 'login',
 	Home: 'home',
 	FrsAnalysis: 'frs-analysis',
-	PkmAnalysis: 'frs-analysis',
+	PkmAnalysis: 'pkm-analysis',
 }
 
 export const globalRoutes: Routes = [

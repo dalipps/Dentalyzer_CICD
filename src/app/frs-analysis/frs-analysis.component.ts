@@ -67,9 +67,7 @@ export class FrsAnalysisComponent extends BaseComponent implements AfterViewInit
 			.subscribe()
 	}
 
-	override ngAfterViewInit(): void {
-		super.ngAfterViewInit()
-
+	ngAfterViewInit(): void {
 		this.analysis$
 			.pipe(
 				debounceTime(10),

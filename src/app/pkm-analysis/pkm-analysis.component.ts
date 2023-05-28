@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { ChangeDetectionStrategy, Component, ElementRef, Injector, ViewChild } from '@angular/core'
-import { BehaviorSubject, Observable, combineLatest, debounceTime, takeUntil, tap } from 'rxjs'
+import { BehaviorSubject, Observable, debounceTime, filter, first, tap } from 'rxjs'
 import { BaseComponent } from '../common/base'
 import { FileType } from '../file-upload'
 import { FileUploadComponent } from '../file-upload/file-upload.component'
@@ -23,27 +23,21 @@ export class PkmAnalysisComponent extends BaseComponent {
 
 	constructor(private readonly renderingService: PkmRenderingService, injector: Injector) {
 		super(injector)
-
-		combineLatest([this.pkmSubject$, this.afterViewInit$])
-			.pipe(
-				takeUntil(this.destroy$),
-				debounceTime(500),
-				tap(([pkm]) => {
-					if (this.canvas && pkm) {
-						this.renderingService.render(this.canvas.nativeElement, pkm)
-					}
-				})
-			)
-			.subscribe()
 	}
 
-	override ngAfterViewInit(): void {
-		this.onFileLoaded().pipe(takeUntil(this.destroy$)).subscribe()
+	ngAfterViewInit(): void {
+		this.initAnalysis$().pipe(first()).subscribe()
 	}
 
-	onFileLoaded(): Observable<File | undefined> {
+	private initAnalysis$(): Observable<File | undefined> {
 		return this.pkmSubject$.pipe(
-			tap((pkm) => this.canvas && pkm && this.renderingService.render(this.canvas.nativeElement, pkm))
+			filter((file?: File) => !!file),
+			debounceTime(0), // wait for next event loop cycle,
+			tap((pkm) => {
+				if (this.canvas && pkm) {
+					this.renderingService.render(this.canvas.nativeElement, pkm)
+				}
+			})
 		)
 	}
 
