@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common'
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Injector, ViewChild } from '@angular/core'
-import { EMPTY, Observable, filter, first, switchMap, tap } from 'rxjs'
+import { EMPTY, Observable, debounceTime, filter, first, switchMap, takeUntil, tap } from 'rxjs'
+import { AnalysisButtonsComponent } from '../analysis-buttons/analysis-buttons.component'
 import { BaseComponent } from '../common/base'
 import { IndexedDbService, TABLES } from '../common/indexed-db'
 import { FileType } from '../file-upload'
@@ -17,7 +18,13 @@ import { PkmAnalysis } from './store/pkm.model'
 	standalone: true,
 	templateUrl: './pkm-analysis.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [CommonModule, FileUploadComponent, ModelViewButtonsComponent, MeasurementListComponent],
+	imports: [
+		CommonModule,
+		FileUploadComponent,
+		ModelViewButtonsComponent,
+		MeasurementListComponent,
+		AnalysisButtonsComponent,
+	],
 })
 export class PkmAnalysisComponent extends BaseComponent implements AfterViewInit {
 	readonly supportedFileTypes = [FileType.STL]
@@ -39,10 +46,13 @@ export class PkmAnalysisComponent extends BaseComponent implements AfterViewInit
 	}
 
 	ngAfterViewInit(): void {
-		this.analysis$
+		this.analysisService.hasCurrentAnalysis$
 			.pipe(
+				debounceTime(0),
+				filter((x) => !!x),
+				takeUntil(this.destroy$),
+				switchMap(() => this.analysisService.analysis$.pipe(first())),
 				filter((analysis): analysis is { id: string; modelId: string } => !!analysis?.id && !!analysis?.modelId),
-				first(),
 				switchMap((analysis) => this.dbService.getOne<{ id: string; file: File }>(TABLES.PKM_FILE, analysis.modelId)),
 				filter((model) => !!model),
 				tap(({ file }) => {
@@ -56,5 +66,25 @@ export class PkmAnalysisComponent extends BaseComponent implements AfterViewInit
 
 	loadFile(files: FileList): void {
 		this.analysisService.uploadPkm(files)
+	}
+
+	removeAnalysis() {
+		this.analysisService.resetAnalysis()
+	}
+
+	onPointerUp(event: PointerEvent) {
+		console.log('up', event)
+	}
+
+	onPointerDown(event: PointerEvent) {
+		console.log('down', event)
+	}
+
+	onPointerOut(event: PointerEvent) {
+		console.log('event', event)
+	}
+
+	onPointerCancel() {
+		console.log('cancel')
 	}
 }
