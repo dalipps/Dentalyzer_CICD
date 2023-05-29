@@ -1,9 +1,12 @@
 import { AsyncPipe, NgIf } from '@angular/common'
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Injector, ViewChild } from '@angular/core'
+import { MatButtonModule } from '@angular/material/button'
+import { MatIconModule } from '@angular/material/icon'
 import { BaseComponent } from '@dentalyzer/common'
 import { EMPTY, Observable, debounceTime, filter, first, fromEvent, map, pairwise, takeUntil, tap } from 'rxjs'
 import * as THREE from 'three'
 import { FileUploadComponent } from '../file-upload/file-upload.component'
+import { AnalysisButtonsComponent } from './analysis-buttons/analysis-buttons.component'
 import { FrsAnalysisService } from './frs-analysis.service'
 import { FrsMarkType } from './mark'
 import { getNormalizedMousePosition } from './mouse/mouse.utils'
@@ -14,7 +17,15 @@ import { TabMenuComponent } from './tab-menu/tab-menu.component'
 @Component({
 	selector: 'dent-frs-analysis',
 	standalone: true,
-	imports: [NgIf, AsyncPipe, FileUploadComponent, TabMenuComponent],
+	imports: [
+		NgIf,
+		AsyncPipe,
+		FileUploadComponent,
+		AnalysisButtonsComponent,
+		TabMenuComponent,
+		MatButtonModule,
+		MatIconModule,
+	],
 	templateUrl: './frs-analysis.component.html',
 	styleUrls: ['./frs-analysis.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,

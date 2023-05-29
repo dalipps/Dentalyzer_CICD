@@ -14,7 +14,7 @@ interface User {
 export class AccountService {
 	private _currentUser?: User
 
-	get user() {
+	get user(): User {
 		return this._currentUser ?? { name: getCookie(TokenKey) }
 	}
 

@@ -1,11 +1,19 @@
 {
+	"AnalysisButtons": {
+		"Download": "Herunterladen",
+		"NewAnalysis": "Neue Analyse",
+		"NewAnalysisContent": "Wenn du eine neue Analyse startest, wird die aktuelle Analyse unwiederruflich gelöscht.\n\n Bist du dir sicher?",
+		"NewAnalysisTitle": "Neue Analyse starten"
+	},
 	"CalculationList": {
 		"Description": "Beschreibung",
 		"TargetValue": "Ist",
 		"Value": "Soll"
 	},
 	"Dialog": {
+		"Cancel": "Abbrechen",
 		"No": "Nein",
+		"Submit": "Bestätigen",
 		"Ok": "Ok",
 		"Yes": "Ja"
 	},
@@ -392,6 +400,10 @@
 			},
 			"Label": "Username"
 		}
+	},
+	"PDF": {
+		"FrsAnalysis": "FRS_Analyse",
+		"SomeFieldsNotFound": "Einige Felder konnten nicht in die PDF geschrieben werden"
 	},
 	"MeasurementList": {
 		"Distance": "Abstand",

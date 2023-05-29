@@ -22,5 +22,6 @@
 			(tabChanged)="onTabChanged()"
 			[selectedMarkId]="(selectedMarkId$ | async) ?? undefined"
 		></dent-tab-menu>
+		<dent-analysis-buttons [showButtons]="!!data.analysis"></dent-analysis-buttons>
 	</div>
 </div>

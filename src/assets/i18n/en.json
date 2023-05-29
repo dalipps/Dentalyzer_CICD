@@ -1,11 +1,19 @@
 {
+	"AnalysisButtons": {
+		"Download": "Download",
+		"NewAnalysis": "New analysis",
+		"NewAnalysisContent": "If you start a new analysis, the current analysis will be permanently deleted.\n\n Are you sure?",
+		"NewAnalysisTitle": "Start new analysis"
+	},
 	"CalculationList": {
 		"Description": "Description",
 		"TargetValue": "Target",
 		"Value": "Value"
 	},
 	"Dialog": {
+		"Cancel": "Cancel",
 		"No": "No",
+		"Submit": "Submit",
 		"Ok": "Ok",
 		"Yes": "Yes"
 	},
@@ -392,6 +400,10 @@
 			},
 			"Label": "Username"
 		}
+	},
+	"PDF": {
+		"FrsAnalysis": "FRS_Analysis",
+		"SomeFieldsNotFound": "Some fields could not be written to the PDF"
 	},
 	"MeasurementList": {
 		"Distance": "Distance",

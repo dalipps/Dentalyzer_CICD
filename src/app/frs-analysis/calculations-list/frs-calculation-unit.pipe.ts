@@ -12,7 +12,7 @@ export class FrsCalculationUnitPipe implements PipeTransform {
 	}
 }
 
-const FrsCalculationUnitMapping: { [key: string]: string } = {
+export const FrsCalculationUnitMapping: { [key: string]: string } = {
 	[FrsCalculationUnit.Degree]: '°',
 	[FrsCalculationUnit.Percent]: '%',
 	[FrsCalculationUnit.Millimeter]: 'mm',
