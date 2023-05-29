@@ -7,8 +7,8 @@ import { marker as t } from '@biesbjerg/ngx-translate-extract-marker'
 import { BaseComponent } from '@dentalyzer/common'
 import { TranslateModule } from '@ngx-translate/core'
 import { DialogComponent, DialogData } from 'src/app/dialog/dialog.component'
+import { FrsAnalysisService } from '../frs-analysis.service'
 import { FrsPdfService } from '../pdf/frs-pdf.service'
-import { FrsFacade } from '../store'
 
 @Component({
 	selector: 'dent-analysis-buttons',
@@ -24,7 +24,7 @@ export class AnalysisButtonsComponent extends BaseComponent implements OnDestroy
 	constructor(
 		private frsPdfService: FrsPdfService,
 		private dialog: MatDialog,
-		private frsFacade: FrsFacade,
+		private frsService: FrsAnalysisService,
 		injector: Injector
 	) {
 		super(injector)
@@ -37,7 +37,7 @@ export class AnalysisButtonsComponent extends BaseComponent implements OnDestroy
 				content: this.translateService.instant(t('AnalysisButtons.NewAnalysisContent')),
 				rejectButton: this.translateService.instant(t('Dialog.Cancel')),
 				submitButton: this.translateService.instant(t('Dialog.Submit')),
-				submitAction: () => this.frsFacade.removeAll(),
+				submitAction: () => this.frsService.reset(),
 				rejectAction: () => undefined,
 			},
 		})

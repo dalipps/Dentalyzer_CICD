@@ -3,7 +3,19 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Injector
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { BaseComponent } from '@dentalyzer/common'
-import { EMPTY, Observable, debounceTime, filter, first, fromEvent, map, pairwise, takeUntil, tap } from 'rxjs'
+import {
+	EMPTY,
+	Observable,
+	debounceTime,
+	filter,
+	first,
+	fromEvent,
+	map,
+	pairwise,
+	switchMap,
+	takeUntil,
+	tap,
+} from 'rxjs'
 import * as THREE from 'three'
 import { FileUploadComponent } from '../file-upload/file-upload.component'
 import { AnalysisButtonsComponent } from './analysis-buttons/analysis-buttons.component'
@@ -79,11 +91,12 @@ export class FrsAnalysisComponent extends BaseComponent implements AfterViewInit
 	}
 
 	ngAfterViewInit(): void {
-		this.analysis$
+		this.frsService.newAnalysisSet$
 			.pipe(
 				debounceTime(10),
 				filter((x) => !!x),
-				first(),
+				takeUntil(this.destroy$),
+				switchMap(() => this.frsService.analysis$.pipe(first())),
 				map((analysis) => [analysis, this.canvas]),
 				filter((array): array is [FrsAnalysis, ElementRef<HTMLCanvasElement>] => !!array[0] && !!array[1]),
 				tap(([analysis, canvas]) => this.renderingService.initImageRendering(canvas.nativeElement, analysis))
