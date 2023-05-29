@@ -49,13 +49,19 @@ export function recalculate(analysis: FrsAnalysis, changedMarkId?: FrsMarkType):
 	dependendCalculations?.forEach((calculation) => {
 		let value: number | undefined
 		let targetValue: number | undefined
+
 		switch (calculation.data.id) {
 			case DataType.AngleSum:
 				value = checkAngleSum(calculation.data, recalculatedTypes, calculations, calculation.value)
 				targetValue = calculation.targetValueMaleOrAll
 				break
 			case DataType.AngleMultiplication:
-				targetValue = checkAngleMultiplicationTarget(calculation.data, recalculatedTypes, calculations)
+				targetValue = checkAngleMultiplicationTarget(
+					calculation.data,
+					recalculatedTypes,
+					calculations,
+					calculation.targetValueMaleOrAll
+				)
 				value = calculations.find(
 					(c) => c.id === (calculation.data as FrsAngleMultiplicationCalculation).valueDuplicateId
 				)?.value
@@ -79,7 +85,6 @@ export function getHalfCutting(mark1: FrsMark, mark2: FrsMark): Vector3 | undefi
 	return new Vector3().subVectors(v2, v1).multiplyScalar(0.5).add(v1)
 }
 
-// Inspired by https://jsfiddle.net/justin_c_rounds/Gd2S2/light/
 export function getIntersectionBetweenEdges(
 	edge1mark1: FrsMark,
 	edge1mark2: FrsMark,
@@ -95,6 +100,7 @@ export function getIntersectionBetweenEdges(
 	return getIntersectionOfEdgePoints(edge1point1, edge1point2, edge2point1, edge2point2)
 }
 
+// Inspired by https://jsfiddle.net/justin_c_rounds/Gd2S2/light/
 export function getIntersectionOfEdgePoints(
 	edge1point1: Vector3,
 	edge1point2: Vector3,

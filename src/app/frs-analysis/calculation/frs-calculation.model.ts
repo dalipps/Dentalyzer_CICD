@@ -55,6 +55,7 @@ export interface FrsDistanceCalculation {
 	id: FrsCalculationDataType.Distance
 	edge: FrsEdgeType
 	point: FrsMarkType
+	considerSign?: boolean
 }
 
 export interface FrsCalculationConfigDto {

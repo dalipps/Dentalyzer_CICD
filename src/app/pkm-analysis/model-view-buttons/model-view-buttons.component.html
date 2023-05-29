@@ -1,0 +1,18 @@
+<div class="flex gap-2 m-4">
+	<button
+		mat-fab
+		class="bg-light-500 transform-gpu scale-90 text-white font-semibold"
+		(click)="onLowerJawClick()"
+		[ngClass]="{ 'bg-gray-400': !lowerJawSelected, 'bg-light-500': lowerJawSelected }"
+	>
+		<img class="m-auto p-3" src="./assets/icons/upper-lower-jaw.png" alt="Dentalyzer Logo" />
+	</button>
+	<button
+		mat-fab
+		class="bg-light-500 transform-gpu scale-90 text-white font-semibold"
+		(click)="onUpperJawClick()"
+		[ngClass]="{ 'bg-gray-400': !upperJawSelected, 'bg-light-500': upperJawSelected }"
+	>
+		<img class="m-auto p-3 rotate-180" src="./assets/icons/upper-lower-jaw.png" alt="Dentalyzer Logo" />
+	</button>
+</div>

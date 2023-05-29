@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common'
-import { ChangeDetectionStrategy, Component, Injector } from '@angular/core'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { RouterModule } from '@angular/router'
-import { takeUntil } from 'rxjs'
-import { BaseComponent, Language, LanguageService, SwUpdateService } from './common'
+import { TranslateService } from '@ngx-translate/core'
+import { take } from 'rxjs'
+import { Language, LanguageService, SwUpdateService } from './common'
 import { HeaderComponent } from './header/header.component'
 
 @Component({
@@ -12,12 +13,14 @@ import { HeaderComponent } from './header/header.component'
 	templateUrl: './app.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent extends BaseComponent {
+export class AppComponent {
 	title = 'Dentalyzer'
 
-	constructor(private languageService: LanguageService, private swUpdateService: SwUpdateService, injector: Injector) {
-		super(injector)
-
+	constructor(
+		private languageService: LanguageService,
+		private swUpdateService: SwUpdateService,
+		private translateService: TranslateService
+	) {
 		this.initLanguage()
 		this.handleSwUpdates()
 	}
@@ -37,6 +40,6 @@ export class AppComponent extends BaseComponent {
 	}
 
 	private handleSwUpdates() {
-		this.swUpdateService.checkForUpdates().pipe(takeUntil(this.destroy$)).subscribe()
+		this.swUpdateService.checkForUpdates().pipe(take(1)).subscribe()
 	}
 }

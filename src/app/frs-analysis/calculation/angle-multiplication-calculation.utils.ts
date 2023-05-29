@@ -4,7 +4,8 @@ import { FrsAngleMultiplicationCalculation, FrsCalculation } from './frs-calcula
 export function checkAngleMultiplicationTarget(
 	calculationData: FrsAngleMultiplicationCalculation,
 	recalculatedTypes: FrsCalculationType[],
-	calculations: FrsCalculation[]
+	calculations: FrsCalculation[],
+	initialTargetValue?: number
 ): number | undefined {
 	if (
 		recalculatedTypes.includes(calculationData.targetAngle1) ||
@@ -16,7 +17,7 @@ export function checkAngleMultiplicationTarget(
 			return calculateAngleMultiplicationTarget(calculationData, angle1, angle2)
 		}
 	}
-	return
+	return initialTargetValue
 }
 
 function calculateAngleMultiplicationTarget(

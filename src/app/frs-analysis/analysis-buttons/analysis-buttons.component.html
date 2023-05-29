@@ -1,0 +1,9 @@
+<div class="flex items-center justify-around mb-2 mt-4">
+	<!-- TODO:  translations -->
+	<button mat-raised-button color="primary" [disabled]="!showButtons" (click)="handleNewAnalysis()">
+		<mat-icon>note_add</mat-icon>{{ 'AnalysisButtons.NewAnalysis' | translate }}
+	</button>
+	<button mat-raised-button color="primary" [disabled]="!showButtons" (click)="downloadPdf()">
+		<mat-icon>download</mat-icon>{{ 'AnalysisButtons.Download' | translate }}
+	</button>
+</div>

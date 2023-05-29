@@ -16,6 +16,9 @@ module.exports = {
 				'3/10': '30%',
 				'7/10': '70%',
 			},
+			boxShadow: {
+				card: '0px 4px 10px rgba(0, 0, 0, 0.03), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.12)',
+			},
 			fontFamily: {
 				sans: ['Roboto', 'Helvetica Neue', 'sans-serif'],
 			},

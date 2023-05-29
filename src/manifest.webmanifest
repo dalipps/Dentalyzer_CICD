@@ -1,8 +1,8 @@
 {
 	"name": "Dentalyzer",
 	"short_name": "Dentalyzer",
-	"theme_color": "#fafafa",
-	"background_color": "#fafafa",
+	"theme_color": "#ffffff",
+	"background_color": "#ffffff",
 	"display": "standalone",
 	"scope": "./",
 	"start_url": "./",
