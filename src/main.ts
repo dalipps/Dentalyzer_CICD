@@ -5,6 +5,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { bootstrapApplication } from '@angular/platform-browser'
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations'
 import { provideRouter } from '@angular/router'
+import { ServiceWorkerModule } from '@angular/service-worker'
 import { provideEffects } from '@ngrx/effects'
 import { provideStore } from '@ngrx/store'
 import { provideStoreDevtools } from '@ngrx/store-devtools'
@@ -29,6 +30,12 @@ bootstrapApplication(AppComponent, {
 		provideAnimations(),
 		importProvidersFrom(HttpClientModule, BrowserAnimationsModule),
 		importProvidersFrom(
+			ServiceWorkerModule.register('ngsw-worker.js', {
+				enabled: !isDevMode(),
+				// Register the ServiceWorker as soon as the app is stable
+				// or after 30 seconds (whichever comes first).
+				registrationStrategy: 'registerWhenStable:30000',
+			}),
 			TranslateModule.forRoot({
 				defaultLanguage: 'de',
 				loader: {

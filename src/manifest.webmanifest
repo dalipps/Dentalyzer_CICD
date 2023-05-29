@@ -1,0 +1,17 @@
+{
+	"name": "Dentalyzer",
+	"short_name": "Dentalyzer",
+	"theme_color": "#fafafa",
+	"background_color": "#fafafa",
+	"display": "standalone",
+	"scope": "./",
+	"start_url": "./",
+	"icons": [
+		{
+			"src": "assets/logos/Dentalyzer.svg",
+			"sizes": "48x48 72x72 96x96 128x128 256x256 512x512",
+			"type": "image/svg",
+			"purpose": "maskable"
+		}
+	]
+}

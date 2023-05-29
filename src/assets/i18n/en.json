@@ -6,6 +6,7 @@
 	},
 	"Dialog": {
 		"No": "No",
+		"Ok": "Ok",
 		"Yes": "Yes"
 	},
 	"FileUpload": {
@@ -369,28 +370,32 @@
 		"3d": "3D Analysis",
 		"Welcome": "Welcome to Dentalyzer"
 	},
+	"Login": {
+		"Password": {
+			"Error": {
+				"Authenticate": "That's not the right password. Please Try again.",
+				"Length": "The password you provided must have at least {{minLength}} characters.",
+				"Required": "Please enter a password."
+			},
+			"Label": "Password"
+		},
+		"Submit": "Sign in",
+		"Subtitle": "Welcome to Dentalyzer",
+		"Title": "Sign in",
+		"Username": {
+			"Error": {
+				"Required": "Please enter an username."
+			},
+			"Label": "Username"
+		}
+	},
+	"SwUpdate": {
+		"UpdateAvailableContent": "A new update must be installed. The process takes only a short moment.\n Your data will not be lost.",
+		"UpdateAvailableTitle": "Update available"
+	},
 	"TabMenu": {
 		"Calculations": "Calculations",
 		"Edges": "Levels",
 		"Marker": "Marks"
-	},
-	"Login": {
-		"Title": "Sign in",
-		"Subtitle": "Welcome to Dentalyzer",
-		"Username": {
-			"Label": "Username",
-			"Error": {
-				"Required": "Please enter an username."
-			}
-		},
-		"Password": {
-			"Label": "Password",
-			"Error": {
-				"Required": "Please enter a password.",
-				"Length": "The password you provided must have at least {{minLength}} characters.",
-				"Authenticate": "That's not the right password. Please Try again."
-			}
-		},
-		"Submit": "Sign in"
 	}
 }
