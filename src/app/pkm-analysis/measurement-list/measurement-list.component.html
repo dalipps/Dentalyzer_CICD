@@ -1,0 +1,13 @@
+<table mat-table class="w-full block">
+	<ng-container matColumnDef="{{ displayedColumns[0] }}">
+		<th mat-header-cell *matHeaderCellDef class="w-full">{{ 'MeasurementList.Distance' | translate }}</th>
+		<td></td>
+	</ng-container>
+	<ng-container matColumnDef="{{ displayedColumns[1] }}" class="w-full">
+		<th mat-header-cell *matHeaderCellDef>{{ 'MeasurementList.Label' | translate }}</th>
+		<td></td>
+	</ng-container>
+
+	<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+	<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

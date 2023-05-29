@@ -2,7 +2,7 @@ import { Routes } from '@angular/router'
 import { FrsAnalysisComponent } from './frs-analysis'
 import { frsStoreInitResolver } from './frs-analysis/resolver/frs-store-init.resolver'
 import { HomeComponent } from './home/home.component'
-import { canActivate } from './login/account/permission.utils'
+import { isAuthorized } from './login/account/permission.utils'
 import { LoginComponent } from './login/login.component'
 import { PkmAnalysisComponent } from './pkm-analysis/pkm-analysis.component'
 
@@ -22,7 +22,7 @@ export const globalRoutes: Routes = [
 	{
 		path: Path.Home,
 		component: HomeComponent,
-		canActivate: [canActivate],
+		canActivate: [isAuthorized],
 	},
 	{
 		path: Path.Login,
@@ -32,11 +32,11 @@ export const globalRoutes: Routes = [
 		path: Path.FrsAnalysis,
 		component: FrsAnalysisComponent,
 		resolve: { init: frsStoreInitResolver },
-		canActivate: [canActivate],
+		canActivate: [isAuthorized],
 	},
 	{
 		path: Path.PkmAnalysis,
 		component: PkmAnalysisComponent,
-		canActivate: [canActivate],
+		canActivate: [isAuthorized],
 	},
 ]

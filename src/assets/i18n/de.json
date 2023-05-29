@@ -1,11 +1,19 @@
 {
+	"AnalysisButtons": {
+		"Download": "Herunterladen",
+		"NewAnalysis": "Neue Analyse",
+		"NewAnalysisContent": "Wenn du eine neue Analyse startest, wird die aktuelle Analyse unwiederruflich gelöscht.\n\n Bist du dir sicher?",
+		"NewAnalysisTitle": "Neue Analyse starten"
+	},
 	"CalculationList": {
 		"Description": "Beschreibung",
 		"TargetValue": "Ist",
 		"Value": "Soll"
 	},
 	"Dialog": {
+		"Cancel": "Abbrechen",
 		"No": "Nein",
+		"Submit": "Bestätigen",
 		"Ok": "Ok",
 		"Yes": "Ja"
 	},
@@ -15,6 +23,10 @@
 		"SearchFiles": "Dateien durchsuchen"
 	},
 	"FrsAnalysis": {
+		"ExistingAnalysisContent": "Es wurde eine vorhandene Analyse gefunden. Möchtest Du diese weiter bearbeiten?\n\n Wenn Nein, wird sie unwiederruflich gelöscht. ",
+		"ExistingAnalysisTitle": "Vorhandene Analyse gefunden"
+	},
+	"PkmAnalysis": {
 		"ExistingAnalysisContent": "Es wurde eine vorhandene Analyse gefunden. Möchtest Du diese weiter bearbeiten?\n\n Wenn Nein, wird sie unwiederruflich gelöscht. ",
 		"ExistingAnalysisTitle": "Vorhandene Analyse gefunden"
 	},
@@ -387,6 +399,23 @@
 				"Required": "Geben Sie ein Usernamen ein."
 			},
 			"Label": "Username"
+		}
+	},
+	"PDF": {
+		"FrsAnalysis": "FRS_Analyse",
+		"SomeFieldsNotFound": "Einige Felder konnten nicht in die PDF geschrieben werden"
+	},
+	"MeasurementList": {
+		"Distance": "Abstand",
+		"Label": "Name"
+	},
+	"ModelViewButtons": {
+		"LJ": "UK",
+		"UJ": "OK"
+	},
+	"PkmFacade": {
+		"Error": {
+			"HasActiveAnalysis": ""
 		}
 	},
 	"SwUpdate": {

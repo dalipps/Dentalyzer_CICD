@@ -7,12 +7,14 @@ import {
 	EMPTY,
 	Observable,
 	combineLatest,
+	distinctUntilChanged,
 	filter,
 	first,
 	map,
 	of,
 	shareReplay,
 	switchMap,
+	takeUntil,
 	tap,
 } from 'rxjs'
 import * as THREE from 'three'
@@ -30,8 +32,10 @@ export const MARKER_Z_RAISE = 0.003
 })
 export class FrsAnalysisService extends BaseService {
 	private selectedMarkIdSubject$ = new BehaviorSubject<FrsMarkType | undefined>(undefined)
+	private newAnalysisSetSubject$ = new BehaviorSubject<boolean>(false)
 
 	analysis$: Observable<FrsAnalysis | undefined> = EMPTY
+	newAnalysisSet$ = this.newAnalysisSetSubject$.asObservable()
 	selectedMarkId$ = this.selectedMarkIdSubject$.asObservable()
 
 	constructor(
@@ -51,6 +55,11 @@ export class FrsAnalysisService extends BaseService {
 				tap((imageBase64) => this.frsFacade.create(imageBase64))
 			)
 			.subscribe()
+	}
+
+	reset(): void {
+		this.frsFacade.removeAll()
+		this.newAnalysisSetSubject$.next(false)
 	}
 
 	setSelectedMarkId(id: FrsMarkType | undefined): void {
@@ -93,8 +102,6 @@ export class FrsAnalysisService extends BaseService {
 			data: <DialogData>{
 				title: this.translateService.instant(t('FrsAnalysis.ExistingAnalysisTitle')),
 				content: this.translateService.instant(t('FrsAnalysis.ExistingAnalysisContent')),
-				rejectButton: this.translateService.instant(t('Dialog.No')),
-				submitButton: this.translateService.instant(t('Dialog.Yes')),
 				rejectAction: () => this.frsFacade.removeAll(),
 			},
 		})
@@ -116,5 +123,14 @@ export class FrsAnalysisService extends BaseService {
 			filter(([existingAnalysisChecked]) => !!existingAnalysisChecked),
 			map(([, analysis]) => analysis)
 		)
+
+		combineLatest([existingAnalysisChecked$, this.analysis$])
+			.pipe(
+				takeUntil(this.destroy$),
+				filter(([checked]) => !!checked),
+				distinctUntilChanged((prev, next) => !prev && !!next),
+				tap(() => this.newAnalysisSetSubject$.next(true))
+			)
+			.subscribe()
 	}
 }

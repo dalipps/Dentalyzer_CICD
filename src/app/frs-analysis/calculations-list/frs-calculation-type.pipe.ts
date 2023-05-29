@@ -25,7 +25,7 @@ export class FrsCalculationTypePipe implements PipeTransform {
 	}
 }
 
-const frsCalculationTypeMapping: { [key: string]: FrsCalculationTranslation } = {
+export const frsCalculationTypeMapping: { [key: string]: FrsCalculationTranslation } = {
 	[FrsCalculationType.SNA]: {
 		abbreviation: t('FrsCalculationType.SNA.Abbreviation'),
 		description: t('FrsCalculationType.SNA.Description'),

@@ -22,6 +22,7 @@ export class FrsFacade extends BaseFacade<FrsState> {
 		switchMap(() => this.store.pipe(select(FrsSelectors.selectActive)))
 	)
 
+	// TODO: set to true
 	private hasActiveAnalysis = false
 	private setMarkIds: FrsMarkType[] = []
 
