@@ -7,12 +7,14 @@ import {
 	EMPTY,
 	Observable,
 	combineLatest,
-	distinctUntilChanged,
+	debounceTime,
 	filter,
 	first,
 	map,
 	of,
+	pairwise,
 	shareReplay,
+	startWith,
 	switchMap,
 	takeUntil,
 	tap,
@@ -124,11 +126,14 @@ export class FrsAnalysisService extends BaseService {
 			map(([, analysis]) => analysis)
 		)
 
-		combineLatest([existingAnalysisChecked$, this.analysis$])
+		combineLatest([existingAnalysisChecked$.pipe(startWith(false)), this.frsFacade.active$])
 			.pipe(
 				takeUntil(this.destroy$),
-				filter(([checked]) => !!checked),
-				distinctUntilChanged((prev, next) => !prev && !!next),
+				debounceTime(50),
+				pairwise(),
+				filter(([[prevChecked, prevAnalysis], [nextChecked, nextAnalysis]]) => {
+					return (!prevAnalysis && !!nextAnalysis) || (!prevChecked && nextChecked)
+				}),
 				tap(() => this.newAnalysisSetSubject$.next(true))
 			)
 			.subscribe()
