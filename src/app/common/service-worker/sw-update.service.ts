@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker'
 import { marker as t } from '@biesbjerg/ngx-translate-extract-marker'
 import { TranslateService } from '@ngx-translate/core'
-import { Observable, filter, first, from, map, switchMap, tap } from 'rxjs'
+import { Observable, filter, from, map, switchMap, tap } from 'rxjs'
 import { DialogComponent, DialogData } from 'src/app/dialog/dialog.component'
 import { BaseService } from '../base'
 
@@ -19,7 +19,7 @@ export class SwUpdateService extends BaseService {
 		return this.updates.versionUpdates.pipe(
 			filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'),
 			map(() => true),
-			tap(() => {
+			switchMap(() => {
 				const dialogRef = this.dialog.open(DialogComponent, {
 					data: <DialogData>{
 						title: this.translateService.instant(t('SwUpdate.UpdateAvailableTitle')),
@@ -27,14 +27,9 @@ export class SwUpdateService extends BaseService {
 						submitButton: this.translateService.instant(t('Dialog.Ok')),
 					},
 				})
-				dialogRef
-					.afterClosed()
-					.pipe(
-						switchMap(() => this.update()),
-						first()
-					)
-					.subscribe()
-			})
+				return dialogRef.afterClosed()
+			}),
+			switchMap(() => this.update())
 		)
 	}
 
