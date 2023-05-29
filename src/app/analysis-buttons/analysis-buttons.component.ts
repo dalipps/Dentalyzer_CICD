@@ -35,7 +35,7 @@ export class AnalysisButtonsComponent extends BaseComponent implements OnDestroy
 				rejectButton: this.translateService.instant(t('Dialog.Cancel')),
 				submitButton: this.translateService.instant(t('Dialog.Submit')),
 				submitAction: () => this.resetAnalysis.emit(),
-				rejectAction: () => this.dialogRef?.close(),
+				rejectAction: () => undefined,
 			},
 		})
 	}

@@ -2,6 +2,7 @@ import { EntityAdapter, EntityState, createEntityAdapter } from '@ngrx/entity'
 import { Action, createReducer, on } from '@ngrx/store'
 import { PkmActions } from './pkm.actions'
 import { PkmAnalysis } from './pkm.model'
+import { initPkmAnalysis } from './pkm.store.utils'
 
 export enum PkmStoreErrorType {
 	Init,
@@ -41,7 +42,7 @@ const reducer = createReducer(
 	on(PkmActions.initFailure, (state, { error }) => ({ ...state, error })),
 
 	on(PkmActions.create, (state, { modelId }) => {
-		const analysis = new PkmAnalysis(modelId)
+		const analysis = initPkmAnalysis(modelId)
 		return pkmAdapter.addOne({ ...analysis }, { ...state, activeId: analysis.id })
 	}),
 

@@ -6,6 +6,7 @@ import { BaseComponent } from '../common/base'
 import { IndexedDbService, TABLES } from '../common/indexed-db'
 import { FileType } from '../file-upload'
 import { FileUploadComponent } from '../file-upload/file-upload.component'
+import { PkmEdge } from './edge/pkm-edge'
 import { MeasurementListComponent } from './measurement-list/measurement-list.component'
 import { ModelViewButtonsComponent } from './model-view-buttons/model-view-buttons.component'
 import { PkmAnalysisService } from './pkm-analysis.service'
@@ -52,7 +53,7 @@ export class PkmAnalysisComponent extends BaseComponent implements AfterViewInit
 				filter((x) => !!x),
 				takeUntil(this.destroy$),
 				switchMap(() => this.analysisService.analysis$.pipe(first())),
-				filter((analysis): analysis is { id: string; modelId: string } => !!analysis?.id && !!analysis?.modelId),
+				filter((analysis): analysis is { id: string; modelId: string; edges: PkmEdge[] } => !!analysis?.modelId),
 				switchMap((analysis) => this.dbService.getOne<{ id: string; file: File }>(TABLES.PKM_FILE, analysis.modelId)),
 				filter((model) => !!model),
 				tap(({ file }) => {
