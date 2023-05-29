@@ -3,8 +3,10 @@
 	{{ data.content }}
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-	<button *ngIf="rejectButton" mat-stroked-button mat-dialog-close (click)="onReject()">{{ data.rejectButton }}</button>
+	<button *ngIf="data.rejectAction" mat-stroked-button mat-dialog-close (click)="onReject()">
+		{{ rejectButton }}
+	</button>
 	<button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial (click)="onSubmit()" color="primary">
-		{{ data.submitButton }}
+		{{ submitButton }}
 	</button>
 </mat-dialog-actions>

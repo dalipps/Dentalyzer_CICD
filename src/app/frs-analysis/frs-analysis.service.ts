@@ -93,8 +93,6 @@ export class FrsAnalysisService extends BaseService {
 			data: <DialogData>{
 				title: this.translateService.instant(t('FrsAnalysis.ExistingAnalysisTitle')),
 				content: this.translateService.instant(t('FrsAnalysis.ExistingAnalysisContent')),
-				rejectButton: this.translateService.instant(t('Dialog.No')),
-				submitButton: this.translateService.instant(t('Dialog.Yes')),
 				rejectAction: () => this.frsFacade.removeAll(),
 			},
 		})

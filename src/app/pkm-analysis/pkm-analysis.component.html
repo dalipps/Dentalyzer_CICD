@@ -1,15 +1,17 @@
-<div class="page">
-	<div id="pkmAnalysisContainer" class="full-size" #pkmAnalysisContainer>
+<div class="page flex gap-3" *ngIf="{ analysis: analysis$ | async } as data">
+	<div id="pkmAnalysisContainer" class="analysis-canvas relative" #pkmAnalysisContainer>
 		<canvas
-			id="analysisFrsCanvas"
-			#analysisFrsCanvas
-			*ngIf="pkmSubject$ | async; else showFileUpload"
-			class="full-size"
+			id="analysisPkmCanvas"
+			#analysisPkmCanvas
+			*ngIf="data.analysis?.modelId; else showFileUpload"
+			class="w-full h-full shadow-card absolute"
 		></canvas>
+		<dent-model-view-buttons class="absolute" />
 	</div>
 	<ng-template #showFileUpload>
 		<div class="flex-center full-size">
 			<dent-file-upload (uploadedFiles)="loadFile($event)" [acceptFileTypes]="supportedFileTypes"></dent-file-upload>
 		</div>
 	</ng-template>
+	<div class="analysis-sidebar"><dent-measurement-list /></div>
 </div>

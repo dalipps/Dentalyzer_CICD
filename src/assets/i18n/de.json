@@ -18,6 +18,10 @@
 		"ExistingAnalysisContent": "Es wurde eine vorhandene Analyse gefunden. Möchtest Du diese weiter bearbeiten?\n\n Wenn Nein, wird sie unwiederruflich gelöscht. ",
 		"ExistingAnalysisTitle": "Vorhandene Analyse gefunden"
 	},
+	"PkmAnalysis": {
+		"ExistingAnalysisContent": "Es wurde eine vorhandene Analyse gefunden. Möchtest Du diese weiter bearbeiten?\n\n Wenn Nein, wird sie unwiederruflich gelöscht. ",
+		"ExistingAnalysisTitle": "Vorhandene Analyse gefunden"
+	},
 	"FrsCalculationType": {
 		"ANB": {
 			"Abbreviation": "ANB",
@@ -387,6 +391,19 @@
 				"Required": "Geben Sie ein Usernamen ein."
 			},
 			"Label": "Username"
+		}
+	},
+	"MeasurementList": {
+		"Distance": "Abstand",
+		"Label": "Name"
+	},
+	"ModelViewButtons": {
+		"LJ": "UK",
+		"UJ": "OK"
+	},
+	"PkmFacade": {
+		"Error": {
+			"HasActiveAnalysis": ""
 		}
 	},
 	"SwUpdate": {

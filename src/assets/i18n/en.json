@@ -18,6 +18,10 @@
 		"ExistingAnalysisContent": "An existing analysis was found. Do you want to keep editing it?\n\n If not it will be permanently deleted.",
 		"ExistingAnalysisTitle": "Found existing analysis"
 	},
+	"PkmAnalysis": {
+		"ExistingAnalysisContent": "An existing analysis was found. Do you want to keep editing it?\n\n If not it will be permanently deleted.",
+		"ExistingAnalysisTitle": "Found existing analysis"
+	},
 	"FrsCalculationType": {
 		"ANB": {
 			"Abbreviation": "",
@@ -387,6 +391,19 @@
 				"Required": "Please enter an username."
 			},
 			"Label": "Username"
+		}
+	},
+	"MeasurementList": {
+		"Distance": "Distance",
+		"Label": "Name"
+	},
+	"ModelViewButtons": {
+		"LJ": "LJ",
+		"UJ": "UJ"
+	},
+	"PkmFacade": {
+		"Error": {
+			"HasActiveAnalysis": ""
 		}
 	},
 	"SwUpdate": {

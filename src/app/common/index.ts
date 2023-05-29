@@ -1,5 +1,6 @@
 export * from '../file-upload/dnd/dnd.directive'
 export * from './base'
+export * from './indexed-db'
 export * from './language'
 export * from './loading/loading.service'
 export * from './network/network.service'

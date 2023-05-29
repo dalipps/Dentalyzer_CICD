@@ -24,7 +24,6 @@ export class SwUpdateService extends BaseService {
 					data: <DialogData>{
 						title: this.translateService.instant(t('SwUpdate.UpdateAvailableTitle')),
 						content: this.translateService.instant(t('SwUpdate.UpdateAvailableContent')),
-						submitButton: this.translateService.instant(t('Dialog.Ok')),
 					},
 				})
 				return dialogRef.afterClosed()
