@@ -96,7 +96,7 @@ export class FrsAnalysisComponent extends BaseComponent implements AfterViewInit
 				debounceTime(10),
 				filter((x) => !!x),
 				takeUntil(this.destroy$),
-				switchMap(() => this.frsService.analysis$.pipe(first())),
+				switchMap(() => this.analysis$.pipe(first())),
 				map((analysis) => [analysis, this.canvas]),
 				filter((array): array is [FrsAnalysis, ElementRef<HTMLCanvasElement>] => !!array[0] && !!array[1]),
 				tap(([analysis, canvas]) => this.renderingService.initImageRendering(canvas.nativeElement, analysis))
