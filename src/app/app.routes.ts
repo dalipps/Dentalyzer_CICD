@@ -39,4 +39,8 @@ export const globalRoutes: Routes = [
 		component: PkmAnalysisComponent,
 		canActivate: [isAuthorized],
 	},
+	{
+		path: '**',
+		redirectTo: '',
+	},
 ]
