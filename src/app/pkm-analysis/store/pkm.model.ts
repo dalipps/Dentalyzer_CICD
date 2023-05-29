@@ -11,3 +11,7 @@ export class PkmAnalysis {
 		this.modelId = modelId
 	}
 }
+
+export function isAnalysis(analysis: PkmAnalysis): analysis is { id: string; modelId: string; edges: PkmEdge[] } {
+	return !!analysis?.modelId
+}
