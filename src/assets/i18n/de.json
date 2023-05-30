@@ -6,15 +6,28 @@
 		"NewAnalysisTitle": "Neue Analyse starten"
 	},
 	"CalculationList": {
-		"Description": "Beschreibung",
+		"Description": "Bezeichnung",
 		"TargetValue": "Ist",
 		"Value": "Soll"
 	},
 	"Dialog": {
 		"Cancel": "Abbrechen",
 		"No": "Nein",
+		"Ok": "",
 		"Submit": "Bestätigen",
 		"Yes": "Ja"
+	},
+	"EdgesList": {
+		"Distance": {
+			"Label": "Measurement",
+			"Unit": "mm"
+		},
+		"Name": {
+			"Label": "Name"
+		},
+		"Edit": {
+			"Label": "Bearbeiten"
+		}
 	},
 	"FileUpload": {
 		"DragAndDrop": "Dateien ziehen und ablegen",
@@ -387,7 +400,7 @@
 			"Label": "Passwort"
 		},
 		"Submit": "Einloggen",
-		"Subtitle": "Willkommen bei Dentalyzer",
+		"Subtitle": "Willkommen im Dentalyzer",
 		"Title": "Einloggen",
 		"Username": {
 			"Error": {
@@ -395,10 +408,6 @@
 			},
 			"Label": "Username"
 		}
-	},
-	"MeasurementList": {
-		"Distance": "Abstand",
-		"Label": "Name"
 	},
 	"PDF": {
 		"FrsAnalysis": "FRS",
@@ -408,6 +417,56 @@
 	"PkmAnalysis": {
 		"ExistingAnalysisContent": "Es wurde eine vorhandene Analyse gefunden. Möchtest Du diese weiter bearbeiten?\n\n Wenn Nein, wird sie unwiederruflich gelöscht. ",
 		"ExistingAnalysisTitle": "Vorhandene Analyse gefunden"
+	},
+	"PkmEdgeOkklusion": {
+		"Edge": {
+			"Overbite": "Overbite",
+			"Overjet": "Overjet"
+		}
+	},
+	"PkmEdgeTranversal": {
+		"Edge": {
+			"OkHzb": "OK HZB",
+			"OkVzb": "OK VZB",
+			"UkHzb": "UK HZB",
+			"UkVzb": "UK VZB"
+		}
+	},
+	"PkmEdgeZahnBreite": {
+		"Edge": {
+			"Zahn11": "Zahn 11",
+			"Zahn12": "Zahn 12",
+			"Zahn13": "Zahn 13",
+			"Zahn14": "Zahn 14",
+			"Zahn15": "Zahn 15",
+			"Zahn16": "Zahn 16",
+			"Zahn21": "Zahn 21",
+			"Zahn22": "Zahn 22",
+			"Zahn23": "Zahn 23",
+			"Zahn24": "Zahn 24",
+			"Zahn25": "Zahn 25",
+			"Zahn26": "Zahn 26",
+			"Zahn31": "Zahn 31",
+			"Zahn32": "Zahn 32",
+			"Zahn33": "Zahn 33",
+			"Zahn34": "Zahn 34",
+			"Zahn35": "Zahn 35",
+			"Zahn36": "Zahn 36",
+			"Zahn41": "Zahn 41",
+			"Zahn42": "Zahn 42",
+			"Zahn43": "Zahn 43",
+			"Zahn44": "Zahn 44",
+			"Zahn45": "Zahn 45",
+			"Zahn46": "Zahn 46"
+		}
+	},
+	"PkmEdgeZahnGruppe": {
+		"Edge": {
+			"OkStuetzL": "OK Stützzone rechts",
+			"OkStuetzR": "OK Stützzone links",
+			"UkStuetzL": "UK Stützzone rechts",
+			"UkStuetzR": "UK Stützzone links"
+		}
 	},
 	"PkmFacade": {
 		"Error": {

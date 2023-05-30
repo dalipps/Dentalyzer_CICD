@@ -1,8 +1,8 @@
 import { SerializableVector3 } from '@dentalyzer/common'
 import { cloneDeep } from 'lodash-es'
 import { Vector3 } from 'three'
-import { initPkmEdges } from '../edge/pkm-edge'
-import { PkmEdgeType } from '../edge/pkm-edge-type'
+import { PkmEdgeType } from '../edge/pkm-edge'
+import { initPkmEdges } from '../edge/pkm-edges'
 import { PkmAnalysis } from './pkm.model'
 
 export function initPkmAnalysis(modelId: string) {

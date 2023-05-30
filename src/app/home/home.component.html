@@ -1,13 +1,22 @@
-<div class="page flex-col">
-	<div class="flex-center h-3/10">
-		<h1>{{ 'Home.Welcome' | translate }}</h1>
+<div class="page flex justify-between flex-col p-6">
+	<div>
+		<div class="flex-center flex-col mb-10">
+			<img src="../../assets/logos/Dentalyzer_512x512.png" class="w-40" />
+			<h1 class="mt-4 text-2xl">{{ 'Home.Welcome' | translate }}</h1>
+		</div>
+		<div class="flex justify-center">
+			<button mat-raised-button class="p-20 text-2xl mr-4" [routerLink]="[frsAnalysisPath]">
+				{{ 'Home.2d' | translate }}
+			</button>
+			<button mat-raised-button class="p-20 text-2xl" [routerLink]="[pkmAnalysisPath]">
+				{{ 'Home.3d' | translate }}
+			</button>
+		</div>
 	</div>
-	<div class="flex h-7/10 justify-center">
-		<button mat-raised-button class="p-20 text-xl mr-4" [routerLink]="[frsAnalysisPath]">
-			{{ 'Home.2d' | translate }}
-		</button>
-		<button mat-raised-button class="p-20 text-xl" [routerLink]="[pkmAnalysisPath]">
-			{{ 'Home.3d' | translate }}
-		</button>
+
+	<div class="flex flex-col justify-between">
+		<div class="flex justify-end">
+			<img src="../../assets/logos/UKSH.png" class="h-14 w-auto" />
+		</div>
 	</div>
 </div>

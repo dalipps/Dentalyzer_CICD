@@ -1,7 +1,6 @@
 import { SerializableVector3 } from '@dentalyzer/common'
 import * as THREE from 'three'
-import { PkmEdge } from '../edge/pkm-edge'
-import { PkmEdgeType } from '../edge/pkm-edge-type'
+import { PkmEdge, PkmEdgeType } from '../edge/pkm-edge'
 
 export function getMarker(position: SerializableVector3, edgeId: PkmEdgeType): THREE.Object3D {
 	const positionVector = new THREE.Vector3(position.x, position.y, position.z)

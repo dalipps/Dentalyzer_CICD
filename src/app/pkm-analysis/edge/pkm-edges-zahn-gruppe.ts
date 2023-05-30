@@ -1,7 +1,7 @@
 export enum PkmEdgeZahnGruppe {
 	OkStuetzR = 'OkStuetzR',
 	OkStuetzL = 'OkStuetzL',
-	UkStuetzR = 'OkStuetzR',
+	UkStuetzR = 'UkStuetzR',
 	UkStuetzL = 'UkStuetzL',
 }
 

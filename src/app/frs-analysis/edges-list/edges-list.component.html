@@ -1,7 +1,8 @@
 <table mat-table [dataSource]="edges" multiTemplateDataRows class="w-full block">
 	<ng-container matColumnDef="{{ columnsToDisplay[0] }}">
 		<td mat-cell *matCellDef="let edge" [class]="!edge.direction ? 'text-gray-400' : ''">
-			{{ (edge.id | frsEdgeTypeTranslation).name | translate }}
+			<span class="whitespace-nowrap">({{ (edge.id | frsEdgeTypeTranslation).abbreviation | translate }})</span>
+			<span class="ml-1">{{ (edge.id | frsEdgeTypeTranslation).name | translate }}</span>
 		</td>
 	</ng-container>
 	<ng-container matColumnDef="{{ columnsToDisplay[1] }}">
