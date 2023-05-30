@@ -5,7 +5,7 @@ import { BaseFacade, IndexedDbService, SerializableVector3, TABLES } from '@dent
 import { select } from '@ngrx/store'
 import { combineLatest, filter, switchMap, takeUntil } from 'rxjs'
 import { Vector3 } from 'three'
-import { PkmEdgeType } from '../edge/pkm-edge-type'
+import { PkmEdgeType } from '../edge/pkm-edge'
 import { PkmActions } from './pkm.actions'
 import { PkmState } from './pkm.reducer'
 import { selectActive, selectPkmInit } from './pkm.selectors'

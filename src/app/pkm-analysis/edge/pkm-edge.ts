@@ -1,6 +1,17 @@
 import { SerializableVector3 } from '@dentalyzer/common'
-import { PkmEdgeGroupType, PkmEdgeType } from './pkm-edge-type'
-import { pkmEdgesZahnBreite } from './pkm-edges-zahn-breite'
+import { PkmEdgeOkklusion } from './pkm-edges-okklusion'
+import { PkmEdgeTranversal } from './pkm-edges-transversal'
+import { PkmEdgeZahnBreite } from './pkm-edges-zahn-breite'
+import { PkmEdgeZahnGruppe } from './pkm-edges-zahn-gruppe'
+
+export type PkmEdgeType = PkmEdgeZahnBreite | PkmEdgeZahnGruppe | PkmEdgeTranversal | PkmEdgeOkklusion
+
+export enum PkmEdgeGroupType {
+	Zahnbreite = 'Zahnbreite',
+	Zahngruppe = 'Zahngruppe',
+	Transversal = 'Transversal',
+	Okklusion = 'Okklusion',
+}
 
 export interface PkmEdge {
 	id: PkmEdgeType
@@ -9,16 +20,3 @@ export interface PkmEdge {
 	mark1?: SerializableVector3
 	mark2?: SerializableVector3
 }
-
-const generateEdges = (edgeTypes: PkmEdgeType[], groupId: PkmEdgeGroupType) =>
-	edgeTypes.map((edgeType) => ({
-		id: edgeType,
-		groupId,
-	}))
-
-export const initPkmEdges = (): PkmEdge[] => [
-	...generateEdges(pkmEdgesZahnBreite, PkmEdgeGroupType.Zahnbreite),
-	...generateEdges(pkmEdgesZahnBreite, PkmEdgeGroupType.Zahngruppe),
-	...generateEdges(pkmEdgesZahnBreite, PkmEdgeGroupType.Transversal),
-	...generateEdges(pkmEdgesZahnBreite, PkmEdgeGroupType.Okklusion),
-]

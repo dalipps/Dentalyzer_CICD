@@ -6,8 +6,7 @@ import { BaseComponent } from '../common/base'
 import { IndexedDbService, TABLES } from '../common/indexed-db'
 import { FileType } from '../file-upload'
 import { FileUploadComponent } from '../file-upload/file-upload.component'
-import { PkmEdge } from './edge/pkm-edge'
-import { MeasurementListComponent } from './measurement-list/measurement-list.component'
+import { EdgesListComponent } from './edges-list/edges-list.component'
 import { ModelViewButtonsComponent } from './model-view-buttons/model-view-buttons.component'
 import { getNormalizedMousePosition } from './mouse/mouse.utils'
 import { PkmPdfService } from './pdf'
@@ -20,13 +19,7 @@ import { PkmAnalysis } from './store/pkm.model'
 	standalone: true,
 	templateUrl: './pkm-analysis.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [
-		CommonModule,
-		FileUploadComponent,
-		ModelViewButtonsComponent,
-		MeasurementListComponent,
-		AnalysisButtonsComponent,
-	],
+	imports: [CommonModule, FileUploadComponent, ModelViewButtonsComponent, AnalysisButtonsComponent, EdgesListComponent],
 })
 export class PkmAnalysisComponent extends BaseComponent implements AfterViewInit {
 	readonly supportedFileTypes = [FileType.STL]
@@ -58,7 +51,7 @@ export class PkmAnalysisComponent extends BaseComponent implements AfterViewInit
 				filter((x) => !!x),
 				takeUntil(this.destroy$),
 				switchMap(() => this.analysis$.pipe(first())),
-				filter((analysis): analysis is { id: string; modelId: string; edges: PkmEdge[] } => !!analysis?.modelId),
+				filter((analysis): analysis is Required<PkmAnalysis> => !!analysis?.modelId),
 				switchMap((analysis) =>
 					combineLatest([
 						this.dbService.getOne<{ id: string; file: File }>(TABLES.PKM_FILE, analysis.modelId),

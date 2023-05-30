@@ -13,8 +13,21 @@
 	"Dialog": {
 		"Cancel": "Cancel",
 		"No": "No",
+		"Ok": "",
 		"Submit": "Submit",
 		"Yes": "Yes"
+	},
+	"EdgesList": {
+		"Distance": {
+			"Label": "Messung",
+			"Unit": "mm"
+		},
+		"Name": {
+			"Label": "Name"
+		},
+		"Edit": {
+			"Label": "Edit"
+		}
 	},
 	"FileUpload": {
 		"DragAndDrop": "Drag and drop files",
@@ -396,10 +409,6 @@
 			"Label": "Username"
 		}
 	},
-	"MeasurementList": {
-		"Distance": "Distance",
-		"Label": "Name"
-	},
 	"PDF": {
 		"FrsAnalysis": "TRA",
 		"PkmAnalysis": "MA",
@@ -408,6 +417,56 @@
 	"PkmAnalysis": {
 		"ExistingAnalysisContent": "An existing analysis was found. Do you want to keep editing it?\n\n If not it will be permanently deleted.",
 		"ExistingAnalysisTitle": "Found existing analysis"
+	},
+	"PkmEdgeOkklusion": {
+		"Edge": {
+			"Overbite": "Overbite",
+			"Overjet": "Overjet"
+		}
+	},
+	"PkmEdgeTranversal": {
+		"Edge": {
+			"OkHzb": "UJ HZB",
+			"OkVzb": "UJ VZB",
+			"UkHzb": "LJ HZB",
+			"UkVzb": "LJ VZB"
+		}
+	},
+	"PkmEdgeZahnBreite": {
+		"Edge": {
+			"Zahn11": "Tooth 11",
+			"Zahn12": "Tooth 12",
+			"Zahn13": "Tooth 13",
+			"Zahn14": "Tooth 14",
+			"Zahn15": "Tooth 15",
+			"Zahn16": "Tooth 16",
+			"Zahn21": "Tooth 21",
+			"Zahn22": "Tooth 22",
+			"Zahn23": "Tooth 23",
+			"Zahn24": "Tooth 24",
+			"Zahn25": "Tooth 25",
+			"Zahn26": "Tooth 26",
+			"Zahn31": "Tooth 31",
+			"Zahn32": "Tooth 32",
+			"Zahn33": "Tooth 33",
+			"Zahn34": "Tooth 34",
+			"Zahn35": "Tooth 35",
+			"Zahn36": "Tooth 36",
+			"Zahn41": "Tooth 41",
+			"Zahn42": "Tooth 42",
+			"Zahn43": "Tooth 43",
+			"Zahn44": "Tooth 44",
+			"Zahn45": "Tooth 45",
+			"Zahn46": "Tooth 46"
+		}
+	},
+	"PkmEdgeZahnGruppe": {
+		"Edge": {
+			"OkStuetzL": "UJ Supporting area left",
+			"OkStuetzR": "UJ Supporting area right",
+			"UkStuetzL": "LJ Supporting area left",
+			"UkStuetzR": "LJ Supporting area right"
+		}
 	},
 	"PkmFacade": {
 		"Error": {
