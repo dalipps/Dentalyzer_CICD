@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Injector, ViewChild } from '@angular/core'
-import { EMPTY, Observable, debounceTime, filter, first, switchMap, takeUntil, tap } from 'rxjs'
+import { EMPTY, Observable, combineLatest, debounceTime, filter, first, of, switchMap, takeUntil, tap } from 'rxjs'
 import { AnalysisButtonsComponent } from '../analysis-buttons/analysis-buttons.component'
 import { BaseComponent } from '../common/base'
 import { IndexedDbService, TABLES } from '../common/indexed-db'
@@ -9,6 +9,7 @@ import { FileUploadComponent } from '../file-upload/file-upload.component'
 import { PkmEdge } from './edge/pkm-edge'
 import { MeasurementListComponent } from './measurement-list/measurement-list.component'
 import { ModelViewButtonsComponent } from './model-view-buttons/model-view-buttons.component'
+import { getNormalizedMousePosition } from './mouse/mouse.utils'
 import { PkmPdfService } from './pdf'
 import { PkmAnalysisService } from './pkm-analysis.service'
 import { PkmRenderingService } from './rendering/pkm-rendering.service'
@@ -29,6 +30,10 @@ import { PkmAnalysis } from './store/pkm.model'
 })
 export class PkmAnalysisComponent extends BaseComponent implements AfterViewInit {
 	readonly supportedFileTypes = [FileType.STL]
+	private wasFastClick = true
+	private checkFastClickTime: number | undefined
+	private readonly fastClickDetectionTime = 100
+
 	analysis$: Observable<PkmAnalysis | undefined> = EMPTY
 
 	@ViewChild('analysisPkmCanvas', { read: ElementRef<HTMLCanvasElement>, static: false })
@@ -47,18 +52,23 @@ export class PkmAnalysisComponent extends BaseComponent implements AfterViewInit
 	}
 
 	ngAfterViewInit(): void {
-		this.analysisService.hasCurrentAnalysis$
+		this.analysisService.newAnalysisSet$
 			.pipe(
 				debounceTime(0),
 				filter((x) => !!x),
 				takeUntil(this.destroy$),
-				switchMap(() => this.analysisService.analysis$.pipe(first())),
+				switchMap(() => this.analysis$.pipe(first())),
 				filter((analysis): analysis is { id: string; modelId: string; edges: PkmEdge[] } => !!analysis?.modelId),
-				switchMap((analysis) => this.dbService.getOne<{ id: string; file: File }>(TABLES.PKM_FILE, analysis.modelId)),
-				filter((model) => !!model),
-				tap(({ file }) => {
+				switchMap((analysis) =>
+					combineLatest([
+						this.dbService.getOne<{ id: string; file: File }>(TABLES.PKM_FILE, analysis.modelId),
+						of(analysis),
+					]).pipe(first())
+				),
+				filter(([model]) => !!model),
+				tap(([{ file }, analysis]) => {
 					if (this.canvas && file) {
-						this.renderingService.render(this.canvas.nativeElement, file)
+						this.renderingService.render(this.canvas.nativeElement, file, analysis)
 					}
 				})
 			)
@@ -78,18 +88,33 @@ export class PkmAnalysisComponent extends BaseComponent implements AfterViewInit
 	}
 
 	onPointerUp(event: PointerEvent) {
-		console.log('up', event)
+		const selectedEdge = this.analysisService.selectedEdge
+		if (!this.canvas || !selectedEdge) return
+
+		this.endClickTest()
+
+		if (this.wasFastClick && (!selectedEdge.mark1 || !selectedEdge.mark2)) {
+			const mousePosition = getNormalizedMousePosition(this.canvas.nativeElement, event.clientX, event.clientY)
+			this.analysisService.addMark(mousePosition)
+		}
 	}
 
-	onPointerDown(event: PointerEvent) {
-		console.log('down', event)
-	}
-
-	onPointerOut(event: PointerEvent) {
-		console.log('event', event)
+	onPointerDown() {
+		this.startClickTest()
 	}
 
 	onPointerCancel() {
-		console.log('cancel')
+		this.endClickTest()
+	}
+
+	private startClickTest(): void {
+		this.checkFastClickTime = new Date().getTime()
+	}
+
+	private endClickTest(): void {
+		if (!this.checkFastClickTime) return
+
+		this.wasFastClick = new Date().getTime() - this.checkFastClickTime < this.fastClickDetectionTime
+		this.checkFastClickTime = undefined
 	}
 }

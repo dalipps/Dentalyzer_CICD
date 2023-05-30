@@ -5,9 +5,8 @@
 			#analysisPkmCanvas
 			*ngIf="data.analysis?.modelId; else showFileUpload"
 			class="w-full h-full shadow-card absolute"
-			(pointerdown)="onPointerDown($event)"
+			(pointerdown)="onPointerDown()"
 			(pointerup)="onPointerUp($event)"
-			(pointerout)="onPointerOut($event)"
 			(pointercancel)="onPointerCancel()"
 		></canvas>
 		<dent-model-view-buttons class="absolute" />
