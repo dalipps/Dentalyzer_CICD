@@ -1,34 +1,42 @@
-<div class="page flex-center">
-	<mat-card class="p-3">
-		<img class="m-auto" src="./assets/icons/Logo.svg" alt="Dentalyzer Logo" height="100" width="100" />
-		<form [formGroup]="loginForm" (ngSubmit)="login()">
-			<mat-card-header class="flex flex-col pt-2">
-				<h1>{{ 'Login.Title' | translate }}</h1>
-				<span class="pt-2 pb-2 text-black/60">{{ 'Login.Subtitle' | translate }}</span>
-			</mat-card-header>
-			<mat-card-content class="flex-center flex-col pt-8 pb-4">
-				<mat-form-field class="w-80" [ngClass]="{ 'mb-6': username.invalid }">
-					<mat-label>{{ 'Login.Username.Label' | translate }}</mat-label>
-					<input type="text" matInput formControlName="username" />
-					<mat-error class="pb-4" *ngIf="username.invalid">{{ 'Login.Username.Error.Required' | translate }}</mat-error>
-				</mat-form-field>
-				<mat-form-field class="w-80" [ngClass]="{ 'mb-6': password.invalid }">
-					<mat-label>{{ 'Login.Password.Label' | translate }}</mat-label>
-					<input type="password" matInput formControlName="password" />
-					<mat-error class="pb-4" *ngIf="password.hasError('required')">{{
-						'Login.Password.Error.Required' | translate
-					}}</mat-error>
-					<mat-error class="pb-4" *ngIf="password.hasError('minLength')">{{
-						'Login.Password.Error.Length' | translate : { minLength: passwordMinLength }
-					}}</mat-error>
-					<mat-error class="pb-4" *ngIf="password.hasError('authenticate')">{{
-						'Login.Password.Error.Authenticate' | translate
-					}}</mat-error>
-				</mat-form-field>
-			</mat-card-content>
-			<mat-card-actions class="justify-center pr-4">
-				<button type="submit" mat-raised-button color="accent" class="w-4/5">{{ 'Login.Submit' | translate }}</button>
-			</mat-card-actions>
-		</form>
-	</mat-card>
+<div class="page flex justify-between flex-col p-6">
+	<div class="flex-center h-full">
+		<mat-card class="p-3">
+			<img class="m-auto" src="./assets/icons/Logo.svg" alt="Dentalyzer Logo" height="100" width="100" />
+			<form [formGroup]="loginForm" (ngSubmit)="login()">
+				<mat-card-header class="flex flex-col pt-2">
+					<h1>{{ 'Login.Title' | translate }}</h1>
+					<span class="pt-2 pb-2 text-black/60">{{ 'Login.Subtitle' | translate }}</span>
+				</mat-card-header>
+				<mat-card-content class="flex-center flex-col pt-8 pb-4">
+					<mat-form-field class="w-80" [ngClass]="{ 'mb-6': username.invalid }">
+						<mat-label>{{ 'Login.Username.Label' | translate }}</mat-label>
+						<input type="text" matInput formControlName="username" />
+						<mat-error class="pb-4" *ngIf="username.invalid">{{
+							'Login.Username.Error.Required' | translate
+						}}</mat-error>
+					</mat-form-field>
+					<mat-form-field class="w-80" [ngClass]="{ 'mb-6': password.invalid }">
+						<mat-label>{{ 'Login.Password.Label' | translate }}</mat-label>
+						<input type="password" matInput formControlName="password" />
+						<mat-error class="pb-4" *ngIf="password.hasError('required')">{{
+							'Login.Password.Error.Required' | translate
+						}}</mat-error>
+						<mat-error class="pb-4" *ngIf="password.hasError('minLength')">{{
+							'Login.Password.Error.Length' | translate : { minLength: passwordMinLength }
+						}}</mat-error>
+						<mat-error class="pb-4" *ngIf="password.hasError('authenticate')">{{
+							'Login.Password.Error.Authenticate' | translate
+						}}</mat-error>
+					</mat-form-field>
+				</mat-card-content>
+				<mat-card-actions class="justify-center pr-4">
+					<button type="submit" mat-raised-button color="accent" class="w-4/5">{{ 'Login.Submit' | translate }}</button>
+				</mat-card-actions>
+			</form>
+		</mat-card>
+	</div>
+
+	<div class="flex justify-end">
+		<img src="../../assets/logos/UKSH.png" class="h-14 w-auto" />
+	</div>
 </div>
