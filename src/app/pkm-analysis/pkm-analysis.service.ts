@@ -24,7 +24,6 @@ import { Vector2 } from 'three'
 import { BaseService } from '../common/base'
 import { DialogComponent, DialogData } from '../dialog/dialog.component'
 import { PkmEdge, PkmEdgeType } from './edge/pkm-edge'
-import { PkmEdgeZahnBreite } from './edge/pkm-edges-zahn-breite'
 import { PkmRenderingService } from './rendering/pkm-rendering.service'
 import { PkmFacade } from './store/pkm.facade'
 import { PkmAnalysis } from './store/pkm.model'
@@ -39,7 +38,7 @@ export class PkmAnalysisService extends BaseService {
 	analysis$: Observable<PkmAnalysis | undefined> = EMPTY
 	newAnalysisSet$ = this.newAnalysisSetSubject$.asObservable()
 
-	private selectedEdgeIdSubject$ = new BehaviorSubject<PkmEdgeType | undefined>(PkmEdgeZahnBreite.Zahn11)
+	private selectedEdgeIdSubject$ = new BehaviorSubject<PkmEdgeType | undefined>(undefined)
 	selectedEdgeId$ = this.selectedEdgeIdSubject$.asObservable()
 
 	constructor(
