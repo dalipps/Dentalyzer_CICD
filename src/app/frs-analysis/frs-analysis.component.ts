@@ -54,7 +54,7 @@ export class FrsAnalysisComponent extends BaseComponent implements AfterViewInit
 
 	private selectedMarker: THREE.Object3D | undefined
 	private selectedMarkId: FrsMarkType | undefined
-
+	private analysis: FrsAnalysis | undefined
 	private wasFastClick = true
 	private checkFastClickTime: number | undefined
 	private readonly fastClickDetectionTime = 100
@@ -67,7 +67,7 @@ export class FrsAnalysisComponent extends BaseComponent implements AfterViewInit
 	) {
 		super(injector)
 
-		this.analysis$ = frsService.analysis$
+		this.analysis$ = frsService.analysis$.pipe(tap((analysis) => (this.analysis = analysis)))
 
 		this.selectedMarkId$ = frsService.selectedMarkId$.pipe(
 			tap((markId) => (this.selectedMarkId = markId)),
@@ -169,7 +169,9 @@ export class FrsAnalysisComponent extends BaseComponent implements AfterViewInit
 			return
 		}
 
-		if (this.wasFastClick) {
+		const isGenerated = !!this.analysis?.marks.find((m) => m.id === this.selectedMarkId)?.generationData
+
+		if (this.wasFastClick && !isGenerated) {
 			const mousePosition = getNormalizedMousePosition(this.canvas.nativeElement, event.clientX, event.clientY)
 			this.frsService.addMarker(mousePosition)
 		}

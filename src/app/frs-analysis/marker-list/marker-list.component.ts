@@ -70,7 +70,7 @@ export class MarkerListComponent {
 	onItemClick(item: ListItem): void {
 		this.selectedItem = this.selectedItem === item ? undefined : item
 
-		this.frsService.setSelectedMarkId(this.selectedItem?.isGenerated ? undefined : this.selectedItem?.id)
+		this.frsService.setSelectedMarkId(this.selectedItem?.id)
 	}
 
 	onRemoveMark(id: FrsMarkType): void {
