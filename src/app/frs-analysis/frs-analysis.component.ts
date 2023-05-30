@@ -17,11 +17,12 @@ import {
 	tap,
 } from 'rxjs'
 import * as THREE from 'three'
+import { AnalysisButtonsComponent } from '../analysis-buttons'
 import { FileUploadComponent } from '../file-upload/file-upload.component'
-import { AnalysisButtonsComponent } from './analysis-buttons/analysis-buttons.component'
 import { FrsAnalysisService } from './frs-analysis.service'
 import { FrsMarkType } from './mark'
 import { getNormalizedMousePosition } from './mouse/mouse.utils'
+import { FrsPdfService } from './pdf/frs-pdf.service'
 import { FrsRenderingService } from './rendering'
 import { FrsAnalysis } from './store'
 import { TabMenuComponent } from './tab-menu/tab-menu.component'
@@ -61,6 +62,7 @@ export class FrsAnalysisComponent extends BaseComponent implements AfterViewInit
 	constructor(
 		private readonly renderingService: FrsRenderingService,
 		private frsService: FrsAnalysisService,
+		private frsPdfService: FrsPdfService,
 		injector: Injector
 	) {
 		super(injector)
@@ -96,7 +98,7 @@ export class FrsAnalysisComponent extends BaseComponent implements AfterViewInit
 				debounceTime(10),
 				filter((x) => !!x),
 				takeUntil(this.destroy$),
-				switchMap(() => this.frsService.analysis$.pipe(first())),
+				switchMap(() => this.analysis$.pipe(first())),
 				map((analysis) => [analysis, this.canvas]),
 				filter((array): array is [FrsAnalysis, ElementRef<HTMLCanvasElement>] => !!array[0] && !!array[1]),
 				tap(([analysis, canvas]) => this.renderingService.initImageRendering(canvas.nativeElement, analysis))
@@ -106,6 +108,14 @@ export class FrsAnalysisComponent extends BaseComponent implements AfterViewInit
 
 	onUploadFiles(fileList: FileList): void {
 		this.frsService.hanleFilesUpload(fileList)
+	}
+
+	onResetAnalysis() {
+		this.frsService.reset()
+	}
+
+	onDownloadPdf() {
+		this.frsPdfService.generatePdf()
 	}
 
 	onPointerDown(event: PointerEvent): void {
@@ -124,17 +134,19 @@ export class FrsAnalysisComponent extends BaseComponent implements AfterViewInit
 		}
 
 		if (this.selectedMarker) {
-			const markId = this.selectedMarker.userData['markId']
-			this.renderingService.toggleLabelOfMark(markId, false)
-			this.frsService
-				.getMarkForMarker(markId)
-				.pipe(
-					first(),
-					tap((mark) => {
-						if (mark) this.renderingService.toggleEdges(mark.edgeTypes, false)
-					})
-				)
-				.subscribe()
+			const markId: FrsMarkType | undefined = this.selectedMarker.userData['markId']
+			if (markId) {
+				this.renderingService.toggleLabelOfMark(markId, false)
+				this.frsService
+					.getMarkForMarker(markId)
+					.pipe(
+						first(),
+						tap((mark) => {
+							if (mark) this.renderingService.toggleEdges(mark.edgeTypes, false)
+						})
+					)
+					.subscribe()
+			}
 
 			this.renderingService.toggleOrbitControls(false)
 		}
