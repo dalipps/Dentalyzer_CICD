@@ -1,7 +1,22 @@
 import { Injectable } from '@angular/core'
-import { BaseRenderingService } from '@dentalyzer/common'
+import { BaseRenderingService, SerializableVector3 } from '@dentalyzer/common'
 import { first, tap } from 'rxjs'
-import { BufferGeometry, Color, Mesh, MeshPhongMaterial, Scene, WebGLRenderer } from 'three'
+import {
+	BufferGeometry,
+	Color,
+	Material,
+	Mesh,
+	MeshPhongMaterial,
+	Raycaster,
+	Scene,
+	Vector2,
+	Vector3,
+	WebGLRenderer,
+} from 'three'
+import { PkmEdge } from '../edge/pkm-edge'
+import { PkmEdgeType } from '../edge/pkm-edge-type'
+import { PkmAnalysis } from '../store'
+import { getEdge, getMarker } from './pkm-rendering.utils'
 import { initLight, parseStlToGeometry } from './pkm.utils'
 import { initCamera, initOrbitControls } from './scene.utils'
 
@@ -20,7 +35,7 @@ export class PkmRenderingService extends BaseRenderingService {
 		super()
 	}
 
-	render(canvas: HTMLCanvasElement, file: File): void {
+	render(canvas: HTMLCanvasElement, file: File, analysis: PkmAnalysis): void {
 		parseStlToGeometry(file)
 			.pipe(
 				first(),
@@ -28,7 +43,11 @@ export class PkmRenderingService extends BaseRenderingService {
 					this.initModel(geometry)
 					this.initScene(canvas)
 					this.initRenderer()
+					this.raycaster = new Raycaster()
+
 					this.startAnimation()
+
+					this.redrawExistingData(analysis)
 				})
 			)
 			.subscribe()
@@ -44,6 +63,43 @@ export class PkmRenderingService extends BaseRenderingService {
 		if (this.upperJaw) {
 			this.upperJaw.visible = state
 		}
+	}
+
+	getFirstIntersection(mousePosition: Vector2): Vector3 | undefined {
+		if (!(this.upperJaw?.visible || this.lowerJaw?.visible) || !this.raycaster || !this.camera) return
+
+		const visibleJawParts: Mesh<BufferGeometry, Material | Material[]>[] = []
+
+		if (this.upperJaw?.visible) visibleJawParts.push(this.upperJaw)
+		if (this.lowerJaw?.visible) visibleJawParts.push(this.lowerJaw)
+
+		this.raycaster.setFromCamera(mousePosition, this.camera)
+		return this.raycaster.intersectObjects(visibleJawParts)[0]?.point
+	}
+
+	addMarker(edgeId: PkmEdgeType, position: SerializableVector3) {
+		if (!this.scene) return
+
+		const marker = getMarker(position, edgeId)
+		this.scene.add(marker)
+	}
+
+	addEdge(edge: PkmEdge) {
+		const line = getEdge(edge)
+		if (line) this.scene?.add(line)
+	}
+
+	removeEdge(edgeId: PkmEdgeType) {
+		const foundObjects = this.scene?.children.filter((m) => m.userData['edgeId'] === edgeId)
+		foundObjects?.forEach((m) => this.scene?.remove(m))
+	}
+
+	private redrawExistingData(analysis: PkmAnalysis) {
+		analysis.edges.forEach((edge) => {
+			if (edge.mark1) this.addMarker(edge.id, edge.mark1)
+			if (edge.mark2) this.addMarker(edge.id, edge.mark2)
+			if (edge.mark1 && edge.mark2) this.addEdge(edge)
+		})
 	}
 
 	private initScene(canvas: HTMLCanvasElement) {

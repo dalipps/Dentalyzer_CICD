@@ -1,14 +1,13 @@
 import { CommonModule, NgIf } from '@angular/common'
-import { ChangeDetectionStrategy, Component, Injector, Input, OnDestroy } from '@angular/core'
+import { ChangeDetectionStrategy, Component, EventEmitter, Injector, Input, OnDestroy, Output } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatDialog, MatDialogRef } from '@angular/material/dialog'
 import { MatIconModule } from '@angular/material/icon'
 import { marker as t } from '@biesbjerg/ngx-translate-extract-marker'
 import { BaseComponent } from '@dentalyzer/common'
 import { TranslateModule } from '@ngx-translate/core'
-import { DialogComponent, DialogData } from 'src/app/dialog/dialog.component'
-import { FrsAnalysisService } from '../frs-analysis.service'
-import { FrsPdfService } from '../pdf/frs-pdf.service'
+import { DialogComponent, DialogData } from '../dialog/dialog.component'
+import { FrsFacade } from '../frs-analysis/store'
 
 @Component({
 	selector: 'dent-analysis-buttons',
@@ -18,33 +17,31 @@ import { FrsPdfService } from '../pdf/frs-pdf.service'
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnalysisButtonsComponent extends BaseComponent implements OnDestroy {
-	@Input() showButtons = false
+	@Input() disabled = false
 	private dialogRef: MatDialogRef<DialogComponent, unknown> | undefined
 
-	constructor(
-		private frsPdfService: FrsPdfService,
-		private dialog: MatDialog,
-		private frsService: FrsAnalysisService,
-		injector: Injector
-	) {
+	@Output() downloadPdf = new EventEmitter()
+	@Output() resetAnalysis = new EventEmitter()
+
+	constructor(private dialog: MatDialog, private frsFacade: FrsFacade, injector: Injector) {
 		super(injector)
 	}
 
-	handleNewAnalysis() {
+	onNewAnalysis() {
 		this.dialogRef = this.dialog.open(DialogComponent, {
 			data: <DialogData>{
 				title: this.translateService.instant(t('AnalysisButtons.NewAnalysisTitle')),
 				content: this.translateService.instant(t('AnalysisButtons.NewAnalysisContent')),
 				rejectButton: this.translateService.instant(t('Dialog.Cancel')),
 				submitButton: this.translateService.instant(t('Dialog.Submit')),
-				submitAction: () => this.frsService.reset(),
+				submitAction: () => this.resetAnalysis.emit(),
 				rejectAction: () => undefined,
 			},
 		})
 	}
 
-	downloadPdf(): void {
-		this.frsPdfService.generatePdf()
+	onDownloadPdf(): void {
+		this.downloadPdf.emit()
 	}
 
 	override ngOnDestroy() {

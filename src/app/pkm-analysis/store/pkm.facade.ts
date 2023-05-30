@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { marker as t } from '@biesbjerg/ngx-translate-extract-marker'
-import { BaseFacade, IndexedDbService, TABLES } from '@dentalyzer/common'
+import { BaseFacade, IndexedDbService, SerializableVector3, TABLES } from '@dentalyzer/common'
 import { select } from '@ngrx/store'
 import { combineLatest, filter, switchMap, takeUntil } from 'rxjs'
+import { Vector3 } from 'three'
+import { PkmEdgeType } from '../edge/pkm-edge-type'
 import { PkmActions } from './pkm.actions'
 import { PkmState } from './pkm.reducer'
 import { selectActive, selectPkmInit } from './pkm.selectors'
@@ -49,6 +51,15 @@ export class PkmFacade extends BaseFacade<PkmState> {
 		const modelId = crypto.randomUUID()
 		this.dbService.addOrUpdateOne(TABLES.PKM_FILE, { id: modelId, file })
 		this.dispatch(PkmActions.create({ modelId }))
+	}
+
+	setMark(edgeId: PkmEdgeType, position: Vector3) {
+		const serializablePosition = <SerializableVector3>{ x: position.x, y: position.y, z: position.z }
+		this.dispatch(PkmActions.setMark({ edgeId, position: serializablePosition }))
+	}
+
+	removeEdge(edgeId: PkmEdgeType) {
+		this.dispatch(PkmActions.removeEdge({ edgeId }))
 	}
 
 	removeAll(): void {

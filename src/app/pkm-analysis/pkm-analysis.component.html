@@ -5,6 +5,9 @@
 			#analysisPkmCanvas
 			*ngIf="data.analysis?.modelId; else showFileUpload"
 			class="w-full h-full shadow-card absolute"
+			(pointerdown)="onPointerDown()"
+			(pointerup)="onPointerUp($event)"
+			(pointercancel)="onPointerCancel()"
 		></canvas>
 		<dent-model-view-buttons class="absolute" />
 	</div>
@@ -13,5 +16,12 @@
 			<dent-file-upload (uploadedFiles)="loadFile($event)" [acceptFileTypes]="supportedFileTypes"></dent-file-upload>
 		</div>
 	</ng-template>
-	<div class="analysis-sidebar"><dent-measurement-list /></div>
+	<div class="analysis-sidebar">
+		<dent-measurement-list />
+		<dent-analysis-buttons
+			[disabled]="!!data.analysis"
+			(resetAnalysis)="removeAnalysis()"
+			(downloadPdf)="onDownloadPdf()"
+		></dent-analysis-buttons>
+	</div>
 </div>

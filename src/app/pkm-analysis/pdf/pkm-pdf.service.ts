@@ -3,33 +3,32 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { marker as t } from '@biesbjerg/ngx-translate-extract-marker'
 import { BaseService, downloadPdf, getPdfTemplatePath } from '@dentalyzer/common'
 import { TranslateService } from '@ngx-translate/core'
-import { NoSuchFieldError, PDFDocument, PDFTextField } from 'pdf-lib'
+import { NoSuchFieldError, PDFCheckBox, PDFDocument, PDFTextField } from 'pdf-lib'
 import { Observable, filter, first, from, map, of, switchMap, takeUntil, tap } from 'rxjs'
 import { AccountService } from 'src/app/login/account/account.service'
-import { FrsCalculation } from '../calculation'
-import { FrsCalculationUnitMapping } from '../calculations-list/frs-calculation-unit.pipe'
-import { FrsAnalysis, FrsFacade } from '../store'
-import { FrsPdfMappingData } from './frs-pdf-data.model'
-import { frsPdfMapping } from './frs-pdf-mapping.config'
-import { getInterpretationKey } from './frs-pdf.utils'
+import { PkmEdge } from '../edge/pkm-edge'
+import { PkmFacade } from '../store/pkm.facade'
+import { PkmAnalysis } from '../store/pkm.model'
+import { PkmPdfMappingData } from './pkm-pdf-data.model'
+import { pkmPdfMapping } from './pkm-pdf-mapping.config'
 
-export const FRS_TEMPLATE_FILE_NAME = 'FRS-Template'
+export const PKM_TEMPLATE_FILE_NAME = 'PKM-Template'
 
 @Injectable({
 	providedIn: 'root',
 })
-export class FrsPdfService extends BaseService {
-	private analysis: FrsAnalysis | undefined
+export class PkmPdfService extends BaseService {
+	private analysis: PkmAnalysis | undefined
 
 	constructor(
 		private translateService: TranslateService,
 		private accountService: AccountService,
 		private snackBar: MatSnackBar,
-		frsFacade: FrsFacade
+		pkmFacade: PkmFacade
 	) {
 		super()
 
-		frsFacade.active$
+		pkmFacade.active$
 			.pipe(
 				takeUntil(this.destroy$),
 				tap((analysis) => (this.analysis = analysis))
@@ -39,7 +38,7 @@ export class FrsPdfService extends BaseService {
 
 	generatePdf() {
 		if (!this.analysis) return
-		const pdfEntries = this.getCalculationEntries(this.analysis.calculations)
+		const pdfEntries = this.getPdfEntries(this.analysis.edges)
 
 		this.getFile$()
 			.pipe(
@@ -51,7 +50,7 @@ export class FrsPdfService extends BaseService {
 			.subscribe()
 	}
 
-	private writeFields(pdfEntries: FrsPdfMappingData[], buffer: ArrayBuffer): Observable<Blob> {
+	private writeFields(pdfEntries: PkmPdfMappingData[], buffer: ArrayBuffer): Observable<Blob> {
 		return of(buffer).pipe(
 			switchMap((buffer) => from(PDFDocument.load(buffer))),
 			map((pdf) => {
@@ -65,6 +64,9 @@ export class FrsPdfService extends BaseService {
 						const field = form.getField(fieldName)
 						if (field instanceof PDFTextField) {
 							field.setText(entry.text)
+							// TODO: kann das raus?
+						} else if (field instanceof PDFCheckBox) {
+							field.check()
 						} else throw new NoSuchFieldError('Field not found')
 					} catch (error: unknown) {
 						if (error instanceof NoSuchFieldError) {
@@ -85,61 +87,42 @@ export class FrsPdfService extends BaseService {
 		)
 	}
 
-	private getCalculationEntries(calculations: FrsCalculation[]): FrsPdfMappingData[] {
-		const pdfEntries: FrsPdfMappingData[] = this.getDefaultPdfEntries()
+	private getPdfEntries(edges: PkmEdge[]): PkmPdfMappingData[] {
+		const pdfEntries: PkmPdfMappingData[] = this.getDefaultPdfEntries()
 
-		calculations.forEach((calculation) => {
-			const mapping = frsPdfMapping.get(calculation.id)
-			if (!mapping) return
+		edges.forEach((edge) => {
+			const fieldName = pkmPdfMapping[edge.id]
+			if (!fieldName || edge.distance === undefined) return
 
-			const { valueFieldName, targetValueFieldName, interpretationFieldName } = mapping
-
-			if (calculation.value) {
-				pdfEntries.push({
-					fieldName: valueFieldName,
-					text: `${calculation.value} ${FrsCalculationUnitMapping[calculation.unit]}`,
-				})
-				const interpretationKey = getInterpretationKey(calculation)
-
-				if (interpretationKey) {
-					pdfEntries.push({
-						fieldName: interpretationFieldName,
-						text: this.translateService.instant(interpretationKey),
-					})
-				}
-			}
-
-			if (targetValueFieldName && calculation.targetValueMaleOrAll) {
-				pdfEntries.push({
-					fieldName: targetValueFieldName,
-					text: `${calculation.targetValueMaleOrAll} ${FrsCalculationUnitMapping[calculation.unit]}`,
-				})
-			}
+			pdfEntries.push({
+				fieldName,
+				text: edge.distance.toString(),
+			})
 		})
 
 		return pdfEntries
 	}
 
 	private getFile$(): Observable<ArrayBuffer | undefined> {
-		const filePath = getPdfTemplatePath(FRS_TEMPLATE_FILE_NAME)
+		const filePath = getPdfTemplatePath(PKM_TEMPLATE_FILE_NAME)
 		return from(fetch(filePath)).pipe(switchMap((pdf) => from(pdf.arrayBuffer())))
 	}
 
 	private getFileName(): string {
 		const date = this.getLocaleFormattedDate()
-		const analysis = this.translateService.instant(t('PDF.FrsAnalysis'))
+		const analysis = this.translateService.instant(t('PDF.PkmAnalysis'))
 
 		return `${this.accountService.user.name}_${analysis}_${date}`
 	}
 
-	private getDefaultPdfEntries(): FrsPdfMappingData[] {
+	private getDefaultPdfEntries(): PkmPdfMappingData[] {
 		return [
 			{
-				fieldName: 'Behandler',
+				fieldName: 'Text42',
 				text: this.accountService.user.name,
 			},
 			{
-				fieldName: 'Auswertung FRS vom',
+				fieldName: 'Text40',
 				text: this.getLocaleFormattedDate(),
 			},
 		]
