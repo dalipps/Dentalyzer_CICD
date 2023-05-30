@@ -19,6 +19,10 @@
 	</ng-template>
 	<div class="analysis-sidebar">
 		<dent-measurement-list />
-		<dent-analysis-buttons [disabled]="!!data.analysis" (resetAnalysis)="removeAnalysis()"></dent-analysis-buttons>
+		<dent-analysis-buttons
+			[disabled]="!!data.analysis"
+			(resetAnalysis)="removeAnalysis()"
+			(downloadPdf)="onDownloadPdf()"
+		></dent-analysis-buttons>
 	</div>
 </div>

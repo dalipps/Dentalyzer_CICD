@@ -14,7 +14,6 @@
 		"Cancel": "Abbrechen",
 		"No": "Nein",
 		"Submit": "Bestätigen",
-		"Ok": "Ok",
 		"Yes": "Ja"
 	},
 	"FileUpload": {
@@ -397,13 +396,14 @@
 			"Label": "Username"
 		}
 	},
-	"PDF": {
-		"FrsAnalysis": "FRS_Analyse",
-		"SomeFieldsNotFound": "Einige Felder konnten nicht in die PDF geschrieben werden"
-	},
 	"MeasurementList": {
 		"Distance": "Abstand",
 		"Label": "Name"
+	},
+	"PDF": {
+		"FrsAnalysis": "FRS",
+		"PkmAnalysis": "MA",
+		"SomeFieldsNotFound": "Einige Felder konnten nicht in die PDF geschrieben werden"
 	},
 	"PkmAnalysis": {
 		"ExistingAnalysisContent": "Es wurde eine vorhandene Analyse gefunden. Möchtest Du diese weiter bearbeiten?\n\n Wenn Nein, wird sie unwiederruflich gelöscht. ",

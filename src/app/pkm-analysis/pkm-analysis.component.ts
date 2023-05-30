@@ -9,9 +9,9 @@ import { FileUploadComponent } from '../file-upload/file-upload.component'
 import { PkmEdge } from './edge/pkm-edge'
 import { MeasurementListComponent } from './measurement-list/measurement-list.component'
 import { ModelViewButtonsComponent } from './model-view-buttons/model-view-buttons.component'
+import { PkmPdfService } from './pdf'
 import { PkmAnalysisService } from './pkm-analysis.service'
 import { PkmRenderingService } from './rendering/pkm-rendering.service'
-import { PkmFacade } from './store/pkm.facade'
 import { PkmAnalysis } from './store/pkm.model'
 
 @Component({
@@ -38,7 +38,7 @@ export class PkmAnalysisComponent extends BaseComponent implements AfterViewInit
 		private readonly renderingService: PkmRenderingService,
 		private dbService: IndexedDbService,
 		private analysisService: PkmAnalysisService,
-		private pkmFacade: PkmFacade,
+		private pkmPdfService: PkmPdfService,
 		injector: Injector
 	) {
 		super(injector)
@@ -63,6 +63,10 @@ export class PkmAnalysisComponent extends BaseComponent implements AfterViewInit
 				})
 			)
 			.subscribe()
+	}
+
+	onDownloadPdf() {
+		this.pkmPdfService.generatePdf()
 	}
 
 	loadFile(files: FileList): void {

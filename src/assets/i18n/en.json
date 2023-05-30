@@ -14,7 +14,6 @@
 		"Cancel": "Cancel",
 		"No": "No",
 		"Submit": "Submit",
-		"Ok": "Ok",
 		"Yes": "Yes"
 	},
 	"FileUpload": {
@@ -363,7 +362,7 @@
 		}
 	},
 	"FrsStoreInitResolver": {
-		"Timeout": "Initialization of the FRS analysis timed out. Please try again."
+		"Timeout": "Initialization of the TRA analysis timed out. Please try again."
 	},
 	"Header": {
 		"Menu": {
@@ -397,13 +396,14 @@
 			"Label": "Username"
 		}
 	},
-	"PDF": {
-		"FrsAnalysis": "FRS_Analysis",
-		"SomeFieldsNotFound": "Some fields could not be written to the PDF"
-	},
 	"MeasurementList": {
 		"Distance": "Distance",
 		"Label": "Name"
+	},
+	"PDF": {
+		"FrsAnalysis": "TRA",
+		"PkmAnalysis": "MA",
+		"SomeFieldsNotFound": "Some fields could not be written to the PDF"
 	},
 	"PkmAnalysis": {
 		"ExistingAnalysisContent": "An existing analysis was found. Do you want to keep editing it?\n\n If not it will be permanently deleted.",
