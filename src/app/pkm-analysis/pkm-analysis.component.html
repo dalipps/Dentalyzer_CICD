@@ -16,8 +16,8 @@
 			<dent-file-upload (uploadedFiles)="loadFile($event)" [acceptFileTypes]="supportedFileTypes"></dent-file-upload>
 		</div>
 	</ng-template>
-	<div class="analysis-sidebar">
-		<dent-measurement-list />
+	<div class="analysis-sidebar shadow-card">
+		<dent-edges-list [edges]="data.analysis?.edges" />
 		<dent-analysis-buttons
 			[disabled]="!!data.analysis"
 			(resetAnalysis)="removeAnalysis()"

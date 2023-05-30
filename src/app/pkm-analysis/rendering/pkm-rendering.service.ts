@@ -13,8 +13,7 @@ import {
 	Vector3,
 	WebGLRenderer,
 } from 'three'
-import { PkmEdge } from '../edge/pkm-edge'
-import { PkmEdgeType } from '../edge/pkm-edge-type'
+import { PkmEdge, PkmEdgeType } from '../edge/pkm-edge'
 import { PkmAnalysis } from '../store'
 import { getEdge, getMarker } from './pkm-rendering.utils'
 import { initLight, parseStlToGeometry } from './pkm.utils'

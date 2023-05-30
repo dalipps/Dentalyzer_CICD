@@ -1,12 +1,13 @@
 <table mat-table [dataSource]="listItems" multiTemplateDataRows class="w-full block">
 	<ng-container matColumnDef="{{ columnsToDisplayWithExpand[0] }}">
-		<td mat-cell *matCellDef="let item">
+		<td mat-cell *matCellDef="let item" class="w-1">
 			<mat-icon *ngIf="item.isSet">check_circle_outline</mat-icon>
 		</td>
 	</ng-container>
 	<ng-container matColumnDef="{{ columnsToDisplayWithExpand[1] }}">
 		<td mat-cell *matCellDef="let item">
-			{{ (item.id | frsMarkTypeTranslation).name | translate }}
+			<span class="whitespace-nowrap">({{ (item.id | frsMarkTypeTranslation).abbreviation | translate }})</span>
+			<span class="ml-1"> - {{ (item.id | frsMarkTypeTranslation).name | translate }}</span>
 		</td>
 	</ng-container>
 	<ng-container matColumnDef="{{ columnsToDisplayWithExpand[2] }}">

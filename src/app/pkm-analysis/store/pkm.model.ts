@@ -1,4 +1,4 @@
-import { PkmEdge } from '../edge/pkm-edge'
+import { PkmEdge } from '../edge/pkm-edges'
 
 export class PkmAnalysis {
 	id: string

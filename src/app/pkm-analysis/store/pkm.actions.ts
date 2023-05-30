@@ -1,6 +1,6 @@
 import { SerializableVector3 } from '@dentalyzer/common'
 import { createActionGroup, emptyProps, props } from '@ngrx/store'
-import { PkmEdgeType } from '../edge/pkm-edge-type'
+import { PkmEdgeType } from '../edge/pkm-edge'
 import { PkmAnalysis } from './pkm.model'
 import { PkmStoreError } from './pkm.reducer'
 
