@@ -11,6 +11,7 @@ export interface PkmEdge {
 	distance?: number
 	mark1?: SerializableVector3
 	mark2?: SerializableVector3
+	isUpper?: boolean
 }
 
 const generateEdges = (edgeTypes: PkmEdgeType[], groupId: PkmEdgeGroupType) =>

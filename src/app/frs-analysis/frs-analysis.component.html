@@ -12,7 +12,10 @@
 		></canvas>
 		<ng-template #showFileUpload>
 			<div class="h-full w-full">
-				<dent-file-upload (uploadedFiles)="onUploadFiles($event)"></dent-file-upload>
+				<dent-file-upload
+					(uploadedFiles)="onUploadFiles($event)"
+					[acceptFileTypes]="supportedFileTypes"
+				></dent-file-upload>
 			</div>
 		</ng-template>
 	</div>

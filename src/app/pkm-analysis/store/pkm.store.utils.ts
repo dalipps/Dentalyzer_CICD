@@ -10,7 +10,12 @@ export function initPkmAnalysis(modelId: string) {
 	return new PkmAnalysis(modelId, edges)
 }
 
-export function setMark(analysis: PkmAnalysis, edgeId: PkmEdgeType, position?: SerializableVector3): PkmAnalysis {
+export function setMark(
+	analysis: PkmAnalysis,
+	edgeId: PkmEdgeType,
+	position?: SerializableVector3,
+	isUpper?: boolean
+): PkmAnalysis {
 	const clonedAnalysis = cloneDeep(analysis)
 
 	const foundEdge = clonedAnalysis.edges.find((e) => e.id === edgeId)
@@ -25,6 +30,8 @@ export function setMark(analysis: PkmAnalysis, edgeId: PkmEdgeType, position?: S
 		const distance = calculateDistance(foundEdge.mark1, foundEdge.mark2)
 		foundEdge.distance = Math.round(distance * 100) / 100
 	}
+
+	foundEdge.isUpper = isUpper
 
 	return clonedAnalysis
 }
