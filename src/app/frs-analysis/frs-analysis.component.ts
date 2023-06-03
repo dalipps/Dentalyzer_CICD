@@ -18,6 +18,7 @@ import {
 } from 'rxjs'
 import * as THREE from 'three'
 import { AnalysisButtonsComponent } from '../analysis-buttons'
+import { FileType } from '../file-upload'
 import { FileUploadComponent } from '../file-upload/file-upload.component'
 import { FrsAnalysisService } from './frs-analysis.service'
 import { FrsMarkType } from './mark'
@@ -40,7 +41,6 @@ import { TabMenuComponent } from './tab-menu/tab-menu.component'
 		MatIconModule,
 	],
 	templateUrl: './frs-analysis.component.html',
-	styleUrls: ['./frs-analysis.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FrsAnalysisComponent extends BaseComponent implements AfterViewInit {
@@ -52,12 +52,13 @@ export class FrsAnalysisComponent extends BaseComponent implements AfterViewInit
 	analysis$: Observable<FrsAnalysis | undefined> = EMPTY
 	selectedMarkId$: Observable<FrsMarkType | undefined> = EMPTY
 
+	readonly supportedFileTypes = [FileType.JPEG]
 	private selectedMarker: THREE.Object3D | undefined
 	private selectedMarkId: FrsMarkType | undefined
 	private analysis: FrsAnalysis | undefined
 	private wasFastClick = true
 	private checkFastClickTime: number | undefined
-	private readonly fastClickDetectionTime = 100
+	private readonly fastClickDetectionTime = 300
 
 	constructor(
 		private readonly renderingService: FrsRenderingService,

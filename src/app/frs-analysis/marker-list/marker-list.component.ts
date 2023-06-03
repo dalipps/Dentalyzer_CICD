@@ -1,12 +1,11 @@
 import { animate, state, style, transition, trigger } from '@angular/animations'
-import { NgFor, NgIf } from '@angular/common'
+import { NgClass, NgFor, NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTableModule } from '@angular/material/table'
 import { TranslateModule } from '@ngx-translate/core'
 import { FrsAnalysisService } from '../frs-analysis.service'
-import { getTrainingImageUrl } from '../image'
 import { FrsMark, FrsMarkType } from '../mark'
 import { FrsFacade } from '../store'
 import { FrsMarkTrainingImagePipe } from './frs-mark-training-image.pipe'
@@ -15,8 +14,8 @@ import { FrsMarkTypePipe } from './frs-mark-type.pipe'
 interface ListItem {
 	id: FrsMarkType
 	isSet: boolean
-	helperImage?: string
 	isGenerated?: boolean
+	isHelper?: boolean
 }
 
 @Component({
@@ -29,11 +28,11 @@ interface ListItem {
 		FrsMarkTrainingImagePipe,
 		NgFor,
 		NgIf,
+		NgClass,
 		FrsMarkTypePipe,
 		MatIconModule,
 	],
 	templateUrl: './marker-list.component.html',
-	styleUrls: ['./marker-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	animations: [
 		trigger('detailExpand', [
@@ -50,8 +49,8 @@ export class MarkerListComponent {
 				<ListItem>{
 					id: m.id,
 					isSet: !!m.position,
-					helperImage: getTrainingImageUrl(m.id),
 					isGenerated: !!m.generationData,
+					isHelper: m.isHelper,
 				}
 		)
 	}
@@ -69,8 +68,11 @@ export class MarkerListComponent {
 
 	onItemClick(item: ListItem): void {
 		this.selectedItem = this.selectedItem === item ? undefined : item
+		this.frsService.setSelectedMarkId(item.id)
+	}
 
-		this.frsService.setSelectedMarkId(this.selectedItem?.id)
+	onEditMark(id: FrsMarkType) {
+		this.frsService.setSelectedMarkId(id)
 	}
 
 	onRemoveMark(id: FrsMarkType): void {

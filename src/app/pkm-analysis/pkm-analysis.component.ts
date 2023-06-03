@@ -25,7 +25,7 @@ export class PkmAnalysisComponent extends BaseComponent implements AfterViewInit
 	readonly supportedFileTypes = [FileType.STL]
 	private wasFastClick = true
 	private checkFastClickTime: number | undefined
-	private readonly fastClickDetectionTime = 100
+	private readonly fastClickDetectionTime = 300
 
 	analysis$: Observable<PkmAnalysis | undefined> = EMPTY
 
@@ -81,10 +81,9 @@ export class PkmAnalysisComponent extends BaseComponent implements AfterViewInit
 	}
 
 	onPointerUp(event: PointerEvent) {
+		this.endClickTest()
 		const selectedEdge = this.analysisService.selectedEdge
 		if (!this.canvas || !selectedEdge) return
-
-		this.endClickTest()
 
 		if (this.wasFastClick && (!selectedEdge.mark1 || !selectedEdge.mark2)) {
 			const mousePosition = getNormalizedMousePosition(this.canvas.nativeElement, event.clientX, event.clientY)

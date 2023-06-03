@@ -1,11 +1,16 @@
 import { FrsEdgeType } from '../edge'
 import { FrsMarkType } from '../mark'
 
-export type FrsGenerationData = FrsEdgeIntersectionGeneration | FrsHalfCuttingGeneration | FrsBisectorGeneration
+export type FrsGenerationData =
+	| FrsEdgeIntersectionGeneration
+	| FrsHalfCuttingGeneration
+	| FrsMarkIntersectionGeneration
+	| FrsBisectorGeneration
 
 export enum FrsGenerationDataType {
 	EdgeIntersection = 'EdgeIntersection',
 	HalfCutting = ' HalfCutting',
+	MarkIntersection = 'MarkIntersection',
 	Bisector = 'Bisector',
 }
 
@@ -21,7 +26,14 @@ export type FrsHalfCuttingGeneration = {
 	point2: FrsMarkType
 }
 
-// handled as intersection of two lines
+export type FrsMarkIntersectionGeneration = {
+	id: FrsGenerationDataType.MarkIntersection
+	line1point1: FrsMarkType
+	line1point2: FrsMarkType
+	line2point1: FrsMarkType
+	line2point2: FrsMarkType
+}
+
 export type FrsBisectorGeneration = {
 	id: FrsGenerationDataType.Bisector
 	line1point1: FrsMarkType

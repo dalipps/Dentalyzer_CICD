@@ -9,15 +9,15 @@
 			(pointerup)="onPointerUp($event)"
 			(pointercancel)="onPointerCancel()"
 		></canvas>
-		<dent-model-view-buttons class="absolute" />
+		<dent-model-view-buttons [showAll]="!!data.analysis?.modelId" class="absolute" />
 	</div>
 	<ng-template #showFileUpload>
 		<div class="flex-center full-size">
 			<dent-file-upload (uploadedFiles)="loadFile($event)" [acceptFileTypes]="supportedFileTypes"></dent-file-upload>
 		</div>
 	</ng-template>
-	<div class="analysis-sidebar shadow-card">
-		<dent-edges-list [edges]="data.analysis?.edges" />
+	<div class="analysis-sidebar">
+		<dent-edges-list class="shadow-card overflow-y-auto" [edges]="data.analysis?.edges" />
 		<dent-analysis-buttons
 			[disabled]="!!data.analysis"
 			(resetAnalysis)="removeAnalysis()"

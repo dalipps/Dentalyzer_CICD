@@ -77,4 +77,10 @@ export const frsEdgesConfig: FrsEdgeConfigDto[] = [
 		markType1: FrsMarkType.ProN,
 		markType2: FrsMarkType.Pog2,
 	},
+	{
+		id: FrsEdgeType.GoHelper,
+		markType1: FrsMarkType.Go,
+		markType2: FrsMarkType.Helper,
+		isHelper: true,
+	},
 ]

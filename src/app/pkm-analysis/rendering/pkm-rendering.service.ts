@@ -4,7 +4,6 @@ import { first, tap } from 'rxjs'
 import {
 	BufferGeometry,
 	Color,
-	Material,
 	Mesh,
 	MeshPhongMaterial,
 	Raycaster,
@@ -30,6 +29,7 @@ export class PkmRenderingService extends BaseRenderingService {
 	})
 	private lowerJaw?: Mesh
 	private upperJaw?: Mesh
+
 	constructor() {
 		super()
 	}
@@ -64,28 +64,38 @@ export class PkmRenderingService extends BaseRenderingService {
 		}
 	}
 
-	getFirstIntersection(mousePosition: Vector2): Vector3 | undefined {
+	getFirstIntersection(mousePosition: Vector2): { intersection: Vector3 | undefined; isUpper?: boolean } | undefined {
 		if (!(this.upperJaw?.visible || this.lowerJaw?.visible) || !this.raycaster || !this.camera) return
 
-		const visibleJawParts: Mesh<BufferGeometry, Material | Material[]>[] = []
+		if (this.upperJaw?.visible) {
+			this.raycaster.setFromCamera(mousePosition, this.camera)
+			return { intersection: this.raycaster.intersectObject(this.upperJaw)[0]?.point, isUpper: true }
+		}
+		if (this.lowerJaw?.visible) {
+			this.raycaster.setFromCamera(mousePosition, this.camera)
+			return { intersection: this.raycaster.intersectObject(this.lowerJaw)[0]?.point, isUpper: false }
+		}
 
-		if (this.upperJaw?.visible) visibleJawParts.push(this.upperJaw)
-		if (this.lowerJaw?.visible) visibleJawParts.push(this.lowerJaw)
-
-		this.raycaster.setFromCamera(mousePosition, this.camera)
-		return this.raycaster.intersectObjects(visibleJawParts)[0]?.point
+		return
 	}
 
-	addMarker(edgeId: PkmEdgeType, position: SerializableVector3) {
+	addMarker(edgeId: PkmEdgeType, position: SerializableVector3, isUpper: boolean) {
 		if (!this.scene) return
 
 		const marker = getMarker(position, edgeId)
-		this.scene.add(marker)
+		if (isUpper && this.upperJaw) {
+			this.upperJaw.add(marker)
+		} else if (this.lowerJaw) {
+			this.lowerJaw.add(marker)
+		}
 	}
 
-	addEdge(edge: PkmEdge) {
+	addEdge(edge: PkmEdge, isUpper: boolean) {
 		const line = getEdge(edge)
-		if (line) this.scene?.add(line)
+		if (line) {
+			if (isUpper) this.upperJaw?.add(line)
+			else this.lowerJaw?.add(line)
+		}
 	}
 
 	removeEdge(edgeId: PkmEdgeType) {
@@ -95,9 +105,9 @@ export class PkmRenderingService extends BaseRenderingService {
 
 	private redrawExistingData(analysis: PkmAnalysis) {
 		analysis.edges.forEach((edge) => {
-			if (edge.mark1) this.addMarker(edge.id, edge.mark1)
-			if (edge.mark2) this.addMarker(edge.id, edge.mark2)
-			if (edge.mark1 && edge.mark2) this.addEdge(edge)
+			if (edge.mark1) this.addMarker(edge.id, edge.mark1, !!edge.isUpper)
+			if (edge.mark2) this.addMarker(edge.id, edge.mark2, !!edge.isUpper)
+			if (edge.mark1 && edge.mark2) this.addEdge(edge, !!edge.isUpper)
 		})
 	}
 
