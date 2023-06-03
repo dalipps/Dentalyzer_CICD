@@ -9,6 +9,7 @@ export interface FrsMarkConfigDto {
 	edgeTypes: FrsEdgeType[]
 	calculationTypes: FrsCalculationType[]
 	generationData?: FrsGenerationData
+	isHelper?: boolean
 }
 
 export interface FrsPosition {
@@ -24,6 +25,7 @@ export class FrsMark implements FrsMarkConfigDto {
 	generationData?: FrsGenerationData
 	position?: FrsPosition
 	isSelected: boolean
+	isHelper?: boolean
 
 	constructor(config: FrsMarkConfigDto, position?: FrsPosition, isSelected = false) {
 		this.id = config.id
@@ -32,6 +34,7 @@ export class FrsMark implements FrsMarkConfigDto {
 		this.generationData = config.generationData
 		this.position = position
 		this.isSelected = isSelected
+		this.isHelper = config.isHelper
 	}
 }
 

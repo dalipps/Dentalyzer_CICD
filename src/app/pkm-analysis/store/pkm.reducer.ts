@@ -42,14 +42,14 @@ const reducer = createReducer(
 		const analysis = initPkmAnalysis(modelId)
 		return pkmAdapter.addOne({ ...analysis }, { ...state, activeId: analysis.id })
 	}),
-	on(PkmActions.setMark, (state, { edgeId, position }) => {
+	on(PkmActions.setMark, (state, { edgeId, position, isUpper }) => {
 		const activeEntity = state.activeId ? state.entities[state.activeId] : undefined
 		return activeEntity
 			? pkmAdapter.updateOne(
 					{
 						id: activeEntity.id,
 						changes: {
-							...setMark(activeEntity, edgeId, position),
+							...setMark(activeEntity, edgeId, position, isUpper),
 						},
 					},
 					state

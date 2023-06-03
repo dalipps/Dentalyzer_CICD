@@ -79,4 +79,8 @@ const frsEdgeTypeMapping: { [key: string]: FrsEdgeTranslation } = {
 		abbreviation: t('FrsEdgeType.Abbreviation.ProNPog2'),
 		name: t('FrsEdgeType.Name.ProNPog2'),
 	},
+	[FrsEdgeType.GoHelper]: {
+		abbreviation: t('FrsEdgeType.Abbreviation.GoHelper'),
+		name: t('FrsEdgeType.Name.GoHelper'),
+	},
 }

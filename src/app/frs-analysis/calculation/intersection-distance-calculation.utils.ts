@@ -21,7 +21,13 @@ export function checkIntersectionDistance(
 		const point1 = marks.find((m) => m.id === calculationData.point1)
 		const point2 = marks.find((m) => m.id === calculationData.point2)
 		if (edge && point1 && point2) {
-			return calculateIntersectionDistance(edge, point1, point2, marks)
+			let distance = calculateIntersectionDistance(edge, point1, point2, marks)
+
+			if (distance && point1.position && point2.position && point1.position.x < point2.position.x) {
+				distance *= -1
+			}
+
+			return distance
 		}
 	}
 

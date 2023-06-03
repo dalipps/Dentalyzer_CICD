@@ -1,5 +1,5 @@
 import { CommonModule, NgClass } from '@angular/common'
-import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { TranslateModule } from '@ngx-translate/core'
@@ -13,8 +13,12 @@ import { PkmRenderingService } from '../rendering/pkm-rendering.service'
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModelViewButtonsComponent {
-	upperJawSelected = true
-	lowerJawSelected = true
+	upperJawSelected?: boolean
+	lowerJawSelected?: boolean
+	@Input() set showAll(state: boolean) {
+		this.lowerJawSelected = state
+		this.upperJawSelected = state
+	}
 
 	constructor(private renderingService: PkmRenderingService) {}
 

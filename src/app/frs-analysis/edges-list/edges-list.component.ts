@@ -13,7 +13,6 @@ import { FrsEdgeTypePipe } from './frs-edge-type.pipe'
 	standalone: true,
 	imports: [TranslateModule, MatTableModule, FrsEdgeTypePipe, MatButtonModule, NgFor, NgIf, MatIconModule],
 	templateUrl: './edges-list.component.html',
-	styleUrls: ['./edges-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EdgesListComponent {

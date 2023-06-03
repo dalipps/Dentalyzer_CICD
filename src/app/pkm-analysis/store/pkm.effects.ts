@@ -35,11 +35,11 @@ export class PkmEffects extends BaseEffects<PkmState> {
 				ofType(PkmActions.setMark),
 				concatLatestFrom(() => this.store$.select(PkmSelectors.selectActive)),
 				tap(([action, analysis]) => {
-					this.renderingService.addMarker(action.edgeId, action.position)
+					this.renderingService.addMarker(action.edgeId, action.position, action.isUpper)
 
 					const foundEdge = analysis?.edges.find((e) => e.id === action.edgeId)
 					if (foundEdge && foundEdge.distance) {
-						this.renderingService.addEdge(foundEdge)
+						this.renderingService.addEdge(foundEdge, action.isUpper)
 					}
 				})
 			),

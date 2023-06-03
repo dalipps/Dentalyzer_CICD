@@ -19,14 +19,7 @@
 	},
 	"EdgesList": {
 		"Distance": {
-			"Label": "Measurement",
 			"Unit": "mm"
-		},
-		"Name": {
-			"Label": "Name"
-		},
-		"Edit": {
-			"Label": "Bearbeiten"
 		}
 	},
 	"FileUpload": {
@@ -133,9 +126,9 @@
 			"Abbreviation": "OK1-UK1 (Interinzisalwinkel)",
 			"Description": "Interinzisalwinkel; Winkel zwischen OK-und UK-Schneidezahnachsen",
 			"Interpretation": {
-				"Equals": "Stabile Incisivenposition, wichtig für Stabilität des Behandlungsergebnisses, insbesondere problematisch falls vergrößert",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "Stabile Incisivenposition",
+				"Greater": "Instabil, bimaxilläre Protrusion",
+				"Smaller": "Instabil, Gefahr vertikales Rezidiv"
 			}
 		},
 		"SGONMe": {
@@ -251,6 +244,7 @@
 		"Abbreviation": {
 			"ArGo": "Ar - Go",
 			"Calibration": "K1 - K2",
+			"GoHelper": "Go - H",
 			"GoaPog2": "Goa - Pog'",
 			"InOK1ApOK1": "InOK1 - ApOK1",
 			"InUK1ApUK1": "InUK1 - ApUK1",
@@ -268,6 +262,7 @@
 		"Name": {
 			"ArGo": "Articulare - Gonion",
 			"Calibration": "Kalibrierungsmarke 1 - Kalibrierungsmarke 2",
+			"GoHelper": "Gonion - Hilfsmarke",
 			"GoaPog2": "Anat. Gonion - Weichteilpogonion",
 			"InOK1ApOK1": "Incision OK1 - Apex OK1",
 			"InUK1ApUK1": "Incision UK1 - Apex UK1",
@@ -300,6 +295,7 @@
 			"Go": "Go",
 			"Goa": "Goa",
 			"HPOcP": "pPOcP",
+			"Helper": "H",
 			"InOK1": "InOK1",
 			"InUK1": "InUK1",
 			"Li": "Li",
@@ -328,6 +324,7 @@
 			"Go": "Gonion",
 			"Goa": "Anat. Gonion",
 			"HPOcP": "Hinterer Punkt des Occlusionsplanums",
+			"Helper": "Hilfsmarke",
 			"InOK1": "Incision OK1",
 			"InUK1": "Incision UK1",
 			"Li": "Labrale inferius",
@@ -356,6 +353,7 @@
 			"Go": "(Go wird automatisch konstruiert, sobald Ar, Me, Tga, Tgp platziert sind) Kieferwinkelpunkt; Schnittpunkt der Tangenten an horizontalen und aufsteigenden UK-Ast",
 			"Goa": "Schnittpunkt der Winkelhalbierenden des Kieferwinkels mit der anatomischen Kontur des Kieferwinkels",
 			"HPOcP": "Am weitesten distal liegender Berührungspunkt der ersten Molaren (modifiziert nach Rakosi, 1988)",
+			"Helper": "Hilfsmarke der Winkelhalbierenden zwischen Ar-Go und Me-Go",
 			"InOK1": "Schneidekante des oberen mittleren Schneidezahnes",
 			"InUK1": "Schneidekante des unteren mittleren Schneidezahnes",
 			"Li": "Am weitesten anterior gelegener Punkt der Unterlippe",
@@ -386,8 +384,8 @@
 		}
 	},
 	"Home": {
-		"2d": "FRS-Analyse",
-		"3d": "3D-Analyse",
+		"2d": "Fernröntgenanalyse",
+		"3d": "Modellanalyse",
 		"Welcome": "Willkommen im Dentalyzer"
 	},
 	"Login": {
@@ -418,54 +416,60 @@
 		"ExistingAnalysisContent": "Es wurde eine vorhandene Analyse gefunden. Möchtest Du diese weiter bearbeiten?\n\n Wenn Nein, wird sie unwiederruflich gelöscht. ",
 		"ExistingAnalysisTitle": "Vorhandene Analyse gefunden"
 	},
-	"PkmEdgeOkklusion": {
-		"Edge": {
-			"Overbite": "Overbite",
-			"Overjet": "Overjet"
-		}
-	},
-	"PkmEdgeTranversal": {
-		"Edge": {
-			"OkHzb": "OK HZB",
-			"OkVzb": "OK VZB",
-			"UkHzb": "UK HZB",
-			"UkVzb": "UK VZB"
-		}
-	},
-	"PkmEdgeZahnBreite": {
-		"Edge": {
-			"Zahn11": "Zahn 11",
-			"Zahn12": "Zahn 12",
-			"Zahn13": "Zahn 13",
-			"Zahn14": "Zahn 14",
-			"Zahn15": "Zahn 15",
-			"Zahn16": "Zahn 16",
-			"Zahn21": "Zahn 21",
-			"Zahn22": "Zahn 22",
-			"Zahn23": "Zahn 23",
-			"Zahn24": "Zahn 24",
-			"Zahn25": "Zahn 25",
-			"Zahn26": "Zahn 26",
-			"Zahn31": "Zahn 31",
-			"Zahn32": "Zahn 32",
-			"Zahn33": "Zahn 33",
-			"Zahn34": "Zahn 34",
-			"Zahn35": "Zahn 35",
-			"Zahn36": "Zahn 36",
-			"Zahn41": "Zahn 41",
-			"Zahn42": "Zahn 42",
-			"Zahn43": "Zahn 43",
-			"Zahn44": "Zahn 44",
-			"Zahn45": "Zahn 45",
-			"Zahn46": "Zahn 46"
-		}
-	},
-	"PkmEdgeZahnGruppe": {
-		"Edge": {
-			"OkStuetzL": "OK Stützzone rechts",
-			"OkStuetzR": "OK Stützzone links",
-			"UkStuetzL": "UK Stützzone rechts",
-			"UkStuetzR": "UK Stützzone links"
+	"PkmEdgeGroup": {
+		"Okklusion": {
+			"Edge": {
+				"Overbite": "Overbite",
+				"Overjet": "Overjet"
+			},
+			"Name": "Okklusion"
+		},
+		"Transversal": {
+			"Edge": {
+				"OkHzb": "OK HZB",
+				"OkVzb": "OK VZB",
+				"UkHzb": "UK HZB",
+				"UkVzb": "UK VZB"
+			},
+			"Name": "Transversal"
+		},
+		"Zahnbreite": {
+			"Edge": {
+				"Zahn11": "Zahn 11",
+				"Zahn12": "Zahn 12",
+				"Zahn13": "Zahn 13",
+				"Zahn14": "Zahn 14",
+				"Zahn15": "Zahn 15",
+				"Zahn16": "Zahn 16",
+				"Zahn21": "Zahn 21",
+				"Zahn22": "Zahn 22",
+				"Zahn23": "Zahn 23",
+				"Zahn24": "Zahn 24",
+				"Zahn25": "Zahn 25",
+				"Zahn26": "Zahn 26",
+				"Zahn31": "Zahn 31",
+				"Zahn32": "Zahn 32",
+				"Zahn33": "Zahn 33",
+				"Zahn34": "Zahn 34",
+				"Zahn35": "Zahn 35",
+				"Zahn36": "Zahn 36",
+				"Zahn41": "Zahn 41",
+				"Zahn42": "Zahn 42",
+				"Zahn43": "Zahn 43",
+				"Zahn44": "Zahn 44",
+				"Zahn45": "Zahn 45",
+				"Zahn46": "Zahn 46"
+			},
+			"Name": "Zahnbreite"
+		},
+		"Zahngruppe": {
+			"Edge": {
+				"OkStuetzL": "OK Stützzone rechts",
+				"OkStuetzR": "OK Stützzone links",
+				"UkStuetzL": "UK Stützzone rechts",
+				"UkStuetzR": "UK Stützzone links"
+			},
+			"Name": "Zahngruppe"
 		}
 	},
 	"PkmFacade": {

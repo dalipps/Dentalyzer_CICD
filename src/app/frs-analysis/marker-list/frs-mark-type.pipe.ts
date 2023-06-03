@@ -150,4 +150,9 @@ export const frsMarkTypeMapping: { [key: string]: FrsMarkTranslation } = {
 		name: t('FrsMarkType.Name.Calibration2'),
 		trainingText: t('FrsMarkType.TrainingText.Calibration2'),
 	},
+	[FrsMarkType.Helper]: {
+		abbreviation: t('FrsMarkType.Abbreviation.Helper'),
+		name: t('FrsMarkType.Name.Helper'),
+		trainingText: t('FrsMarkType.TrainingText.Helper'),
+	},
 }

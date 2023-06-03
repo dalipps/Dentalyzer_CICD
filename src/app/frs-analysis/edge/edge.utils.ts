@@ -1,7 +1,7 @@
 import { cloneDeep } from 'lodash-es'
 import { BufferGeometry, Line, LineBasicMaterial, Vector3 } from 'three'
 import { calculateDirection } from '../calculation'
-import { FrsMark } from '../mark'
+import { FrsMark, FrsPosition, getVectorFromPosition } from '../mark'
 import { ObjectType } from '../rendering'
 import { FrsAnalysis } from '../store'
 import { FrsEdgeType } from './frs-edge-type.enum'
@@ -47,7 +47,7 @@ export function setDirectionsOfEdges(analysis: FrsAnalysis, edgeMapping: FrsEdge
 		const edge = clonedAnalysis.edges.find((e) => e.id === mapping.edgeId)
 		if (edge) {
 			edge.isVisible = !edge.direction ? true : edge.isVisible
-			edge.direction = mapping.direction
+			edge.direction = <FrsPosition>{ x: mapping.direction?.x, y: mapping.direction?.y, z: mapping.direction?.z }
 		}
 	})
 
@@ -70,7 +70,9 @@ export function checkChangedEges(edges: FrsEdge[], allMarks: FrsMark[]): FrsEdge
 	edges.forEach((e) => {
 		const mark1 = allSetMarkers.find((m) => m.id === e.markType1 && m.position)
 		const mark2 = allSetMarkers.find((m) => m.id === e.markType2 && m.position)
-		const direction = calculateDirection(mark1, mark2)
+		const mark1Vector = getVectorFromPosition(mark1?.position)
+		const mark2Vector = getVectorFromPosition(mark2?.position)
+		const direction = calculateDirection(mark1Vector, mark2Vector)
 		if (direction !== e.direction) changedEdges.push({ edgeId: e.id, direction })
 	})
 

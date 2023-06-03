@@ -53,9 +53,9 @@ export class PkmFacade extends BaseFacade<PkmState> {
 		this.dispatch(PkmActions.create({ modelId }))
 	}
 
-	setMark(edgeId: PkmEdgeType, position: Vector3) {
+	setMark(edgeId: PkmEdgeType, position: Vector3, isUpper = false) {
 		const serializablePosition = <SerializableVector3>{ x: position.x, y: position.y, z: position.z }
-		this.dispatch(PkmActions.setMark({ edgeId, position: serializablePosition }))
+		this.dispatch(PkmActions.setMark({ edgeId, position: serializablePosition, isUpper }))
 	}
 
 	removeEdge(edgeId: PkmEdgeType) {

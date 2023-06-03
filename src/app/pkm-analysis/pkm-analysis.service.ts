@@ -78,10 +78,10 @@ export class PkmAnalysisService extends BaseService {
 	addMark(mousePosition: Vector2) {
 		if (!this.selectedEdgeIdSubject$.value) return
 
-		const intersection = this.renderingService.getFirstIntersection(mousePosition)
-		if (!intersection) return
+		const result = this.renderingService.getFirstIntersection(mousePosition)
+		if (!result?.intersection) return
 
-		this.pkmFacade.setMark(this.selectedEdgeIdSubject$.value, intersection)
+		this.pkmFacade.setMark(this.selectedEdgeIdSubject$.value, result.intersection, result.isUpper)
 	}
 
 	removeEdge(edgeId: PkmEdgeType) {
