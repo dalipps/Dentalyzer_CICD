@@ -66,8 +66,9 @@ export class MarkerListComponent {
 
 	constructor(private frsService: FrsAnalysisService, private frsFacade: FrsFacade) {}
 
-	onChangeRowExpansion(item: ListItem): void {
+	onItemClick(item: ListItem): void {
 		this.selectedItem = this.selectedItem === item ? undefined : item
+		this.frsService.setSelectedMarkId(item.id)
 	}
 
 	onEditMark(id: FrsMarkType) {

@@ -19,7 +19,7 @@
 				class="scale-90"
 				color="primary"
 			>
-				<mat-icon class="scale-90">edit</mat-icon>
+				<mat-icon *ngIf="!item.isSet && !item.isGenerated" color="primary" class="scale-90">edit</mat-icon>
 			</button>
 			<button
 				*ngIf="item.isSet && !item.isGenerated"
@@ -51,7 +51,7 @@
 		mat-row
 		*matRowDef="let item; columns: columnsToDisplayWithExpand"
 		[ngClass]="{ 'hover:bg-neutral-100 active:w-full': selectedItem?.id !== item.id }"
-		(click)="onChangeRowExpansion(item)"
+		(click)="onItemClick(item)"
 	></tr>
 	<tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="h-0"></tr>
 </table>
