@@ -22,11 +22,11 @@
 			"Label": "Messung",
 			"Unit": "mm"
 		},
-		"Name": {
-			"Label": "Name"
-		},
 		"Edit": {
 			"Label": "Edit"
+		},
+		"Name": {
+			"Label": "Name"
 		}
 	},
 	"FileUpload": {
@@ -40,17 +40,17 @@
 	},
 	"FrsCalculationType": {
 		"ANB": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "ANB",
+			"Description": "Sagittal jaw relation",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "Neutral basal relation",
+				"Greater": "Distal basal relation",
+				"Smaller": "Mesial basal relation"
 			}
 		},
 		"ANBIndiv": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "ANB indiv.",
+			"Description": "Sagittal jaw relation",
 			"Interpretation": {
 				"Equals": "",
 				"Greater": "",
@@ -58,192 +58,192 @@
 			}
 		},
 		"ArGoMe": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "Ar-Go-Me",
+			"Description": "Kink between ramus and corpus (LJ shape)",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "Neutral WTM",
+				"Greater": "Vertical WTM",
+				"Smaller": "Horizontal WTM"
 			}
 		},
 		"GoaPogSN": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "Goa-Pog / S-N",
+			"Description": "Length relation of the LJ-base to the anterior skull base",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "Harmonious evolution",
+				"Greater": "Relative oversize of the LJ-base",
+				"Smaller": "Relative undersize of the LJ-base"
 			}
 		},
 		"LiEsthetic": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "Li-Esthetic-line",
+			"Description": "Distance of the lower lip to the Esthetic line (Ricketts)",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "Clinical guide for lower lip",
+				"Greater": "Convex profile / protrusive lip configuration",
+				"Smaller": "Concave profile / retrusive lip configuration"
 			}
 		},
 		"LsEsthetic": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "Ls-Esthetic-line",
+			"Description": "Distance of the upper lip to the Esthetic line (Ricketts)",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "Clinical guide for upper lip",
+				"Greater": "Convex profile / protrusive lip configuration",
+				"Smaller": "Concave profile / retrusive lip configuration"
 			}
 		},
 		"NSpSpMe": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "N-Sp / Sp-Me",
+			"Description": "Anterior face height ratio: midface height to lower face height",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "Harmonious proportion",
+				"Greater": "Relatively small lower face height",
+				"Smaller": "Relatively large lower face height"
 			}
 		},
 		"OK1NA": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "UJ1-NA",
+			"Description": "Position of the UJ-incisors to the UJ-base",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "Orthoposition of the UJ-incisors",
+				"Greater": "Anteposition of the UJ-incisors",
+				"Smaller": "Retropositioning of the UJ-incisors"
 			}
 		},
 		"OK1SN": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "UJ1-SN",
+			"Description": "Axial position of the UJ-incisors to the anterior skull base",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "Suitable for axes",
+				"Greater": "Labial tilt",
+				"Smaller": "Palatal tilt"
 			}
 		},
 		"OK1SpP": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "UJ1-SpP",
+			"Description": "Axial position of the UJ-incisors to the UJ-base",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "Suitable for axes",
+				"Greater": "Palatal tilt",
+				"Smaller": "Labial tilt"
 			}
 		},
 		"OK1UK1": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "UJ1-LJ1 (Interincisal)",
+			"Description": "Interincisal angle; angle between UJ- and LJ-incisors axes",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "Stable incisor position",
+				"Greater": "Instable incisor position",
+				"Smaller": "Instable incisor position"
 			}
 		},
 		"SGONMe": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "S-Go / N-Me",
+			"Description": "Vertical installation of the LJ to the anterior skull base",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "Neutral WTM",
+				"Greater": "Horizontal WTM",
+				"Smaller": "Vertical WTM"
 			}
 		},
 		"SNA": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "SNA",
+			"Description": "Sagittal installation of the UJ",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "UJ orthognath",
+				"Greater": "Prognathism of the UJ",
+				"Smaller": "Retrognathy of the UJ"
 			}
 		},
 		"SNB": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "SNB",
+			"Description": "Sagittal installation of the LJ",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "LJ orthognath",
+				"Greater": "Prognathism of the LJ",
+				"Smaller": "Retrognathy of the LJ"
 			}
 		},
 		"SNMeGo": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "SN-MeGo",
+			"Description": "Vertical installation of the LJ to the anterior skull base",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "Neutral WTM /Facial skull structure (FSS)",
+				"Greater": "Vertical WTM",
+				"Smaller": "Horizontal WTM"
 			}
 		},
 		"SNPog": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "SNPog",
+			"Description": "Sagittal installation of the LJ (basal)",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "LJ-base orthognath",
+				"Greater": "Basal prognathism of the LJ",
+				"Smaller": "Basal retrognathia of the LJ"
 			}
 		},
 		"SNSpP": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "SN-SpP",
+			"Description": "Vertical installation of the UJ to the anterior skull base",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "UJ in normo-inclination",
+				"Greater": "Posterior slope of the UJ",
+				"Smaller": "Anterior inclination of the UJ"
 			}
 		},
 		"SpPMeGo": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "SpP-MeGo",
+			"Description": "Vertical relation of the jaw bases (base angle)",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "Neutral WTM",
+				"Greater": "Vertical WTM",
+				"Smaller": "Horizontal WTM"
 			}
 		},
 		"SppAGoaPog": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "Spp-A / Goa-Pog",
+			"Description": "Length relation of the UJ-base to the LJ-base",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "Harmonious evolution",
+				"Greater": "Relative oversize of the UJ-base",
+				"Smaller": "Relative oversize of the LJ-base"
 			}
 		},
 		"SppASN": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "Spp-A / S-N",
+			"Description": "Length relation of the UJ-base to the anterior skull base",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "Harmonious evolution",
+				"Greater": "Relative oversize of the UJbase",
+				"Smaller": "Relative undersize of the UJ-base"
 			}
 		},
 		"UK1MeGo": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "LJ1-MeGo",
+			"Description": "Axial position of the LJ-incisors to the LJ-base",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "Suitable for axes (very variable)",
+				"Greater": "Labial tilt",
+				"Smaller": "Lingual tilt"
 			}
 		},
 		"UK1NB": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "LJ1-NB",
+			"Description": "Position of the LJ-incisors to the LJ-base",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "Orthoposition of the LJ-incisors",
+				"Greater": "Anteposition of the LJ-incisors",
+				"Smaller": "Retropositioning of the LJ-incisors"
 			}
 		},
 		"Wits": {
-			"Abbreviation": "",
-			"Description": "",
+			"Abbreviation": "Wits",
+			"Description": "Sagittal jaw relation",
 			"Interpretation": {
-				"Equals": "",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "Neutral basal relation",
+				"Greater": "Distal basal relation",
+				"Smaller": "Mesial basal relation"
 			}
 		}
 	},
@@ -386,8 +386,8 @@
 		}
 	},
 	"Home": {
-		"2d": "FRS Analysis",
-		"3d": "3D Analysis",
+		"2d": "TRA analysis",
+		"3d": "Model analysis",
 		"Welcome": "Welcome to Dentalyzer"
 	},
 	"Login": {

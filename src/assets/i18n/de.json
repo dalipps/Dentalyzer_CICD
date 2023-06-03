@@ -22,11 +22,11 @@
 			"Label": "Measurement",
 			"Unit": "mm"
 		},
-		"Name": {
-			"Label": "Name"
-		},
 		"Edit": {
 			"Label": "Bearbeiten"
+		},
+		"Name": {
+			"Label": "Name"
 		}
 	},
 	"FileUpload": {
@@ -386,8 +386,8 @@
 		}
 	},
 	"Home": {
-		"2d": "FRS-Analyse",
-		"3d": "3D-Analyse",
+		"2d": "Fernröntgenanalyse",
+		"3d": "Modellanalyse",
 		"Welcome": "Willkommen im Dentalyzer"
 	},
 	"Login": {
