@@ -92,13 +92,21 @@ export class FrsPdfService extends BaseService {
 			const mapping = frsPdfMapping.get(calculation.id)
 			if (!mapping) return
 
-			const { valueFieldName, targetValueFieldName, interpretationFieldName } = mapping
+			const { valueFieldNames, interpretationFieldName, showTargetAsValue } = mapping
 
 			if (calculation.value) {
-				pdfEntries.push({
-					fieldName: valueFieldName,
-					text: `${calculation.value} ${FrsCalculationUnitMapping[calculation.unit]}`,
+				const value =
+					showTargetAsValue && calculation.targetValueMaleOrAll !== undefined
+						? calculation.targetValueMaleOrAll
+						: calculation.value
+
+				valueFieldNames.forEach((fieldName) => {
+					pdfEntries.push({
+						fieldName,
+						text: `${value} ${FrsCalculationUnitMapping[calculation.unit]}`,
+					})
 				})
+
 				const interpretationKey = getInterpretationKey(calculation)
 
 				if (interpretationKey) {
@@ -107,13 +115,6 @@ export class FrsPdfService extends BaseService {
 						text: this.translateService.instant(interpretationKey),
 					})
 				}
-			}
-
-			if (targetValueFieldName && calculation.targetValueMaleOrAll) {
-				pdfEntries.push({
-					fieldName: targetValueFieldName,
-					text: `${calculation.targetValueMaleOrAll} ${FrsCalculationUnitMapping[calculation.unit]}`,
-				})
 			}
 		})
 

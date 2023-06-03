@@ -6,7 +6,6 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatTableModule } from '@angular/material/table'
 import { TranslateModule } from '@ngx-translate/core'
 import { FrsAnalysisService } from '../frs-analysis.service'
-import { getTrainingImageUrl } from '../image'
 import { FrsMark, FrsMarkType } from '../mark'
 import { FrsFacade } from '../store'
 import { FrsMarkTrainingImagePipe } from './frs-mark-training-image.pipe'
@@ -15,8 +14,8 @@ import { FrsMarkTypePipe } from './frs-mark-type.pipe'
 interface ListItem {
 	id: FrsMarkType
 	isSet: boolean
-	helperImage?: string
 	isGenerated?: boolean
+	isHelper?: boolean
 }
 
 @Component({
@@ -50,8 +49,8 @@ export class MarkerListComponent {
 				<ListItem>{
 					id: m.id,
 					isSet: !!m.position,
-					helperImage: getTrainingImageUrl(m.id),
 					isGenerated: !!m.generationData,
+					isHelper: m.isHelper,
 				}
 		)
 	}

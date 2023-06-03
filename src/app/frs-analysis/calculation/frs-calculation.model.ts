@@ -26,6 +26,7 @@ export interface FrsAngleSumCalculation {
 	angle2: FrsCalculationType
 }
 
+// targetValue gets reflected in value
 export interface FrsAngleMultiplicationCalculation {
 	id: FrsCalculationDataType.AngleMultiplication
 	targetStartValue: number
@@ -33,7 +34,6 @@ export interface FrsAngleMultiplicationCalculation {
 	targetAngle1: FrsCalculationType
 	targetFactor2: number
 	targetAngle2: FrsCalculationType
-	valueDuplicateId: FrsCalculationType
 }
 
 export interface FrsIntersectionDistanceCalculation {

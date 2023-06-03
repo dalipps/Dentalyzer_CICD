@@ -25,4 +25,5 @@ export enum FrsMarkType {
 	Pog2 = "Pog'",
 	Calibration1 = 'Calibration1',
 	Calibration2 = 'Calibration2',
+	Helper = 'Helper',
 }

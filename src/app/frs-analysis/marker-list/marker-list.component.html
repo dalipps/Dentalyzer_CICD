@@ -21,7 +21,7 @@
 	<ng-container matColumnDef="expandedDetail">
 		<td mat-cell *matCellDef="let item" [attr.colspan]="columnsToDisplayWithExpand.length">
 			<div class="flex" [@detailExpand]="item.id === selectedItem?.id ? 'expanded' : 'collapsed'">
-				<img [src]="item.id | frsMarkTrainingImage" [alt]="item.id" class="w-28 h-28" />
+				<img *ngIf="!item.isHelper" [src]="item.id | frsMarkTrainingImage" [alt]="item.id" class="w-28 h-28" />
 				<div class="p-2">{{ (item.id | frsMarkTypeTranslation).trainingText | translate }}</div>
 			</div>
 		</td>

@@ -133,9 +133,9 @@
 			"Abbreviation": "OK1-UK1 (Interinzisalwinkel)",
 			"Description": "Interinzisalwinkel; Winkel zwischen OK-und UK-Schneidezahnachsen",
 			"Interpretation": {
-				"Equals": "Stabile Incisivenposition, wichtig für Stabilität des Behandlungsergebnisses, insbesondere problematisch falls vergrößert",
-				"Greater": "",
-				"Smaller": ""
+				"Equals": "Stabile Incisivenposition",
+				"Greater": "Instabile Incisivenposition",
+				"Smaller": "Instabile Incisivenposition"
 			}
 		},
 		"SGONMe": {
@@ -251,6 +251,7 @@
 		"Abbreviation": {
 			"ArGo": "Ar - Go",
 			"Calibration": "K1 - K2",
+			"GoHelper": "Go - H",
 			"GoaPog2": "Goa - Pog'",
 			"InOK1ApOK1": "InOK1 - ApOK1",
 			"InUK1ApUK1": "InUK1 - ApUK1",
@@ -268,6 +269,7 @@
 		"Name": {
 			"ArGo": "Articulare - Gonion",
 			"Calibration": "Kalibrierungsmarke 1 - Kalibrierungsmarke 2",
+			"GoHelper": "Gonion - Hilfsmarke",
 			"GoaPog2": "Anat. Gonion - Weichteilpogonion",
 			"InOK1ApOK1": "Incision OK1 - Apex OK1",
 			"InUK1ApUK1": "Incision UK1 - Apex UK1",
@@ -300,6 +302,7 @@
 			"Go": "Go",
 			"Goa": "Goa",
 			"HPOcP": "pPOcP",
+			"Helper": "H",
 			"InOK1": "InOK1",
 			"InUK1": "InUK1",
 			"Li": "Li",
@@ -328,6 +331,7 @@
 			"Go": "Gonion",
 			"Goa": "Anat. Gonion",
 			"HPOcP": "Hinterer Punkt des Occlusionsplanums",
+			"Helper": "Hilfsmarke",
 			"InOK1": "Incision OK1",
 			"InUK1": "Incision UK1",
 			"Li": "Labrale inferius",
@@ -356,6 +360,7 @@
 			"Go": "(Go wird automatisch konstruiert, sobald Ar, Me, Tga, Tgp platziert sind) Kieferwinkelpunkt; Schnittpunkt der Tangenten an horizontalen und aufsteigenden UK-Ast",
 			"Goa": "Schnittpunkt der Winkelhalbierenden des Kieferwinkels mit der anatomischen Kontur des Kieferwinkels",
 			"HPOcP": "Am weitesten distal liegender Berührungspunkt der ersten Molaren (modifiziert nach Rakosi, 1988)",
+			"Helper": "Hilfsmarke der Winkelhalbierenden zwischen Ar-Go und Me-Go",
 			"InOK1": "Schneidekante des oberen mittleren Schneidezahnes",
 			"InUK1": "Schneidekante des unteren mittleren Schneidezahnes",
 			"Li": "Am weitesten anterior gelegener Punkt der Unterlippe",

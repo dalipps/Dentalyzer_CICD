@@ -3,6 +3,7 @@ import {
 	FrsEdgeIntersectionGeneration,
 	FrsGenerationDataType,
 	FrsHalfCuttingGeneration,
+	FrsMarkIntersectionGeneration,
 } from '../auto-generation'
 import { FrsCalculationType } from '../calculation'
 import { FrsEdgeType } from '../edge'
@@ -133,8 +134,8 @@ export const frsMarksConfig: FrsMarkConfigDto[] = [
 	{
 		id: FrsMarkType.Go,
 		edgeTypes: [FrsEdgeType.ArGo, FrsEdgeType.MeGo],
-		generationData: <FrsBisectorGeneration>{
-			id: FrsGenerationDataType.Bisector,
+		generationData: <FrsMarkIntersectionGeneration>{
+			id: FrsGenerationDataType.MarkIntersection,
 			line1point1: FrsMarkType.Ar,
 			line1point2: FrsMarkType.Tgp,
 			line2point1: FrsMarkType.Me,
@@ -211,5 +212,18 @@ export const frsMarksConfig: FrsMarkConfigDto[] = [
 		id: FrsMarkType.Pog2,
 		edgeTypes: [FrsEdgeType.ProNPog2, FrsEdgeType.GoaPog2],
 		calculationTypes: [FrsCalculationType.LsEsthetic, FrsCalculationType.LiEsthetic],
+	},
+	{
+		id: FrsMarkType.Helper,
+		edgeTypes: [FrsEdgeType.GoHelper],
+		calculationTypes: [],
+		generationData: <FrsBisectorGeneration>{
+			id: FrsGenerationDataType.Bisector,
+			line1point1: FrsMarkType.Ar,
+			line1point2: FrsMarkType.Tgp,
+			line2point1: FrsMarkType.Me,
+			line2point2: FrsMarkType.Tga,
+		},
+		isHelper: true,
 	},
 ]

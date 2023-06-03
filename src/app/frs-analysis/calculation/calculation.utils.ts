@@ -8,7 +8,6 @@ import { checkAngleSum } from './angle-sum-calculation.utils'
 import { checkDistance } from './distance-calculation.utils'
 import { FrsCalculationDataType as DataType } from './frs-calculation-data-type.enum'
 import { FrsCalculationType } from './frs-calculation-type.enum'
-import { FrsAngleMultiplicationCalculation } from './frs-calculation.model'
 import { checkIntersectionDistance } from './intersection-distance-calculation.utils'
 import { checkQuotient } from './quotient-calculation.utils'
 
@@ -62,9 +61,7 @@ export function recalculate(analysis: FrsAnalysis, changedMarkId?: FrsMarkType):
 					calculations,
 					calculation.targetValueMaleOrAll
 				)
-				value = calculations.find(
-					(c) => c.id === (calculation.data as FrsAngleMultiplicationCalculation).valueDuplicateId
-				)?.value
+				value = targetValue
 				break
 		}
 
@@ -85,7 +82,7 @@ export function getHalfCutting(mark1: FrsMark, mark2: FrsMark): Vector3 | undefi
 	return new Vector3().subVectors(v2, v1).multiplyScalar(0.5).add(v1)
 }
 
-export function getIntersectionBetweenEdges(
+export function getIntersectionBetweenMarks(
 	edge1mark1: FrsMark,
 	edge1mark2: FrsMark,
 	edge2mark1: FrsMark,
@@ -155,12 +152,8 @@ export function getNormalIntersection(v1: Vector3, v2: Vector3, p: Vector3): Vec
 	return new Vector3().addVectors(pointOnLine1, pointOnLine2).multiplyScalar(0.5)
 }
 
-export function calculateDirection(mark1?: FrsMark, mark2?: FrsMark): Vector3 | undefined {
-	if (!mark1?.position || !mark2?.position) return
+export function calculateDirection(point1?: Vector3, point2?: Vector3): Vector3 | undefined {
+	if (!point1 || !point2) return
 
-	return new Vector3(
-		mark2.position.x - mark1.position.x,
-		mark2.position.y - mark1.position.y,
-		mark2.position.z - mark1.position.z
-	)
+	return new Vector3(point2.x - point1.x, point2.y - point1.y, point2.z - point1.z)
 }

@@ -3,7 +3,7 @@ import SpriteText from 'three-spritetext'
 import { FrsMarkType, FrsPosition } from '../mark'
 import { ObjectType } from '../rendering'
 
-export const LABEL_Z_RAISE = 0.005
+export const LABEL_Z_RAISE = 0.01
 export const LABEL_Y_RAISE = -3
 
 export function getMarker(markId: FrsMarkType, position: FrsPosition, isGenerated = false): THREE.Mesh {
