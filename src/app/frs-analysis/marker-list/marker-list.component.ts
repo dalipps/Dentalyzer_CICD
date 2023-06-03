@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations'
-import { NgFor, NgIf } from '@angular/common'
+import { NgClass, NgFor, NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
@@ -28,11 +28,11 @@ interface ListItem {
 		FrsMarkTrainingImagePipe,
 		NgFor,
 		NgIf,
+		NgClass,
 		FrsMarkTypePipe,
 		MatIconModule,
 	],
 	templateUrl: './marker-list.component.html',
-	styleUrls: ['./marker-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	animations: [
 		trigger('detailExpand', [
@@ -66,10 +66,12 @@ export class MarkerListComponent {
 
 	constructor(private frsService: FrsAnalysisService, private frsFacade: FrsFacade) {}
 
-	onItemClick(item: ListItem): void {
+	onChangeRowExpansion(item: ListItem): void {
 		this.selectedItem = this.selectedItem === item ? undefined : item
+	}
 
-		this.frsService.setSelectedMarkId(this.selectedItem?.id)
+	onEditMark(id: FrsMarkType) {
+		this.frsService.setSelectedMarkId(id)
 	}
 
 	onRemoveMark(id: FrsMarkType): void {

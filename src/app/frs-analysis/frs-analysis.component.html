@@ -19,11 +19,12 @@
 			</div>
 		</ng-template>
 	</div>
-	<div class="analysis-sidebar shadow-card">
+	<div class="analysis-sidebar">
 		<dent-tab-menu
 			[analysis]="data.analysis ?? undefined"
 			(tabChanged)="onTabChanged()"
 			[selectedMarkId]="(selectedMarkId$ | async) ?? undefined"
+			class="shadow-card"
 		></dent-tab-menu>
 		<dent-analysis-buttons
 			[disabled]="!!data.analysis"

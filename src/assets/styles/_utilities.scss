@@ -6,4 +6,8 @@
 	.flex-center {
 		@apply flex items-center justify-center #{!important};
 	}
+
+	.border-b-s {
+		@apply border-b border-solid border-black/[0.122] #{!important};
+	}
 }

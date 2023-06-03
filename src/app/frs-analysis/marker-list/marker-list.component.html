@@ -1,27 +1,47 @@
 <table mat-table [dataSource]="listItems" multiTemplateDataRows class="w-full block">
 	<ng-container matColumnDef="{{ columnsToDisplayWithExpand[0] }}">
-		<td mat-cell *matCellDef="let item" class="w-1">
-			<mat-icon *ngIf="item.isSet">check_circle_outline</mat-icon>
+		<td mat-cell *matCellDef="let item" class="p-0 w-[20%] text-center">
+			<mat-icon color="primary" *ngIf="item.isSet" class="scale-90 pt-0.5">check_circle_outline</mat-icon>
 		</td>
 	</ng-container>
 	<ng-container matColumnDef="{{ columnsToDisplayWithExpand[1] }}">
-		<td mat-cell *matCellDef="let item">
+		<td mat-cell *matCellDef="let item" class="py-0 pl-0 pr-2">
 			<span class="whitespace-nowrap">({{ (item.id | frsMarkTypeTranslation).abbreviation | translate }})</span>
 			<span class="ml-1"> - {{ (item.id | frsMarkTypeTranslation).name | translate }}</span>
 		</td>
 	</ng-container>
 	<ng-container matColumnDef="{{ columnsToDisplayWithExpand[2] }}">
-		<td mat-cell *matCellDef="let item">
-			<button mat-icon-button [disabled]="!item.isSet || item.isGenerated" (click)="onRemoveMark(item.id)">
-				<mat-icon>delete</mat-icon>
+		<td mat-cell *matCellDef="let item" class="py-0 px-2">
+			<button
+				mat-icon-button
+				*ngIf="!item.isSet && !item.isGenerated"
+				(click)="onEditMark(item.id)"
+				class="scale-90"
+				color="primary"
+			>
+				<mat-icon class="scale-90">edit</mat-icon>
+			</button>
+			<button
+				*ngIf="item.isSet && !item.isGenerated"
+				mat-icon-button
+				(click)="onRemoveMark(item.id)"
+				class="scale-90"
+				color="accent"
+			>
+				<mat-icon class="scale-90">delete</mat-icon>
 			</button>
 		</td>
 	</ng-container>
 
 	<ng-container matColumnDef="expandedDetail">
-		<td mat-cell *matCellDef="let item" [attr.colspan]="columnsToDisplayWithExpand.length">
+		<td mat-cell *matCellDef="let item" [attr.colspan]="columnsToDisplayWithExpand.length" class="py-0 px-2">
 			<div class="flex" [@detailExpand]="item.id === selectedItem?.id ? 'expanded' : 'collapsed'">
-				<img *ngIf="!item.isHelper" [src]="item.id | frsMarkTrainingImage" [alt]="item.id" class="w-28 h-28" />
+				<img
+					*ngIf="!item.isHelper"
+					[src]="item.id | frsMarkTrainingImage"
+					[alt]="item.id"
+					class="w-28 h-28 py-2 px-1"
+				/>
 				<div class="p-2">{{ (item.id | frsMarkTypeTranslation).trainingText | translate }}</div>
 			</div>
 		</td>
@@ -30,9 +50,8 @@
 	<tr
 		mat-row
 		*matRowDef="let item; columns: columnsToDisplayWithExpand"
-		class="dent-mark-row"
-		[class.dent-expanded-row]="selectedItem?.id === item.id"
-		(click)="onItemClick(item)"
+		[ngClass]="{ 'hover:bg-neutral-100 active:w-full': selectedItem?.id !== item.id }"
+		(click)="onChangeRowExpansion(item)"
 	></tr>
 	<tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="h-0"></tr>
 </table>

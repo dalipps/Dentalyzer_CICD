@@ -1,52 +1,68 @@
-<div class="overflow-y-scroll h-full">
-	<table mat-table class="w-full block" [dataSource]="listItems">
-		<ng-container matColumnDef="{{ displayedColumns[0] }}">
-			<th mat-header-cell *matHeaderCellDef class="w-3/10">{{ 'EdgesList.Distance.Label' | translate }}</th>
-			<td mat-cell *matCellDef="let item" (click)="onSelectionChange(item.id)">
-				<mat-icon *ngIf="!item.distance; else showDistance">linear_scale</mat-icon>
-				<ng-template #showDistance>
-					<div class="flex justify-between">
-						<span>{{ item.distance | number : '.2-2' }}</span>
-						<span class="font-light">{{ 'EdgesList.Distance.Unit' | translate }}</span>
-					</div>
+<table mat-table [dataSource]="listGroups" multiTemplateDataRows class="w-full border-b-s">
+	<!-- Edge Group Row -->
+	<ng-container matColumnDef="edgeGroup">
+		<td mat-cell *matCellDef="let group" class="w-1" [attr.colspan]="3">
+			<div class="flex items-center">
+				<mat-icon *ngIf="selectedItem !== group; else showArrowDown">navigate_next</mat-icon>
+				<ng-template #showArrowDown>
+					<mat-icon>expand_more</mat-icon>
 				</ng-template>
-			</td>
-		</ng-container>
-		<ng-container matColumnDef="{{ displayedColumns[1] }}" class="w-3/10">
-			<th mat-header-cell *matHeaderCellDef>{{ 'EdgesList.Name.Label' | translate }}</th>
-			<td mat-cell *matCellDef="let item">
-				<span>{{ item.id | translatePkmEdgeType | translate }}</span>
-			</td>
-		</ng-container>
-		<ng-container matColumnDef="{{ displayedColumns[2] }}" class="w-3/10">
-			<th mat-header-cell *matHeaderCellDef>{{ 'EdgesList.Edit.Label' | translate }}</th>
-			<td mat-cell *matCellDef="let item">
-				<button mat-icon-button *ngIf="!item.distance; else showDelete" (click)="onSelectionChange(item.id)">
-					<mat-icon>edit</mat-icon>
-				</button>
-				<ng-template #showDelete>
-					<button mat-icon-button (click)="onRemoveEdge(item.id)">
-						<mat-icon>delete</mat-icon>
-					</button>
-				</ng-template>
-			</td>
-		</ng-container>
-
-		<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-		<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-
-		<!-- <ng-container matColumnDef="group">
-		<td colspan="999" mat-cell *matCellDef="let group">
-			<div (click)="onGroupExpansionChange(group)">
-				<button mat-icon-button fxFlex="10">
-					<mat-icon *ngIf="!group.expanded">navigate_next</mat-icon>
-					<mat-icon *ngIf="group.expanded">expand_more</mat-icon>
-				</button>
-				<span style="font-weight: 600; cursor: pointer">{{ group.groupId | translate }}</span>
+				<span class="ml-4 font-semibold">{{ group.id | translatePkmEdgeGroup | translate }}</span>
 			</div>
 		</td>
 	</ng-container>
 
-	<tr mat-row *matRowDef="let row; columns: ['group']; when: false"></tr> -->
-	</table>
-</div>
+	<ng-container matColumnDef="edges">
+		<td mat-cell *matCellDef="let group" [attr.colspan]="1" class="pl-2 pr-0">
+			<div class="flex" [@detailExpand]="group.id === selectedItem?.id ? 'expanded' : 'collapsed'">
+				<table mat-table *ngIf="listItems" [dataSource]="listItems[group.id]" multiTemplateDataRows class="w-full">
+					<!-- Distance Column Data -->
+					<ng-container matColumnDef="{{ displayedColumns[0] }}">
+						<td mat-cell *matCellDef="let edge" class="w-1/4">
+							<mat-icon color="primary" *ngIf="!edge.distance; else showDistance">linear_scale</mat-icon>
+							<ng-template #showDistance>
+								<div class="flex justify-between items-baseline gap-1">
+									<span>{{ edge.distance | number : '.2-2' }}</span>
+									<span class="font-light text-xs">{{ 'EdgesList.Distance.Unit' | translate }}</span>
+								</div>
+							</ng-template>
+						</td>
+					</ng-container>
+					<!-- Name Column Data -->
+					<ng-container matColumnDef="{{ displayedColumns[1] }}">
+						<td mat-cell *matCellDef="let edge" class="w-2/4">
+							<span>{{ edge.id | translatePkmEdgeType | translate }}</span>
+						</td>
+					</ng-container>
+					<!-- Edit Column Data -->
+					<ng-container matColumnDef="{{ displayedColumns[2] }}">
+						<td mat-cell *matCellDef="let edge" class="text-right">
+							<button
+								mat-icon-button
+								*ngIf="!edge.distance; else showDelete"
+								(click)="onSelectionChange(edge.id)"
+								class="scale-90"
+								color="primary"
+							>
+								<mat-icon class="scale-90">edit</mat-icon>
+							</button>
+							<ng-template #showDelete>
+								<button mat-icon-button (click)="onRemoveEdge(edge.id)" class="scale-90" color="accent">
+									<mat-icon class="scale-90">delete</mat-icon>
+								</button>
+							</ng-template>
+						</td>
+					</ng-container>
+					<tr
+						mat-row
+						*matRowDef="let item; columns: displayedColumns; let i = dataIndex"
+						[ngClass]="{ 'border-b-s': i != listItems[group.id].length - 1 }"
+					></tr>
+				</table>
+			</div>
+		</td>
+	</ng-container>
+
+	<tr mat-row *matRowDef="let group; columns: ['edgeGroup']" (click)="onGroupExpansionChange(group)"></tr>
+	<tr mat-row *matRowDef="let row; columns: ['edges']" class="h-0"></tr>
+</table>

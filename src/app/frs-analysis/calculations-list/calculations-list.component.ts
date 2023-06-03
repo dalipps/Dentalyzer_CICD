@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations'
-import { NgFor, NgIf } from '@angular/common'
+import { NgClass, NgFor, NgIf } from '@angular/common'
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
@@ -20,10 +20,10 @@ import { FrsCalculationUnitPipe } from './frs-calculation-unit.pipe'
 		MatButtonModule,
 		NgFor,
 		NgIf,
+		NgClass,
 		MatIconModule,
 	],
 	templateUrl: './calculations-list.component.html',
-	styleUrls: ['./calculations-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	animations: [
 		trigger('detailExpand', [
@@ -37,4 +37,8 @@ export class CalculationsListComponent {
 	@Input() calculations: FrsCalculation[] = []
 	columnsToDisplay = ['calculationDescription', 'calculationValue', 'calculationTargetValue']
 	expandedElement: FrsCalculation | undefined
+
+	onItemClick(item: FrsCalculation) {
+		this.expandedElement = this.expandedElement === item ? undefined : item
+	}
 }

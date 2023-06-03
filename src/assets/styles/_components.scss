@@ -16,6 +16,6 @@ $header-height: 4rem;
 	}
 
 	.analysis-sidebar {
-		@apply flex flex-col h-full w-3/10 min-w-20 pl-2 pr-2 shadow-card;
+		@apply flex flex-col h-full w-3/10 min-w-20 pl-2 pr-2 gap-2;
 	}
 }

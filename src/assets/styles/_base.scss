@@ -2,4 +2,8 @@
 	h1 {
 		@apply text-2xl;
 	}
+	/* Firefox */
+	* {
+		scrollbar-width: thin;
+	}
 }

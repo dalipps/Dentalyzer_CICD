@@ -1,8 +1,8 @@
-<div class="flex items-center justify-around mb-2 mt-4">
+<div class="flex items-center justify-around mb-2 mt-4 gap-4">
 	<button mat-raised-button color="primary" [disabled]="!disabled" (click)="onNewAnalysis()">
-		<mat-icon>note_add</mat-icon>{{ 'AnalysisButtons.NewAnalysis' | translate }}
+		<mat-icon>note_add</mat-icon><span>{{ 'AnalysisButtons.NewAnalysis' | translate }}</span>
 	</button>
 	<button mat-raised-button color="primary" [disabled]="!disabled" (click)="onDownloadPdf()">
-		<mat-icon>download</mat-icon>{{ 'AnalysisButtons.Download' | translate }}
+		<mat-icon>download</mat-icon><span>{{ 'AnalysisButtons.Download' | translate }} </span>
 	</button>
 </div>

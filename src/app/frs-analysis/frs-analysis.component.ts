@@ -41,7 +41,6 @@ import { TabMenuComponent } from './tab-menu/tab-menu.component'
 		MatIconModule,
 	],
 	templateUrl: './frs-analysis.component.html',
-	styleUrls: ['./frs-analysis.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FrsAnalysisComponent extends BaseComponent implements AfterViewInit {
