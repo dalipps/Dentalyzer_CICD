@@ -4,6 +4,7 @@ interface UserCredetials {
 }
 
 export const accountsConfig: UserCredetials[] = [
+	{ username: 'demoKiel', password: 'bertram22!' },
 	{ username: '1134924', password: '514caffe' },
 	{ username: '1140434', password: 'c124880b' },
 	{ username: '1134416', password: '7ff6103e' },

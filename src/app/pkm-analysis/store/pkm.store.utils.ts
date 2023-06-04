@@ -44,9 +44,10 @@ export function removeEdge(analysis: PkmAnalysis, edgeId: PkmEdgeType): PkmAnaly
 		return clonedAnalysis
 	}
 
-	foundEdge.mark1 = undefined
-	foundEdge.mark2 = undefined
-	foundEdge.distance = undefined
+	delete foundEdge.mark1
+	delete foundEdge.mark2
+	delete foundEdge.distance
+	delete foundEdge.isUpper
 
 	return clonedAnalysis
 }
