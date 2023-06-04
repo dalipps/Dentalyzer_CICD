@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { marker as t } from '@biesbjerg/ngx-translate-extract-marker'
-import { BaseFacade, IndexedDbService, SerializableVector3, TABLES } from '@dentalyzer/common'
+import { BaseFacade, IndexedDbService, TABLES } from '@dentalyzer/common'
 import { select } from '@ngrx/store'
 import { combineLatest, filter, switchMap, takeUntil } from 'rxjs'
 import { Vector3 } from 'three'
@@ -53,9 +53,8 @@ export class PkmFacade extends BaseFacade<PkmState> {
 		this.dispatch(PkmActions.create({ modelId }))
 	}
 
-	setMark(edgeId: PkmEdgeType, position: Vector3, isUpper = false) {
-		const serializablePosition = <SerializableVector3>{ x: position.x, y: position.y, z: position.z }
-		this.dispatch(PkmActions.setMark({ edgeId, position: serializablePosition, isUpper }))
+	setMark(edgeId: PkmEdgeType, { x, y, z }: Vector3, isUpper = false) {
+		this.dispatch(PkmActions.setMark({ edgeId, position: { x, y, z }, isUpper }))
 	}
 
 	removeEdge(edgeId: PkmEdgeType) {
