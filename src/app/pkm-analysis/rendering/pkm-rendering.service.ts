@@ -38,8 +38,8 @@ export class PkmRenderingService extends BaseRenderingService {
 		parseStlToGeometry(file)
 			.pipe(
 				first(),
-				tap((geometry) => {
-					this.initModel(geometry)
+				tap(({ upper, lower }) => {
+					this.initModel(upper, lower)
 					this.initScene(canvas)
 					this.initRenderer()
 					this.raycaster = new Raycaster()
@@ -99,8 +99,14 @@ export class PkmRenderingService extends BaseRenderingService {
 	}
 
 	removeEdge(edgeId: PkmEdgeType) {
-		const foundObjects = this.scene?.children.filter((m) => m.userData['edgeId'] === edgeId)
-		foundObjects?.forEach((m) => this.scene?.remove(m))
+		const getEdgeData = (jaw?: Mesh) => jaw?.children.filter((mesh) => mesh.userData['edgeId'] === edgeId)
+
+		const upperJawEdges = getEdgeData(this.upperJaw)
+		if (upperJawEdges) {
+			upperJawEdges.forEach((mesh) => this.upperJaw?.remove(mesh))
+			return
+		}
+		getEdgeData(this.lowerJaw)?.forEach((mesh) => this.lowerJaw?.remove(mesh))
 	}
 
 	private redrawExistingData(analysis: PkmAnalysis) {
@@ -142,15 +148,8 @@ export class PkmRenderingService extends BaseRenderingService {
 		this.renderer.render(this.scene, this.camera)
 	}
 
-	private initModel(geometry: BufferGeometry) {
-		// TODO: enable merging of partial stl file upload
-		this.upperJaw = new Mesh(geometry.clone(), this.jawMaterial)
-		this.lowerJaw = new Mesh(geometry.clone(), this.jawMaterial)
-
-		if (geometry?.groups?.length !== 2) return
-
-		const [lowerJaw, upperJaw] = geometry.groups
-		this.lowerJaw.geometry.setDrawRange(lowerJaw.start, lowerJaw.count)
-		this.upperJaw.geometry.setDrawRange(upperJaw.start, upperJaw.count)
+	private initModel(upper: BufferGeometry, lower: BufferGeometry) {
+		this.upperJaw = new Mesh(upper, this.jawMaterial)
+		this.lowerJaw = new Mesh(lower, this.jawMaterial)
 	}
 }
