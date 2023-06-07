@@ -102,7 +102,7 @@ export class PkmRenderingService extends BaseRenderingService {
 		const getEdgeData = (jaw?: Mesh) => jaw?.children.filter((mesh) => mesh.userData['edgeId'] === edgeId)
 
 		const upperJawEdges = getEdgeData(this.upperJaw)
-		if (upperJawEdges) {
+		if (upperJawEdges?.length) {
 			upperJawEdges.forEach((mesh) => this.upperJaw?.remove(mesh))
 			return
 		}
